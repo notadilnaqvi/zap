@@ -1,0 +1,46 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"target": "es5",
+		"strict": true,
+		"noEmit": true,
+		"allowJs": true,
+		"jsx": "preserve",
+		"module": "esnext",
+		"incremental": true,
+		"skipLibCheck": true,
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"moduleResolution": "node",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"forceConsistentCasingInFileNames": true,
+		"paths": {
+			"~/lib/*": ["src/lib/*"],
+			"~/utils": ["src/utils"],
+			"~/hooks/*": ["src/hooks/*"],
+			"~/types/*": ["src/types/*"],
+			"~/styles/*": ["src/styles/*"],
+			"~/stores/*": ["src/stores/*"],
+			"~/components/*": ["src/components/*"],
+			"~/components/ui": ["src/components/_shared/ui"],
+			"~/components/icons": ["src/components/_shared/icons"],
+			"~/components/common": ["src/components/_shared/common"]
+		}
+	},
+	"include": [
+		"**/*.js",
+		"**/*.ts",
+		"**/*.jsx",
+		"**/*.tsx",
+		"types/*.d.ts",
+		"next-env.d.ts"
+	],
+	"exclude": [
+		".next",
+		".prismic",
+		".storybook",
+		".slicemachine",
+		"node_modules"
+	]
+}
