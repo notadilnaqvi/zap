@@ -2,12 +2,13 @@ import {
 	createContext,
 	FC,
 	PropsWithChildren,
+	useEffect,
 	useMemo,
 	useReducer,
 } from 'react';
 import toast from 'react-hot-toast';
 
-import { LocalStorage } from '~/utils';
+import { Cookie } from '~/utils';
 
 interface ShowToastProps {
 	message: string;
@@ -51,14 +52,12 @@ const initialUiState: UiState = {
 function uiReducer(state: UiState, action: UiAction): UiState {
 	switch (action.type) {
 		case 'ui/open-mini-cart': {
-			LocalStorage.set('ui/is-mini-cart-open', true);
 			return {
 				...state,
 				isMiniCartOpen: true,
 			};
 		}
 		case 'ui/close-mini-cart': {
-			LocalStorage.set('ui/is-mini-cart-open', false);
 			return {
 				...state,
 				isMiniCartOpen: false,
@@ -71,7 +70,7 @@ function uiReducer(state: UiState, action: UiAction): UiState {
 			};
 		}
 		case 'ui/close-announcement-banner': {
-			LocalStorage.set('ui/should-show-announcement-banner', false);
+			Cookie.set('ui/was-announcement-banner-closed', true);
 			return {
 				...state,
 				isAnnouncementBannerOpen: false,
@@ -149,15 +148,16 @@ export const UiContextProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
 	);
 
 	// Read persisted UI state from local-storage and update the UI
-	// useEffect(() => {
-	// const shouldShowAnnouncementBanner = LocalStorage.get(
-	// 	'ui/should-show-announcement-banner',
-	// );
-	// if (shouldShowAnnouncementBanner !== false) {
-	// }
-	// memoizedUiState.openAnnouncementBanner();
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, []);
+	useEffect(() => {
+		const wasAnnouncementBannerClosed = Cookie.get(
+			'ui/was-announcement-banner-closed',
+		);
+		// The announcement banner is closed by default. If the user has not closed
+		// it before, we open it. Else we do nothing.
+		if (!wasAnnouncementBannerClosed) {
+			memoizedUiState.openAnnouncementBanner();
+		}
+	}, []);
 
 	return (
 		<UiContext.Provider value={memoizedUiState}>{children}</UiContext.Provider>

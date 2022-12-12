@@ -8,5 +8,3 @@ export const ctTokenInfoSchema = z.object({
 	token_type: z.literal('Bearer'),
 	refresh_token: z.string().optional(),
 });
-
-type CtTokenInfo = z.infer<typeof ctTokenInfoSchema>;

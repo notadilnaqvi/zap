@@ -1,17 +1,10 @@
 import SdkAuth, { TokenProvider } from '@commercetools/sdk-auth';
 
+import { CtTokenInfo } from '~/lib/commercetools/types';
+
 interface CustomerCredentials {
 	username: Maybe<Scalars['String']>;
 	password: Scalars['String'];
-}
-
-export interface CtTokenInfo {
-	access_token: Scalars['String'];
-	expires_in: Scalars['Int'];
-	expires_at: Scalars['Int'];
-	scope: Scalars['String'];
-	refresh_token?: Scalars['String'];
-	token_type: 'Bearer';
 }
 
 const sdkAuth = new SdkAuth({

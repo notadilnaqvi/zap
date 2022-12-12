@@ -1,18 +1,45 @@
 import Cookies from 'js-cookie';
+import { z } from 'zod';
 
-type CookieKey = 'ct/token-info';
+const shouldHideAnnouncementBannerSchema = z.boolean();
 
-function get(key: CookieKey): any {
-	if (typeof window === 'undefined') return;
-	return Cookies.get(key);
+type Cookie = {
+	'ui/was-announcement-banner-closed': z.infer<
+		typeof shouldHideAnnouncementBannerSchema
+	>;
+};
+
+function get<K extends keyof Cookie>(key: K): Maybe<Cookie[K]> {
+	try {
+		if (typeof window === 'undefined') return null;
+
+		const item = Cookies.get(key);
+
+		if (!item) return null;
+
+		switch (key) {
+			case 'ct/token-info': {
+				const value = shouldHideAnnouncementBannerSchema.parse(
+					JSON.parse(item),
+				);
+				return value as Cookie[K];
+			}
+			default: {
+				return null;
+			}
+		}
+	} catch (err) {
+		console.error('[Cookie]: Failed to get ' + key, err);
+		return null;
+	}
 }
 
-function set(key: CookieKey, val: any): void {
+function set<K extends keyof Cookie, V extends Cookie[K]>(key: K, val: V) {
 	if (typeof window === 'undefined') return;
-	Cookies.set(key, val);
+	Cookies.set(key, JSON.stringify(val));
 }
 
-function remove(key: CookieKey): void {
+function remove<K extends keyof Cookie>(key: K): void {
 	if (typeof window === 'undefined') return;
 	Cookies.remove(key);
 }

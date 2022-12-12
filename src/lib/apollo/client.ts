@@ -5,8 +5,6 @@ import { onError } from '@apollo/client/link/error';
 import { Commercetools } from '~/lib/commercetools';
 import { LocalStorage } from '~/utils';
 
-import type { CtTokenInfo } from '~/lib/commercetools/auth';
-
 const authLink = setContext(async (_request, _previousContext) => {
 	// 1. Try to get the token from local-storage
 	//   a. If a token is found, check if it's expired or not
@@ -15,7 +13,7 @@ const authLink = setContext(async (_request, _previousContext) => {
 	//   b. If the token is not found, get an anonymous token
 	// 2. Save the token in local-storage
 
-	let tokenInfo: Maybe<CtTokenInfo> = LocalStorage.get('ct/token-info');
+	let tokenInfo = LocalStorage.get('ct/token-info');
 	if (tokenInfo) {
 		const now = new Date();
 		// Consider the token expired if the expires_at is anything but a number
