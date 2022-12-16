@@ -2,9 +2,9 @@ import { Dialog, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
+import { LoadingSpinner } from '~/components/common';
 import { XIcon } from '~/components/icons';
 import { useUi } from '~/hooks/ui';
-import { LoadingSpinner } from './LoadingSpinner';
 
 export function MiniCart() {
 	const [loading, setLoading] = useState(true);

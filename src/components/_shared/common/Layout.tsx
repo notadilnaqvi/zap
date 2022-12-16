@@ -1,10 +1,12 @@
 import { PropsWithChildren } from 'react';
 
-import { AnnouncementBanner } from './AnnouncementBanner';
-import { Footer } from './Footer';
-import { FullscreenLoadingOverlay } from './FullscreenLoadingOverlay';
-import { Header } from './Header';
-import { MiniCart } from './MiniCart';
+import {
+	AnnouncementBanner,
+	Footer,
+	FullscreenLoadingOverlay,
+	Header,
+	MiniCart,
+} from '~/components/common';
 
 export function Layout({ children }: PropsWithChildren<{}>) {
 	return (

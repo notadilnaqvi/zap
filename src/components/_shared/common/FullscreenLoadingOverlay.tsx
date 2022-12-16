@@ -1,8 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react';
 import React from 'react';
 
+import { LoadingSpinner } from '~/components/common';
 import { useUi } from '~/hooks/ui';
-import { LoadingSpinner } from './LoadingSpinner';
 
 export function FullscreenLoadingOverlay() {
 	const { isFullscreenLoadingOverlayOpen } = useUi();

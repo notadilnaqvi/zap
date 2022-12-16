@@ -3,13 +3,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
+import { LoadingSpinner } from '~/components/common';
 import { HeartIcon, PlusIcon } from '~/components/icons';
 import { useUi } from '~/hooks/ui';
 import { useToggle } from '~/hooks/util';
 import { Utils } from '~/utils';
 
 import type { Product } from '~/types/commercetools';
-import { LoadingSpinner } from './LoadingSpinner';
 
 interface Props {
 	product: Product;
