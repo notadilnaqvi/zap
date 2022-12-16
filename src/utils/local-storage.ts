@@ -3,6 +3,7 @@ import { CtTokenInfo } from '~/lib/commercetools/types';
 
 type LocalStorage = {
 	'ct/token-info': CtTokenInfo;
+	'ct/test': string;
 };
 
 function get<K extends keyof LocalStorage>(key: K): Maybe<LocalStorage[K]> {
@@ -13,15 +14,12 @@ function get<K extends keyof LocalStorage>(key: K): Maybe<LocalStorage[K]> {
 
 		if (!item) return null;
 
-		switch (key) {
-			case 'ct/token-info': {
-				const value = ctTokenInfoSchema.parse(JSON.parse(item));
-				return value as LocalStorage[K];
-			}
-			default: {
-				return null;
-			}
+		if (key === 'ct/token-info') {
+			const value = ctTokenInfoSchema.parse(JSON.parse(item));
+			return value as LocalStorage[K];
 		}
+
+		return null;
 	} catch (err) {
 		console.error('[LocalStorage]: Failed to get ' + key, err);
 		return null;

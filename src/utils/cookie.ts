@@ -17,17 +17,12 @@ function get<K extends keyof Cookie>(key: K): Maybe<Cookie[K]> {
 
 		if (!item) return null;
 
-		switch (key) {
-			case 'ct/token-info': {
-				const value = shouldHideAnnouncementBannerSchema.parse(
-					JSON.parse(item),
-				);
-				return value as Cookie[K];
-			}
-			default: {
-				return null;
-			}
+		if (key === 'ui/was-announcement-banner-closed') {
+			const value = shouldHideAnnouncementBannerSchema.parse(JSON.parse(item));
+			return value as Cookie[K];
 		}
+
+		return null;
 	} catch (err) {
 		console.error('[Cookie]: Failed to get ' + key, err);
 		return null;
