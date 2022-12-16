@@ -7,27 +7,26 @@ import { LocalStorage } from '~/utils';
 
 const authLink = setContext(async (_request, _previousContext) => {
 	// 1. Try to get the token from local-storage
-	//   a. If a token is found, check if it's expired or not
-	//     i. If it's expired, refresh it
+	//   a. If a token is found, check if it's expired and has a
+	//			refresh token or not
+	//     i. If it's expired and has a refresh token, refresh it
 	//    ii. If it can't be refreshed, get an anonynous token
 	//   b. If the token is not found, get an anonymous token
 	// 2. Save the token in local-storage
 
 	let tokenInfo = LocalStorage.get('ct/token-info');
+
 	if (tokenInfo) {
 		const now = new Date();
-		// Consider the token expired if the expires_at is anything but a number
-		const isExpired =
-			typeof tokenInfo?.expires_at !== 'number' ||
-			tokenInfo?.expires_at < now.getTime();
 
-		if (isExpired) {
+		const shouldRefresh =
+			tokenInfo?.expires_at < now.getTime() && !!tokenInfo?.refresh_token;
+
+		if (shouldRefresh) {
 			try {
 				tokenInfo = await Commercetools.refreshTokenInfo(tokenInfo);
-			} catch (_err) {
-				console.warn(
-					'[authLink]: Failed to refresh the expired token. Getting a new one...',
-				);
+			} catch (err) {
+				console.warn('[authLink]: Failed to refresh the expired token', err);
 				tokenInfo = await Commercetools.generateAnonymousTokenInfo();
 			}
 		}
