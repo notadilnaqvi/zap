@@ -1,12 +1,10 @@
 import Cookies from 'js-cookie';
 import { z } from 'zod';
 
-const shouldHideAnnouncementBannerSchema = z.boolean();
+const someCookieSchema = z.string();
 
 type Cookie = {
-	'ui/was-announcement-banner-closed': z.infer<
-		typeof shouldHideAnnouncementBannerSchema
-	>;
+	'test/some-cookie': z.infer<typeof someCookieSchema>;
 };
 
 function get<K extends keyof Cookie>(key: K): Maybe<Cookie[K]> {
@@ -17,8 +15,8 @@ function get<K extends keyof Cookie>(key: K): Maybe<Cookie[K]> {
 
 		if (!item) return null;
 
-		if (key === 'ui/was-announcement-banner-closed') {
-			const value = shouldHideAnnouncementBannerSchema.parse(JSON.parse(item));
+		if (key === 'test/some-cookie') {
+			const value = someCookieSchema.parse(JSON.parse(item));
 			return value as Cookie[K];
 		}
 

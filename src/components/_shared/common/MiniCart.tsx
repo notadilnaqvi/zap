@@ -8,7 +8,8 @@ import { useUi } from '~/hooks/ui';
 
 export function MiniCart() {
 	const [loading, setLoading] = useState(true);
-	const { closeMiniCart, isMiniCartOpen } = useUi();
+	const closeMiniCart = useUi(state => state.closeMiniCart);
+	const isMiniCartOpen = useUi(state => state.isMiniCartOpen);
 
 	useEffect(() => {
 		if (!isMiniCartOpen) return;

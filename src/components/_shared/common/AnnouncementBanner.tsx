@@ -2,7 +2,10 @@ import { XIcon } from '~/components/icons';
 import { useUi } from '~/hooks/ui';
 
 export function AnnouncementBanner() {
-	const { closeAnnouncementBanner, isAnnouncementBannerOpen } = useUi();
+	const isAnnouncementBannerOpen = useUi(
+		state => state.isAnnouncementBannerOpen,
+	);
+	const closeAnnouncementBanner = useUi(state => state.closeAnnouncementBanner);
 
 	if (!isAnnouncementBannerOpen) return null;
 

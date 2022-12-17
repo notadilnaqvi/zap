@@ -5,7 +5,9 @@ import { LoadingSpinner } from '~/components/common';
 import { useUi } from '~/hooks/ui';
 
 export function FullscreenLoadingOverlay() {
-	const { isFullscreenLoadingOverlayOpen } = useUi();
+	const isFullscreenLoadingOverlayOpen = useUi(
+		state => state.isFullscreenLoadingOverlayOpen,
+	);
 
 	return (
 		<Transition

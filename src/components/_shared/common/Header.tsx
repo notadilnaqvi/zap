@@ -27,7 +27,7 @@ import {
 import { useUi } from '~/hooks/ui';
 
 export function Header() {
-	const { openMiniCart } = useUi();
+	const openMiniCart = useUi(state => state.openMiniCart);
 	const scrollDeterctorDivRef = useRef(null);
 	const [hasPageScrolled, setHasPageScrolled] = useState(false);
 
