@@ -7,14 +7,8 @@ export const UPDATE_MY_CART = gql`
 		$id: String!
 	) {
 		updateMyCart(actions: $actions, version: $version, id: $id) {
-			__typename
 			id
 			version
-			lineItems {
-				__typename
-				lineId: id
-				quantity
-			}
 		}
 	}
 `;

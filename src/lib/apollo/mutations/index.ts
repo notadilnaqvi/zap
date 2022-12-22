@@ -1,1 +1,1 @@
-export { UPDATE_MY_CART } from './cart-mutations';
+export { UPDATE_MY_CART } from './update-my-cart-mutation';

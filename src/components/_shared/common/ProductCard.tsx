@@ -5,22 +5,29 @@ import { useState } from 'react';
 
 import { LoadingSpinner } from '~/components/common';
 import { HeartIcon, PlusIcon } from '~/components/icons';
+import { useAddToCart } from '~/hooks/commercetools';
 import { useUi } from '~/hooks/ui';
 import { useToggle } from '~/hooks/util';
 import { Utils } from '~/utils';
 
 import type { Product } from '~/types/commercetools';
 
-interface Props {
+type Props = {
 	product: Product;
-}
+};
+
+type HandleAddToCartProps = {
+	productId: Product['id'];
+};
 
 export function ProductCard(props: Props) {
 	const { product } = props;
 
 	const [loading, setLoading] = useState(false);
+	const showToast = useUi(state => state.showToast);
+	const openMiniCart = useUi(state => state.openMiniCart);
+	const [addToCart, { loading: addToCartLoading }] = useAddToCart();
 	const [isAddedToWishlist, toggleIsAddedToWishlist] = useToggle(false);
-	const { showToast } = useUi();
 
 	function handleToggleIsAddedToWishlist() {
 		setLoading(true);
@@ -28,6 +35,20 @@ export function ProductCard(props: Props) {
 		setTimeout(() => {
 			setLoading(false);
 		}, 1000);
+	}
+
+	async function handleAddToCart(props: HandleAddToCartProps) {
+		const { productId } = props;
+		try {
+			await addToCart({ productId });
+			openMiniCart();
+		} catch (error: any) {
+			if (error?.graphQLErrors?.at(0)?.code === 'ConcurrentModification') {
+				showToast({ message: 'Whoa! Slow down my man', type: 'error' });
+			} else {
+				showToast({ message: 'Product not added to cart', type: 'error' });
+			}
+		}
 	}
 
 	// const isOnSale = Number(product.masterData.current?.name?.length) < 16;
@@ -39,7 +60,7 @@ export function ProductCard(props: Props) {
 		>
 			<div className='aspect-[4/5] w-full relative'>
 				<Image
-					className='rounded-sm invert-[0.05]'
+					className='rounded-sm invert-[0.05] object-cover'
 					fill
 					src={
 						product?.masterData?.current?.masterVariant?.images?.[0]?.url ??
@@ -49,23 +70,27 @@ export function ProductCard(props: Props) {
 				/>
 				<div className='bottom-0 absolute w-full p-1.5 '>
 					<button
-						className='z-[1] mx-auto flex items-center justify-center space-x-1 bg-white shadow-sm w-full tracking-widest group-focus-visible:opacity-100 focus-visible:opacity-100 group-hover:opacity-100 hover:opacity-100 opacity-0 transition-opacity duration-100'
-						onClick={() => {
-							const isError = Math.random() > 0.5;
-							showToast({
-								message: isError
-									? 'Failed to add product to cart'
-									: 'Added product to cart',
-								type: isError ? 'error' : 'success',
-							});
-						}}
+						className={cn(
+							{ 'opacity-0': !addToCartLoading },
+							'z-[1] mx-auto flex items-center justify-center space-x-1 bg-white shadow-sm w-full tracking-widest group-focus-visible:opacity-100 focus-visible:opacity-100 group-hover:opacity-100 hover:opacity-100 transition-opacity duration-100',
+						)}
+						onClick={() => handleAddToCart({ productId: product.id })}
+						disabled={addToCartLoading}
 					>
-						<div>
-							<PlusIcon size={10} />
-						</div>
-						<p className='py-2.5 uppercase text-[10px] font-medium'>
-							Quick add
-						</p>
+						{addToCartLoading ? (
+							<div className='py-[9.5px]'>
+								<LoadingSpinner size='small' />
+							</div>
+						) : (
+							<>
+								<div>
+									<PlusIcon size={10} />
+								</div>
+								<p className='py-2.5 uppercase text-[10px] font-medium'>
+									Quick add
+								</p>
+							</>
+						)}
 					</button>
 				</div>
 			</div>

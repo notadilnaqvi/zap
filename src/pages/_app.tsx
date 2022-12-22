@@ -1,10 +1,11 @@
 import { ApolloProvider } from '@apollo/client';
 import { Inter } from '@next/font/google';
 import cn from 'classnames';
-import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useCallback, useEffect } from 'react';
 
 import { CustomToaster, Layout } from '~/components/common';
-import { useSyncWithPersistedUiState } from '~/hooks/ui';
+import { useSyncWithPersistedUiState, useUi } from '~/hooks/ui';
 import { Apollo } from '~/lib/apollo';
 import '~/styles/globals.css';
 
@@ -16,7 +17,16 @@ const inter = Inter({
 });
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+	const router = useRouter();
 	const syncWithPersistedUiState = useSyncWithPersistedUiState();
+	const closeAllModalsAndSidebars = useUi(
+		state => state.closeAllModalsAndSidebars,
+	);
+
+	const handleRouteChangeStart = useCallback(() => {
+		// Close all modals, sidebars, etc. when the route changes
+		closeAllModalsAndSidebars();
+	}, []);
 
 	useEffect(() => {
 		// Spread the love.
@@ -26,6 +36,12 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 		// Read persisted UI state from browser storage and update the current UI
 		// state accordingly.
 		syncWithPersistedUiState();
+
+		router.events.on('routeChangeStart', handleRouteChangeStart);
+
+		return () => {
+			router.events.off('routeChangeStart', handleRouteChangeStart);
+		};
 	}, []);
 
 	return (

@@ -23,6 +23,8 @@ interface UiState {
 	closeFullscreenLoadingOverlay: () => void;
 	// Toast
 	showToast: ({ message, type }: ShowToastProps) => void;
+	// Close all modals and sidebars
+	closeAllModalsAndSidebars: () => void;
 }
 
 export const useUi = create<UiState>(set => ({
@@ -50,5 +52,13 @@ export const useUi = create<UiState>(set => ({
 		} else if (type === 'success') {
 			toast.success(message);
 		}
+	},
+	// Close all modals and sidebars
+	closeAllModalsAndSidebars: () => {
+		set({
+			// Add all modals, sidebars, etc. here that you want to close
+			// when the route changes
+			isMiniCartOpen: false,
+		});
 	},
 }));

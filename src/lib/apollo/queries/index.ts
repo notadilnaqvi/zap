@@ -1,1 +1,1 @@
-export const SOME_QUERY = '';
+export { GET_MY_CART } from './get-my-cart-query';

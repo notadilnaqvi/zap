@@ -24,12 +24,14 @@ import {
 	XIcon,
 	ZapIcon,
 } from '~/components/icons';
+import { useGetMyCart } from '~/hooks/commercetools';
 import { useUi } from '~/hooks/ui';
 
 export function Header() {
 	const openMiniCart = useUi(state => state.openMiniCart);
 	const scrollDeterctorDivRef = useRef(null);
 	const [hasPageScrolled, setHasPageScrolled] = useState(false);
+	const { data: myCart } = useGetMyCart();
 
 	useEffect(() => {
 		const isIntersectionObserverSupported =
@@ -54,11 +56,16 @@ export function Header() {
 				if (scrollDeterctorDivRef.current) observer.disconnect();
 			};
 		} else {
+			// If IntersectionObserver is not supported, we set hasPageScrolled to true
+			// anyway so the styles for scrolled page are applied to the header.
+			setHasPageScrolled(true);
 			console.warn(
 				'[Header]: IntersectionObserver is not supported. Some UI features may not work as expected.',
 			);
 		}
 	}, []);
+
+	const isMyCartEmpty = !myCart?.me?.activeCart?.totalLineItemQuantity;
 
 	return (
 		<>
@@ -438,9 +445,11 @@ export function Header() {
 								className='relative p-1 rounded-sm hover:text-slate-900 text-slate-700'
 								onClick={openMiniCart}
 							>
-								<span className='absolute px-1 min-w-[16px] h-4 bg-blue-500 left-3.5 -top-0.5 rounded-full text-[10px] font-semibold text-white flex items-center justify-center'>
-									6
-								</span>
+								{!isMyCartEmpty && (
+									<span className='absolute px-1 min-w-[16px] h-4 bg-blue-500 left-3.5 -top-0.5 rounded-full text-[10px] font-semibold text-white flex items-center justify-center'>
+										{myCart?.me.activeCart?.totalLineItemQuantity}
+									</span>
+								)}
 								<ShoppingCartIcon />
 							</button>
 						</li>

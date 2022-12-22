@@ -58,7 +58,7 @@ export async function getAllProducts({ locale }: Props) {
 		query: GET_ALL_PRODUCTS,
 		variables: {
 			locale,
-			limit: 12,
+			limit: 100,
 		},
 	});
 	return { data, loading, error };
