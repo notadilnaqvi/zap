@@ -148,7 +148,7 @@ export function ProductCard(props: Props) {
 						)} */}
 						<p className='text-xs font-light leading-5 text-slate-900'>
 							{Utils.formatCurrency({
-								locale: 'en',
+								locale: 'de',
 								centAmount:
 									product?.masterData?.current?.masterVariant?.prices?.[0].value
 										.centAmount,

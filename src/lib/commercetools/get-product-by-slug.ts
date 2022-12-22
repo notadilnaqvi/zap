@@ -112,8 +112,8 @@ export async function getProductBySlug({ slug }: Props) {
 			limit: 5,
 			offset: 0,
 			priceSelector: {
-				currency: 'USD',
-				country: 'US',
+				currency: 'EUR',
+				country: 'DE',
 				channel: null,
 				customerGroup: null,
 			},

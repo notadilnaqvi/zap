@@ -1,18 +1,8 @@
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
+import { CREATE_MY_CART } from '~/lib/apollo/mutations';
 import { GET_MY_CART } from '~/lib/apollo/queries';
 import { Cart, MutationCreateMyCartArgs } from '~/types/commercetools';
-
-const CREATE_MY_CART = gql`
-	mutation {
-		createMyCart(
-			draft: { currency: "USD", shippingAddress: { country: "US" } }
-		) {
-			id
-			version
-		}
-	}
-`;
 
 type CreateMyCartData = {
 	createMyCart: Pick<Cart, 'id' | 'version'>;
@@ -23,6 +13,7 @@ export function useCreateMyCart() {
 		CreateMyCartData,
 		MutationCreateMyCartArgs
 	>(CREATE_MY_CART);
+
 	async function createMyCart(props: MutationCreateMyCartArgs) {
 		const { draft, storeKey } = props;
 		const result = await mutate({

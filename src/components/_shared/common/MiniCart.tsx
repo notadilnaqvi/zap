@@ -132,7 +132,7 @@ export function MiniCart() {
 									<p className='text-sm font-medium'>
 										{Utils.formatCurrency({
 											centAmount: myCart.me.activeCart?.totalPrice.centAmount,
-											locale: 'en',
+											locale: 'de',
 										})}
 									</p>
 								</div>
