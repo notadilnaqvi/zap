@@ -68,18 +68,23 @@ export function ProductCard(props: Props) {
 					}
 					alt={product?.masterData?.current?.name ?? ''}
 				/>
-				<div className='bottom-0 absolute w-full p-1.5 '>
+				<div className='bottom-0 absolute w-full p-1.5'>
 					<button
 						className={cn(
-							{ 'opacity-0': !addToCartLoading },
+							{ 'opacity-0': !addToCartLoading }, // Only hide the button if it's not loading
 							'z-[1] mx-auto flex items-center justify-center space-x-1 bg-white shadow-sm w-full tracking-widest group-focus-visible:opacity-100 focus-visible:opacity-100 group-hover:opacity-100 hover:opacity-100 transition-opacity duration-100',
 						)}
 						onClick={() => handleAddToCart({ productId: product.id })}
 						disabled={addToCartLoading}
 					>
 						{addToCartLoading ? (
-							<div className='py-[9.5px]'>
-								<LoadingSpinner size='small' />
+							<div className='flex flex-row items-center space-x-2.5'>
+								<div>
+									<LoadingSpinner size='small' />
+								</div>
+								<p className='py-2.5 uppercase text-[10px] font-medium'>
+									Adding...
+								</p>
 							</div>
 						) : (
 							<>

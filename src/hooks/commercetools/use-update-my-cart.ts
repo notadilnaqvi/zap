@@ -8,9 +8,9 @@ import type { Cart, MutationUpdateCartArgs } from '~/types/commercetools';
 import { useCreateMyCart } from './use-create-my-cart';
 
 export function useUpdateMyCart() {
-	const { data: myCart } = useGetMyCart();
-	const [createMyCart] = useCreateMyCart();
-	const [mutate, { data, loading, error }] = useMutation<
+	const { data: myCart, loading: myCartLoading } = useGetMyCart();
+	const [createMyCart, { loading: createMyCartLoading }] = useCreateMyCart();
+	const [mutate, { data, loading: updateMyCartLoading, error }] = useMutation<
 		{ updateMyCart: Cart },
 		MutationUpdateCartArgs
 	>(UPDATE_MY_CART);
@@ -39,5 +39,18 @@ export function useUpdateMyCart() {
 		});
 	}
 
-	return [updateMyCart, { data, loading, error }] as const;
+	return [
+		updateMyCart,
+		{
+			data,
+			// Using the `loading` property from the `useMutation` hook is not enough
+			// because it not be `true` until we call the `mutate` function. Meaning
+			// that we can't use it to show a loading state while we're waiting for
+			// the cart to be fetched or `createMyCart` mutation to finish. Instead,
+			// we say that `updateMyCart` is loading if any of the three operations
+			// (useGetMyCart, useCreateMyCart, useMutation) are loading.
+			loading: myCartLoading || createMyCartLoading || updateMyCartLoading,
+			error,
+		},
+	] as const;
 }
