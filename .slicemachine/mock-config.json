@@ -1,0 +1,27 @@
+{
+	"_cts": {
+		"navigation": {},
+		"announcement_banner": {
+			"announcement": {
+				"config": {
+					"patternType": "PARAGRAPH",
+					"blocks": 1
+				}
+			}
+		}
+	},
+	"src/components/_shared/slices": {
+		"ImageBanner": {
+			"default": {
+				"primary": {
+					"alt_text": {
+						"content": "A very nice image"
+					},
+					"vertical_padding": {
+						"content": "2"
+					}
+				}
+			}
+		}
+	}
+}

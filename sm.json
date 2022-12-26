@@ -1,0 +1,6 @@
+{
+	"apiEndpoint": "https://the-zap-store.prismic.io/api/v2",
+	"libraries": ["@/src/components/_shared/slices"],
+	"_latest": "0.6.0",
+	"localSliceSimulatorURL": "http://localhost:4444/slice-simulator"
+}

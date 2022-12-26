@@ -1,12 +1,16 @@
 import { ApolloProvider } from '@apollo/client';
 import { Inter } from '@next/font/google';
+import { PrismicPreview } from '@prismicio/next';
+import { PrismicProvider } from '@prismicio/react';
 import cn from 'classnames';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect } from 'react';
 
 import { CustomToaster, Layout } from '~/components/common';
 import { useSyncWithPersistedUiState, useUi } from '~/hooks/ui';
 import { Apollo } from '~/lib/apollo';
+import { Prismic } from '~/lib/prismic';
 import '~/styles/globals.css';
 
 import type { AppProps } from 'next/app';
@@ -48,9 +52,13 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 		<div className={cn(inter.variable, 'font-sans')}>
 			<ApolloProvider client={Apollo.client}>
 				<CustomToaster />
-				<Layout>
-					<Component {...pageProps} />
-				</Layout>
+				<PrismicProvider internalLinkComponent={props => <Link {...props} />}>
+					<PrismicPreview repositoryName={Prismic.repositoryName}>
+						<Layout prismicData={pageProps.prismicData}>
+							<Component {...pageProps} />
+						</Layout>
+					</PrismicPreview>
+				</PrismicProvider>
 			</ApolloProvider>
 		</div>
 	);

@@ -1,0 +1,19 @@
+{
+	"id": "announcement_banner",
+	"label": "Announcement Banner",
+	"repeatable": false,
+	"status": true,
+	"json": {
+		"Main": {
+			"announcement": {
+				"type": "StructuredText",
+				"config": {
+					"label": "announcement",
+					"placeholder": "Same-day delivery now available!",
+					"allowTargetBlank": true,
+					"single": "paragraph,strong,em,hyperlink,embed"
+				}
+			}
+		}
+	}
+}

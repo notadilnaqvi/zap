@@ -1,3 +1,4 @@
+import { AnnouncementBannerDocumentData } from '.slicemachine/prismicio';
 import { PropsWithChildren } from 'react';
 
 import {
@@ -8,13 +9,22 @@ import {
 	MiniCart,
 } from '~/components/common';
 
-export function Layout({ children }: PropsWithChildren<{}>) {
+type Props = PropsWithChildren<{
+	prismicData: { [index: string]: any };
+}>;
+
+export function Layout(props: Props) {
+	const { children, prismicData } = props;
+
+	const announcementBannerDocumentData = prismicData.announcementBanner
+		.data as AnnouncementBannerDocumentData;
+
 	return (
 		<>
 			<FullscreenLoadingOverlay /> {/* Keep the overlay at the very top */}
 			<MiniCart />
 			<div className='flex flex-col items-center min-h-screen'>
-				<AnnouncementBanner />
+				<AnnouncementBanner data={announcementBannerDocumentData} />
 				<Header />
 				<div className='flex flex-col items-center flex-1 w-full px-4'>
 					<main

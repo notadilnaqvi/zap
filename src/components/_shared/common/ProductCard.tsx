@@ -38,6 +38,7 @@ export function ProductCard(props: Props) {
 	}
 
 	async function handleAddToCart(props: HandleAddToCartProps) {
+		if (addToCartLoading) return;
 		const { productId } = props;
 		try {
 			await addToCart({ productId });
@@ -70,12 +71,12 @@ export function ProductCard(props: Props) {
 				/>
 				<div className='bottom-0 absolute w-full p-1.5'>
 					<button
+						aria-disabled={addToCartLoading}
 						className={cn(
 							{ 'opacity-0': !addToCartLoading }, // Only hide the button if it's not loading
-							'z-[1] mx-auto flex items-center justify-center space-x-1 bg-white shadow-sm w-full tracking-widest group-focus-visible:opacity-100 focus-visible:opacity-100 group-hover:opacity-100 hover:opacity-100 transition-opacity duration-100',
+							'focusable z-[1] mx-auto flex items-center justify-center space-x-1 bg-white shadow-sm w-full tracking-widest group-focus-visible:opacity-100 focus-visible:opacity-100 group-hover:opacity-100 hover:opacity-100 transition-opacity duration-100',
 						)}
 						onClick={() => handleAddToCart({ productId: product.id })}
-						disabled={addToCartLoading}
 					>
 						{addToCartLoading ? (
 							<div className='flex flex-row items-center space-x-2.5'>

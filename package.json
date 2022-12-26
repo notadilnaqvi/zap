@@ -7,13 +7,19 @@
 		"build": "next build",
 		"start": "next start",
 		"storybook": "start-storybook -p 6006",
-		"build-storybook": "build-storybook"
+		"build-storybook": "build-storybook",
+		"slicemachine": "start-slicemachine"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.6.9",
 		"@commercetools/sdk-auth": "^3.0.13",
 		"@headlessui/react": "^1.6.6",
 		"@next/font": "^13.0.5",
+		"@prismicio/client": "^6.7.3",
+		"@prismicio/helpers": "^2.3.8",
+		"@prismicio/next": "^1.0.2",
+		"@prismicio/react": "^2.5.1",
+		"@prismicio/slice-simulator-react": "^0.2.3",
 		"classnames": "^2.3.2",
 		"graphql": "^16.6.0",
 		"js-cookie": "^3.0.1",
@@ -28,6 +34,7 @@
 		"@babel/core": "^7.18.13",
 		"@commitlint/cli": "^17.2.0",
 		"@next/eslint-plugin-next": "^12.2.5",
+		"@prismicio/types": "^0.2.7",
 		"@storybook/addon-actions": "^6.5.10",
 		"@storybook/addon-essentials": "^6.5.10",
 		"@storybook/addon-interactions": "^6.5.10",
@@ -56,6 +63,7 @@
 		"lint-staged": "^13.0.3",
 		"postcss": "^8.4.14",
 		"prettier": "^2.7.1",
+		"slice-machine-ui": "^0.6.0",
 		"tailwindcss": "^3.2.4",
 		"typescript": "4.7.2"
 	}

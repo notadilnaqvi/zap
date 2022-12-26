@@ -1,0 +1,13 @@
+{
+	"announcement": {
+		"__TYPE__": "StructuredTextContent",
+		"value": [
+			{
+				"type": "paragraph",
+				"content": {
+					"text": "Veniam pariatur exercitation duis consectetur ea veniam duis eu dolore amet. Veniam aliqua esse amet laboris nostrud labore Lorem eiusmod quis. Id eiusmod cillum voluptate Lorem ut nulla nostrud Lorem tempor proident nostrud consectetur."
+				}
+			}
+		]
+	}
+}

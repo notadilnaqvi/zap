@@ -1,10 +1,32 @@
+import {
+	GetStaticProps,
+	GetStaticPropsContext,
+	InferGetStaticPropsType,
+} from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
 import { ProductCard } from '~/components/common';
 import { Commercetools } from '~/lib/commercetools';
+import { Prismic } from '~/lib/prismic';
 
-function Home() {
+export async function getStaticProps(props: GetStaticPropsContext) {
+	const { previewData } = props;
+
+	const client = Prismic.createClient({ previewData });
+
+	const announcementBanner = await client.getSingle('announcement_banner');
+
+	return {
+		props: {
+			prismicData: {
+				announcementBanner,
+			},
+		},
+	};
+}
+
+function Home(props: InferGetStaticPropsType<typeof getStaticProps>) {
 	const [products, setProducts] = useState<any>([]);
 
 	useEffect(() => {

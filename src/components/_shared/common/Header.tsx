@@ -30,7 +30,7 @@ import { useUi } from '~/hooks/ui';
 export function Header() {
 	const openMiniCart = useUi(state => state.openMiniCart);
 	const scrollDeterctorDivRef = useRef(null);
-	const [hasPageScrolled, setHasPageScrolled] = useState(false);
+	const [hasPageScrolled, setHasPageScrolled] = useState(true);
 	const { data: myCart } = useGetMyCart();
 
 	useEffect(() => {
@@ -42,9 +42,9 @@ export function Header() {
 		if (isIntersectionObserverSupported) {
 			const observer = new IntersectionObserver(entries => {
 				if (entries[0].boundingClientRect.y < 0) {
-					setHasPageScrolled(true);
+					// setHasPageScrolled(true);
 				} else {
-					setHasPageScrolled(false);
+					// setHasPageScrolled(false);
 				}
 			});
 

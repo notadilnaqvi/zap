@@ -25,7 +25,8 @@
 			"~/components/*": ["src/components/*"],
 			"~/components/ui": ["src/components/_shared/ui"],
 			"~/components/icons": ["src/components/_shared/icons"],
-			"~/components/common": ["src/components/_shared/common"]
+			"~/components/common": ["src/components/_shared/common"],
+			"~/components/slices": ["src/components/_shared/slices"]
 		}
 	},
 	"include": [
@@ -34,13 +35,8 @@
 		"**/*.jsx",
 		"**/*.tsx",
 		"types/*.d.ts",
-		"next-env.d.ts"
+		"next-env.d.ts",
+		".slicemachine/prismicio.d.ts"
 	],
-	"exclude": [
-		".next",
-		".prismic",
-		".storybook",
-		".slicemachine",
-		"node_modules"
-	]
+	"exclude": [".next", ".prismic", ".storybook", "node_modules"]
 }
