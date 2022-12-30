@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { ProductsQuery, ProductsQueryVariables } from 'src/gql/graphql';
 
 import { Apollo } from '~/lib/apollo';
 
@@ -54,7 +55,10 @@ const GET_ALL_PRODUCTS = gql`
 `;
 
 export async function getAllProducts({ locale }: Props) {
-	const { data, loading, error } = await Apollo.client.query({
+	const { data, loading, error } = await Apollo.client.query<
+		ProductsQuery,
+		ProductsQueryVariables
+	>({
 		query: GET_ALL_PRODUCTS,
 		variables: {
 			locale,

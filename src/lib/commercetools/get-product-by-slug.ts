@@ -7,7 +7,7 @@ interface Props {
 }
 
 const GET_PRODUCT_BY_SLUG = gql`
-	query products(
+	query getProductBySlug(
 		$locale: Locale!
 		$limit: Int! = 5
 		$offset: Int! = 0
