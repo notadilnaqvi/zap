@@ -26,7 +26,12 @@
 			"~/components/ui": ["src/components/_shared/ui"],
 			"~/components/icons": ["src/components/_shared/icons"],
 			"~/components/common": ["src/components/_shared/common"]
-		}
+		},
+		"plugins": [
+			{
+				"name": "next"
+			}
+		]
 	},
 	"include": [
 		"**/*.js",
@@ -34,7 +39,8 @@
 		"**/*.jsx",
 		"**/*.tsx",
 		"types/*.d.ts",
-		"next-env.d.ts"
+		"next-env.d.ts",
+		".next/types/**/*.ts"
 	],
 	"exclude": [
 		".next",

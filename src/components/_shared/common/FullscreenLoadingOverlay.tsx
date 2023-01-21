@@ -1,5 +1,7 @@
+'use client';
+
 import { Dialog, Transition } from '@headlessui/react';
-import React from 'react';
+import { Fragment } from 'react';
 
 import { LoadingSpinner } from '~/components/common';
 import { useUi } from '~/hooks/ui';
@@ -9,11 +11,15 @@ export function FullscreenLoadingOverlay() {
 		state => state.isFullscreenLoadingOverlayOpen,
 	);
 
+	const fullscreenLoadingOverlayText = useUi(
+		state => state.fullscreenLoadingOverlayText,
+	);
+
 	return (
 		<Transition
 			appear
 			show={isFullscreenLoadingOverlayOpen}
-			as={React.Fragment}
+			as={Fragment}
 		>
 			<Dialog
 				as='div'
@@ -24,7 +30,7 @@ export function FullscreenLoadingOverlay() {
 				onClose={() => {}}
 			>
 				<Transition.Child
-					as={React.Fragment}
+					as={Fragment}
 					enter='ease duration-300'
 					enterFrom='opacity-0'
 					enterTo='opacity-100'
@@ -32,8 +38,11 @@ export function FullscreenLoadingOverlay() {
 					leaveFrom='opacity-100'
 					leaveTo='opacity-0'
 				>
-					<div className='fixed inset-0 flex items-center justify-center bg-white bg-opacity-60 backdrop-blur-md'>
+					<div className='fixed inset-0 flex flex-col items-center justify-center bg-white bg-opacity-90 space-y-3'>
 						<LoadingSpinner />
+						<p className='font-medium text-slate-700 pl-[2ch]'>
+							{fullscreenLoadingOverlayText}
+						</p>
 					</div>
 				</Transition.Child>
 			</Dialog>

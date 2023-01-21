@@ -1,3 +1,5 @@
+'use client';
+
 import { Transition } from '@headlessui/react';
 import cn from 'classnames';
 import { resolveValue as resolveToastValue, Toaster } from 'react-hot-toast';

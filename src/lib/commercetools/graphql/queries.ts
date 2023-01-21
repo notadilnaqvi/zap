@@ -1,13 +1,68 @@
 import { gql } from '@apollo/client';
 
-import { Apollo } from '~/lib/apollo';
+export const GET_ALL_PRODUCTS = gql`
+	query getAllProducts($locale: Locale!, $limit: Int! = 20) {
+		products(limit: $limit) {
+			__typename
+			total
+			results {
+				__typename
+				id
+				masterData {
+					__typename
+					current {
+						name(locale: $locale)
+						slug(locale: $locale)
+						variants {
+							id
+							sku
+							images {
+								url
+							}
+							attributesRaw {
+								name
+								value
+							}
+						}
+						masterVariant {
+							__typename
+							prices {
+								value {
+									centAmount
+								}
+							}
+							sku
+							images {
+								url
+							}
+							attributesRaw {
+								name
+								value
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+`;
 
-interface Props {
-	slug: Scalars['String'];
-}
+export const GET_ALL_PRODUCT_SLUGS = gql`
+	query getAllProductSlugs {
+		products(limit: 50) {
+			results {
+				masterData {
+					current {
+						slug(locale: "en")
+					}
+				}
+			}
+		}
+	}
+`;
 
-const GET_PRODUCT_BY_SLUG = gql`
-	query products(
+export const GET_PRODUCT_BY_SLUG = gql`
+	query getProductBySlug(
 		$locale: Locale!
 		$limit: Int! = 5
 		$offset: Int! = 0
@@ -93,31 +148,26 @@ const GET_PRODUCT_BY_SLUG = gql`
 	}
 `;
 
-export async function getProductBySlug({ slug }: Props) {
-	const { data, loading, error } = await Apollo.client.query({
-		query: GET_PRODUCT_BY_SLUG,
-		variables: {
-			sorts: null,
-			filters: [
-				{
-					model: {
-						value: {
-							path: 'slug.en',
-							values: [slug],
-						},
-					},
-				},
-			],
-			locale: 'en',
-			limit: 5,
-			offset: 0,
-			priceSelector: {
-				currency: 'EUR',
-				country: 'DE',
-				channel: null,
-				customerGroup: null,
-			},
-		},
-	});
-	return { data, loading, error };
-}
+export const GET_MY_CART = gql`
+	query getMyCart {
+		me {
+			activeCart {
+				id
+				version
+				totalLineItemQuantity
+				lineItems {
+					productId
+					id
+					name(locale: "en")
+					quantity
+					totalPrice {
+						centAmount
+					}
+				}
+				totalPrice {
+					centAmount
+				}
+			}
+		}
+	}
+`;

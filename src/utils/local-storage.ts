@@ -1,5 +1,5 @@
-import { ctTokenInfoSchema } from '~/lib/commercetools/schemas';
 import { CtTokenInfo } from '~/lib/commercetools/types';
+import { ctTokenInfoSchema } from '~/lib/commercetools/validators';
 
 type LocalStorage = {
 	'ct/token-info': CtTokenInfo;

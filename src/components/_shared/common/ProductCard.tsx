@@ -1,3 +1,5 @@
+'use client';
+
 import cn from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -5,9 +7,9 @@ import { useState } from 'react';
 
 import { LoadingSpinner } from '~/components/common';
 import { HeartIcon, PlusIcon } from '~/components/icons';
-import { useAddToCart } from '~/hooks/commercetools';
 import { useUi } from '~/hooks/ui';
 import { useToggle } from '~/hooks/util';
+import { useAddToCart } from '~/lib/commercetools/hooks';
 import { Utils } from '~/utils';
 
 import type { Product } from '~/types/commercetools';
@@ -24,9 +26,10 @@ export function ProductCard(props: Props) {
 	const { product } = props;
 
 	const [loading, setLoading] = useState(false);
+	const [addToCartLoading, setAddToCartLoading] = useState(false);
 	const showToast = useUi(state => state.showToast);
 	const openMiniCart = useUi(state => state.openMiniCart);
-	const [addToCart, { loading: addToCartLoading }] = useAddToCart();
+	const [addToCart] = useAddToCart();
 	const [isAddedToWishlist, toggleIsAddedToWishlist] = useToggle(false);
 
 	function handleToggleIsAddedToWishlist() {
@@ -38,6 +41,7 @@ export function ProductCard(props: Props) {
 	}
 
 	async function handleAddToCart(props: HandleAddToCartProps) {
+		setAddToCartLoading(true);
 		const { productId } = props;
 		try {
 			await addToCart({ productId });
@@ -49,6 +53,7 @@ export function ProductCard(props: Props) {
 				showToast({ message: 'Product not added to cart', type: 'error' });
 			}
 		}
+		setAddToCartLoading(false);
 	}
 
 	// const isOnSale = Number(product.masterData.current?.name?.length) < 16;
@@ -66,6 +71,9 @@ export function ProductCard(props: Props) {
 						product?.masterData?.current?.masterVariant?.images?.[0]?.url ??
 						'/placeholder.png'
 					}
+					sizes='(max-width: 768px) 100vw,
+              (max-width: 1200px) 50vw,
+              33vw'
 					alt={product?.masterData?.current?.name ?? ''}
 				/>
 				<div className='bottom-0 absolute w-full p-1.5'>
@@ -103,7 +111,7 @@ export function ProductCard(props: Props) {
 				<div className='flex flex-row items-center'>
 					<Link
 						href={'/product/' + product?.masterData?.current?.slug}
-						className='text-xs font-medium hover:underline leading-[18px] truncate mr-4'
+						className='text-xs font-medium hover:underline leading-[18px] truncate mr-4 '
 					>
 						{product?.masterData?.current?.name}
 					</Link>

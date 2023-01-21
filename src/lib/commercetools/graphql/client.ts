@@ -66,10 +66,10 @@ const httpLink = new HttpLink({
 		'/graphql',
 });
 
-const client = new ApolloClient({
+const apolloClient = new ApolloClient({
 	link: from([authLink, errorLink, httpLink]),
 	cache: new InMemoryCache({}),
 	connectToDevTools: process.env.NODE_ENV === 'development',
 });
 
-export { client };
+export { apolloClient };

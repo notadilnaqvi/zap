@@ -1,11 +1,13 @@
+'use client';
+
 import { Dialog, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import { Fragment } from 'react';
 
 import { LoadingSpinner } from '~/components/common';
 import { XIcon } from '~/components/icons';
-import { useGetMyCart } from '~/hooks/commercetools';
 import { useUi } from '~/hooks/ui';
+import { useGetMyCart } from '~/lib/commercetools/hooks';
 import { Utils } from '~/utils';
 
 export function MiniCart() {
@@ -69,7 +71,19 @@ export function MiniCart() {
 						</div>
 						<div className='flex flex-col overflow-y-auto no-scrollbar px-4 pb-4 h-full'>
 							{myCartLoading ? (
-								<LoadingSpinner />
+								<Transition
+									enter='transition-opacity duration-300'
+									enterFrom='opacity-0'
+									enterTo='opacity-100'
+									leave='transition-opacity duration-300'
+									leaveFrom='opacity-100'
+									leaveTo='opacity-0'
+									appear
+									as='div'
+									className='flex flex-col items-center font-light space-y-4 pt-64'
+								>
+									<LoadingSpinner />
+								</Transition>
 							) : isMyCartEmpty ? (
 								<Transition
 									enter='transition-opacity duration-300'
