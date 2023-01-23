@@ -16,10 +16,11 @@ import type {
 	GetProductBySlugQuery,
 	GetProductBySlugQueryVariables,
 } from '~/lib/commercetools/types';
+import { normaliseProduct } from './normalisation';
 
 interface CustomerCredentials {
-	username: Maybe<Scalars['String']>;
-	password: Scalars['String'];
+	username: string;
+	password: string;
 }
 
 const sdkAuth = new SdkAuth({
@@ -100,7 +101,11 @@ async function getProductBySlug({ slug }: { slug: string }) {
 			},
 		},
 	});
-	return { data, loading, error };
+
+	const normalisedProduct = normaliseProduct({
+		product: data.productProjectionSearch?.results?.at?.(0),
+	});
+	return { data: normalisedProduct, loading, error };
 }
 
 async function getAllProductSlugs() {
@@ -113,7 +118,11 @@ async function getAllProductSlugs() {
 
 	const slugs = data.products.results
 		?.map?.(product => product?.masterData?.current?.slug)
-		.filter(slug => slug);
+		// TS doesn't know we're filtering out all falsey values and that `slug`
+		// will always be present. It (incorrectly) thinks that `slugs` can be
+		// an array of `undefined` or `null`. We use `as string[]` to force the
+		// correct type.
+		.filter(slug => !!slug) as string[];
 
 	return { data: { slugs }, loading, error };
 }

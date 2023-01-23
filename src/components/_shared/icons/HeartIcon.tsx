@@ -1,6 +1,6 @@
 interface Props {
-	size?: Scalars['Int'];
-	filled?: Scalars['Boolean'];
+	size?: number;
+	filled?: boolean;
 }
 
 export function HeartIcon({ size = 20, filled = false }: Props) {

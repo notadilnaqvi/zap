@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@apollo/client': ^3.6.9
+  '@apollo/client': ^3.7.3
   '@babel/core': ^7.18.13
   '@commercetools/sdk-auth': ^3.0.13
   '@commitlint/cli': ^17.2.0

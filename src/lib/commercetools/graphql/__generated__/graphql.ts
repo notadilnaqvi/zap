@@ -13267,7 +13267,11 @@ export type GetAllProductsQuery = {
 						__typename?: 'ProductVariant';
 						id: number;
 						sku?: string | null;
-						images: Array<{ __typename?: 'Image'; url: string }>;
+						images: Array<{
+							__typename?: 'Image';
+							url: string;
+							label?: string | null;
+						}>;
 						attributesRaw: Array<{
 							__typename?: 'RawProductAttribute';
 							name: string;
@@ -13283,7 +13287,11 @@ export type GetAllProductsQuery = {
 								| { __typename?: 'HighPrecisionMoney'; centAmount: any }
 								| { __typename?: 'Money'; centAmount: any };
 						}> | null;
-						images: Array<{ __typename?: 'Image'; url: string }>;
+						images: Array<{
+							__typename?: 'Image';
+							url: string;
+							label?: string | null;
+						}>;
 						attributesRaw: Array<{
 							__typename?: 'RawProductAttribute';
 							name: string;
@@ -13332,11 +13340,16 @@ export type GetProductBySlugQuery = {
 			id: string;
 			name?: string | null;
 			slug?: string | null;
+			description?: string | null;
 			variants: Array<{
 				__typename?: 'ProductSearchVariant';
 				id: number;
 				sku?: string | null;
-				images: Array<{ __typename?: 'ImageProductSearch'; url: string }>;
+				images: Array<{
+					__typename?: 'ImageProductSearch';
+					url: string;
+					label?: string | null;
+				}>;
 				attributesRaw: Array<{
 					__typename?: 'RawProductSearchAttribute';
 					name: string;
@@ -13384,7 +13397,11 @@ export type GetProductBySlugQuery = {
 				__typename?: 'ProductSearchVariant';
 				id: number;
 				sku?: string | null;
-				images: Array<{ __typename?: 'ImageProductSearch'; url: string }>;
+				images: Array<{
+					__typename?: 'ImageProductSearch';
+					url: string;
+					label?: string | null;
+				}>;
 				attributesRaw: Array<{
 					__typename?: 'RawProductSearchAttribute';
 					name: string;
@@ -13883,6 +13900,13 @@ export const GetAllProductsDocument = {
 																									value: 'url',
 																								},
 																							},
+																							{
+																								kind: 'Field',
+																								name: {
+																									kind: 'Name',
+																									value: 'label',
+																								},
+																							},
 																						],
 																					},
 																				},
@@ -13980,6 +14004,13 @@ export const GetAllProductsDocument = {
 																								name: {
 																									kind: 'Name',
 																									value: 'url',
+																								},
+																							},
+																							{
+																								kind: 'Field',
+																								name: {
+																									kind: 'Name',
+																									value: 'label',
 																								},
 																							},
 																						],
@@ -14315,6 +14346,20 @@ export const GetProductBySlugDocument = {
 											},
 											{
 												kind: 'Field',
+												name: { kind: 'Name', value: 'description' },
+												arguments: [
+													{
+														kind: 'Argument',
+														name: { kind: 'Name', value: 'locale' },
+														value: {
+															kind: 'Variable',
+															name: { kind: 'Name', value: 'locale' },
+														},
+													},
+												],
+											},
+											{
+												kind: 'Field',
 												name: { kind: 'Name', value: 'variants' },
 												selectionSet: {
 													kind: 'SelectionSet',
@@ -14336,6 +14381,10 @@ export const GetProductBySlugDocument = {
 																	{
 																		kind: 'Field',
 																		name: { kind: 'Name', value: 'url' },
+																	},
+																	{
+																		kind: 'Field',
+																		name: { kind: 'Name', value: 'label' },
 																	},
 																],
 															},
@@ -14503,6 +14552,10 @@ export const GetProductBySlugDocument = {
 																	{
 																		kind: 'Field',
 																		name: { kind: 'Name', value: 'url' },
+																	},
+																	{
+																		kind: 'Field',
+																		name: { kind: 'Name', value: 'label' },
 																	},
 																],
 															},

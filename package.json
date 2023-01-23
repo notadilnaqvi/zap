@@ -11,7 +11,7 @@
 		"graphql-codegen": "npx graphql-codegen --config graphql-codegen.config.ts"
 	},
 	"dependencies": {
-		"@apollo/client": "^3.6.9",
+		"@apollo/client": "^3.7.3",
 		"@commercetools/sdk-auth": "^3.0.13",
 		"@graphql-codegen/cli": "^2.16.4",
 		"@graphql-codegen/client-preset": "^1.2.6",

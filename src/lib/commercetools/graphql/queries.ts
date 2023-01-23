@@ -18,6 +18,7 @@ export const GET_ALL_PRODUCTS = gql`
 							sku
 							images {
 								url
+								label
 							}
 							attributesRaw {
 								name
@@ -34,6 +35,7 @@ export const GET_ALL_PRODUCTS = gql`
 							sku
 							images {
 								url
+								label
 							}
 							attributesRaw {
 								name
@@ -49,7 +51,7 @@ export const GET_ALL_PRODUCTS = gql`
 
 export const GET_ALL_PRODUCT_SLUGS = gql`
 	query getAllProductSlugs {
-		products(limit: 50) {
+		products(limit: 500) {
 			results {
 				masterData {
 					current {
@@ -85,11 +87,13 @@ export const GET_PRODUCT_BY_SLUG = gql`
 				id
 				name(locale: $locale)
 				slug(locale: $locale)
+				description(locale: $locale)
 				variants {
 					id
 					sku
 					images {
 						url
+						label
 					}
 					attributesRaw {
 						name
@@ -119,6 +123,7 @@ export const GET_PRODUCT_BY_SLUG = gql`
 					sku
 					images {
 						url
+						label
 					}
 					attributesRaw {
 						name

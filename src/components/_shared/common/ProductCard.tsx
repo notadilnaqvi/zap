@@ -10,16 +10,15 @@ import { HeartIcon, PlusIcon } from '~/components/icons';
 import { useUi } from '~/hooks/ui';
 import { useToggle } from '~/hooks/util';
 import { useAddToCart } from '~/lib/commercetools/hooks';
+import { GetAllProductsQuery } from '~/lib/commercetools/types';
 import { Utils } from '~/utils';
 
-import type { Product } from '~/types/commercetools';
-
 type Props = {
-	product: Product;
+	product: GetAllProductsQuery['products']['results'][number];
 };
 
 type HandleAddToCartProps = {
-	productId: Product['id'];
+	productId: string;
 };
 
 export function ProductCard(props: Props) {
@@ -41,6 +40,7 @@ export function ProductCard(props: Props) {
 	}
 
 	async function handleAddToCart(props: HandleAddToCartProps) {
+		if (addToCartLoading) return;
 		setAddToCartLoading(true);
 		const { productId } = props;
 		try {
@@ -83,7 +83,7 @@ export function ProductCard(props: Props) {
 							'z-[1] mx-auto flex items-center justify-center space-x-1 bg-white shadow-sm w-full tracking-widest group-focus-visible:opacity-100 focus-visible:opacity-100 group-hover:opacity-100 hover:opacity-100 transition-opacity duration-100',
 						)}
 						onClick={() => handleAddToCart({ productId: product.id })}
-						disabled={addToCartLoading}
+						aria-disabled={addToCartLoading}
 					>
 						{addToCartLoading ? (
 							<div className='flex flex-row items-center space-x-2.5'>
@@ -150,7 +150,7 @@ export function ProductCard(props: Props) {
 					</p>
 					<div className='flex space-x-2'>
 						{/* {isOnSale && (
-							<p className='text-xs font-light line-through leading-5 text-slate-500'>
+							<p className='text-xs font-light leading-5 line-through text-slate-500'>
 								{Utils.formatCurrency({
 									locale: 'en',
 									centAmount:

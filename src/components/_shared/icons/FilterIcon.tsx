@@ -1,5 +1,5 @@
 interface Props {
-	size?: Scalars['Int'];
+	size?: number;
 }
 
 export function FilterIcon({ size = 20 }: Props) {

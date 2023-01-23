@@ -1,6 +1,6 @@
 interface FormatCurrency {
-	locale: Scalars['Locale'];
-	centAmount: Scalars['Int'];
+	locale: 'en' | 'de';
+	centAmount: number;
 }
 
 const LOCALE_TO_CURRENCY_MAPPING = {
