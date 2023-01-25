@@ -8,7 +8,7 @@ export default function Loading() {
 					?.map(index => {
 						return (
 							<div
-								className='relative before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent overflow-hidden'
+								className='relative before:absolute before:inset-0 before:-translate-x-full before:-skew-x-12 before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent overflow-hidden'
 								key={index}
 							>
 								<div className='aspect-[4/5] bg-slate-200 rounded-sm'></div>

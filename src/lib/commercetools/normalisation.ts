@@ -1,11 +1,11 @@
 import type {
-	GetProductBySlugQuery,
+	GetProductsQuery,
 	NormalisedProduct,
 } from '~/lib/commercetools/types';
 
 type NormaliseProductProps = {
 	product?: Maybe<
-		GetProductBySlugQuery['productProjectionSearch']['results'][number]
+		GetProductsQuery['productProjectionSearch']['results'][number]
 	>;
 };
 export function normaliseProduct(
@@ -15,14 +15,18 @@ export function normaliseProduct(
 
 	if (!product) return null;
 
+	if (!product.masterVariant?.sku) return null;
+
 	return {
 		id: product.id,
-		// We know that there will be atleast on image but TS doesn't know that so
-		// it's safe to use "!" here.
-		mainImage: normaliseProductImages(product.masterVariant.images).at(0)!,
+		sku: product.masterVariant?.sku,
+		mainImage: normaliseProductImages(product.masterVariant.images)[0],
 		images: normaliseProductImages(product.masterVariant.images),
-		variants: normaliseProductVariants(product.variants),
 		description: product.description,
+		designer: extractCustomAttribute<{ key: string; label: string }>({
+			attributes: product.masterVariant.attributesRaw,
+			extract: 'designer',
+		}),
 		name: product.name,
 		slug: product.slug,
 		price: product.masterVariant.scopedPrice?.value.centAmount,
@@ -30,38 +34,51 @@ export function normaliseProduct(
 }
 
 function normaliseProductImages(
-	images: GetProductBySlugQuery['productProjectionSearch']['results'][number]['masterVariant']['images'],
+	images: GetProductsQuery['productProjectionSearch']['results'][number]['masterVariant']['images'],
 ) {
-	let normalisedImages: NormalisedProduct['images'] = images.map(image => {
-		return {
-			src: image.url,
-			label: image.label ?? '',
-		};
-	});
+	// TODO: Add comments explaining the following...
+	const normalisedImages: NormalisedProduct['images'] = [
+		{
+			src: './product-fallback-image.png',
+			label: '',
+		},
+		...images.map(image => {
+			return {
+				src: image.url,
+				label: image.label ?? '',
+			};
+		}),
+	];
 
-	if (!normaliseProduct.length) {
-		normalisedImages = [
-			{
-				src: './product-fallback-image.png',
-				label: '',
-			},
-		];
+	if (normalisedImages.length > 1) {
+		normalisedImages.shift();
 	}
+
 	return normalisedImages;
 }
 
-function normaliseProductVariants(
-	variants: GetProductBySlugQuery['productProjectionSearch']['results'][number]['variants'],
-) {
-	const normalisedVariants: NormalisedProduct['variants'] = variants.map(
-		variant => {
-			return {
-				id: variant.id,
-				price: variant.scopedPrice?.value.centAmount,
-				sku: variant.sku,
-			};
-		},
-	);
+// function normaliseProductVariants(
+// 	variants: GetProductsQuery['productProjectionSearch']['results'][number]['variants'],
+// ) {
+// 	const normalisedVariants: NormalisedProduct['variants'] = variants.map(
+// 		variant => {
+// 			return {
+// 				id: variant.variantId,
+// 				price: variant.scopedPrice?.value.centAmount,
+// 				sku: variant.sku,
+// 			};
+// 		},
+// 	);
 
-	return normalisedVariants;
+// 	return normalisedVariants;
+// }
+
+function extractCustomAttribute<T>({
+	attributes,
+	extract,
+}: {
+	attributes: GetProductsQuery['productProjectionSearch']['results'][number]['masterVariant']['attributesRaw'];
+	extract: string;
+}): Maybe<T> {
+	return attributes?.find?.(attr => attr?.name === extract)?.value ?? null;
 }

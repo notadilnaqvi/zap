@@ -3,14 +3,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import cn from 'classnames';
 import Link, { LinkProps } from 'next/link';
-import {
-	forwardRef,
-	Fragment,
-	HTMLProps,
-	useEffect,
-	useRef,
-	useState,
-} from 'react';
+import { forwardRef, Fragment, HTMLProps } from 'react';
 
 import {
 	AwardIcon,

@@ -13207,15 +13207,20 @@ export type CreateMyCartMutation = {
 		id: string;
 		version: any;
 		totalLineItemQuantity?: any | null;
+		shippingAddress?: { __typename?: 'Address'; country: any } | null;
 		lineItems: Array<{
 			__typename?: 'LineItem';
 			productId: string;
 			id: string;
 			name?: string | null;
 			quantity: any;
-			totalPrice?: { __typename?: 'Money'; centAmount: any } | null;
+			totalPrice?: {
+				__typename?: 'Money';
+				centAmount: any;
+				currencyCode: any;
+			} | null;
 		}>;
-		totalPrice: { __typename?: 'Money'; centAmount: any };
+		totalPrice: { __typename?: 'Money'; centAmount: any; currencyCode: any };
 	} | null;
 };
 
@@ -13238,89 +13243,17 @@ export type UpdateMyCartMutation = {
 			id: string;
 			name?: string | null;
 			quantity: any;
-			totalPrice?: { __typename?: 'Money'; centAmount: any } | null;
+			totalPrice?: {
+				__typename?: 'Money';
+				centAmount: any;
+				currencyCode: any;
+			} | null;
 		}>;
-		totalPrice: { __typename?: 'Money'; centAmount: any };
+		totalPrice: { __typename?: 'Money'; centAmount: any; currencyCode: any };
 	} | null;
 };
 
-export type GetAllProductsQueryVariables = Exact<{
-	locale: Scalars['Locale'];
-	limit?: Scalars['Int'];
-}>;
-
-export type GetAllProductsQuery = {
-	__typename?: 'Query';
-	products: {
-		__typename: 'ProductQueryResult';
-		total: any;
-		results: Array<{
-			__typename: 'Product';
-			id: string;
-			masterData: {
-				__typename: 'ProductCatalogData';
-				current?: {
-					__typename?: 'ProductData';
-					name?: string | null;
-					slug?: string | null;
-					variants: Array<{
-						__typename?: 'ProductVariant';
-						id: number;
-						sku?: string | null;
-						images: Array<{
-							__typename?: 'Image';
-							url: string;
-							label?: string | null;
-						}>;
-						attributesRaw: Array<{
-							__typename?: 'RawProductAttribute';
-							name: string;
-							value: any;
-						}>;
-					}>;
-					masterVariant: {
-						__typename: 'ProductVariant';
-						sku?: string | null;
-						prices?: Array<{
-							__typename?: 'ProductPrice';
-							value:
-								| { __typename?: 'HighPrecisionMoney'; centAmount: any }
-								| { __typename?: 'Money'; centAmount: any };
-						}> | null;
-						images: Array<{
-							__typename?: 'Image';
-							url: string;
-							label?: string | null;
-						}>;
-						attributesRaw: Array<{
-							__typename?: 'RawProductAttribute';
-							name: string;
-							value: any;
-						}>;
-					};
-				} | null;
-			};
-		}>;
-	};
-};
-
-export type GetAllProductSlugsQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetAllProductSlugsQuery = {
-	__typename?: 'Query';
-	products: {
-		__typename?: 'ProductQueryResult';
-		results: Array<{
-			__typename?: 'Product';
-			masterData: {
-				__typename?: 'ProductCatalogData';
-				current?: { __typename?: 'ProductData'; slug?: string | null } | null;
-			};
-		}>;
-	};
-};
-
-export type GetProductBySlugQueryVariables = Exact<{
+export type GetProductSlugsQueryVariables = Exact<{
 	locale: Scalars['Locale'];
 	limit?: Scalars['Int'];
 	offset?: Scalars['Int'];
@@ -13330,7 +13263,25 @@ export type GetProductBySlugQueryVariables = Exact<{
 	text?: InputMaybe<Scalars['String']>;
 }>;
 
-export type GetProductBySlugQuery = {
+export type GetProductSlugsQuery = {
+	__typename?: 'Query';
+	productProjectionSearch: {
+		__typename?: 'ProductProjectionSearchResult';
+		results: Array<{ __typename?: 'ProductProjection'; slug?: string | null }>;
+	};
+};
+
+export type GetProductsQueryVariables = Exact<{
+	locale: Scalars['Locale'];
+	limit: Scalars['Int'];
+	offset: Scalars['Int'];
+	priceSelector: PriceSelectorInput;
+	sorts?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
+	filters?: InputMaybe<Array<SearchFilterInput> | SearchFilterInput>;
+	text?: InputMaybe<Scalars['String']>;
+}>;
+
+export type GetProductsQuery = {
 	__typename?: 'Query';
 	productProjectionSearch: {
 		__typename?: 'ProductProjectionSearchResult';
@@ -13341,62 +13292,10 @@ export type GetProductBySlugQuery = {
 			name?: string | null;
 			slug?: string | null;
 			description?: string | null;
-			variants: Array<{
-				__typename?: 'ProductSearchVariant';
-				id: number;
-				sku?: string | null;
-				images: Array<{
-					__typename?: 'ImageProductSearch';
-					url: string;
-					label?: string | null;
-				}>;
-				attributesRaw: Array<{
-					__typename?: 'RawProductSearchAttribute';
-					name: string;
-					value: any;
-				}>;
-				scopedPrice?: {
-					__typename?: 'ScopedPrice';
-					country?: string | null;
-					value:
-						| {
-								__typename?: 'HighPrecisionMoney';
-								currencyCode: any;
-								centAmount: any;
-								fractionDigits: number;
-						  }
-						| {
-								__typename?: 'Money';
-								currencyCode: any;
-								centAmount: any;
-								fractionDigits: number;
-						  };
-					discounted?: {
-						__typename?: 'DiscountedProductSearchPriceValue';
-						discount?: {
-							__typename?: 'ProductDiscount';
-							name?: string | null;
-						} | null;
-						value:
-							| {
-									__typename?: 'HighPrecisionMoney';
-									currencyCode: any;
-									centAmount: any;
-									fractionDigits: number;
-							  }
-							| {
-									__typename?: 'Money';
-									currencyCode: any;
-									centAmount: any;
-									fractionDigits: number;
-							  };
-					} | null;
-				} | null;
-			}>;
 			masterVariant: {
 				__typename?: 'ProductSearchVariant';
-				id: number;
 				sku?: string | null;
+				variantId: number;
 				images: Array<{
 					__typename?: 'ImageProductSearch';
 					url: string;
@@ -13523,6 +13422,19 @@ export const CreateMyCartDocument = {
 								},
 								{
 									kind: 'Field',
+									name: { kind: 'Name', value: 'shippingAddress' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'country' },
+											},
+										],
+									},
+								},
+								{
+									kind: 'Field',
 									name: { kind: 'Name', value: 'lineItems' },
 									selectionSet: {
 										kind: 'SelectionSet',
@@ -13561,6 +13473,10 @@ export const CreateMyCartDocument = {
 															kind: 'Field',
 															name: { kind: 'Name', value: 'centAmount' },
 														},
+														{
+															kind: 'Field',
+															name: { kind: 'Name', value: 'currencyCode' },
+														},
 													],
 												},
 											},
@@ -13576,6 +13492,10 @@ export const CreateMyCartDocument = {
 											{
 												kind: 'Field',
 												name: { kind: 'Name', value: 'centAmount' },
+											},
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'currencyCode' },
 											},
 										],
 									},
@@ -13723,6 +13643,10 @@ export const UpdateMyCartDocument = {
 															kind: 'Field',
 															name: { kind: 'Name', value: 'centAmount' },
 														},
+														{
+															kind: 'Field',
+															name: { kind: 'Name', value: 'currencyCode' },
+														},
 													],
 												},
 											},
@@ -13739,6 +13663,10 @@ export const UpdateMyCartDocument = {
 												kind: 'Field',
 												name: { kind: 'Name', value: 'centAmount' },
 											},
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'currencyCode' },
+											},
 										],
 									},
 								},
@@ -13753,398 +13681,13 @@ export const UpdateMyCartDocument = {
 	UpdateMyCartMutation,
 	UpdateMyCartMutationVariables
 >;
-export const GetAllProductsDocument = {
+export const GetProductSlugsDocument = {
 	kind: 'Document',
 	definitions: [
 		{
 			kind: 'OperationDefinition',
 			operation: 'query',
-			name: { kind: 'Name', value: 'getAllProducts' },
-			variableDefinitions: [
-				{
-					kind: 'VariableDefinition',
-					variable: {
-						kind: 'Variable',
-						name: { kind: 'Name', value: 'locale' },
-					},
-					type: {
-						kind: 'NonNullType',
-						type: {
-							kind: 'NamedType',
-							name: { kind: 'Name', value: 'Locale' },
-						},
-					},
-				},
-				{
-					kind: 'VariableDefinition',
-					variable: {
-						kind: 'Variable',
-						name: { kind: 'Name', value: 'limit' },
-					},
-					type: {
-						kind: 'NonNullType',
-						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-					},
-					defaultValue: { kind: 'IntValue', value: '20' },
-				},
-			],
-			selectionSet: {
-				kind: 'SelectionSet',
-				selections: [
-					{
-						kind: 'Field',
-						name: { kind: 'Name', value: 'products' },
-						arguments: [
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'limit' },
-								value: {
-									kind: 'Variable',
-									name: { kind: 'Name', value: 'limit' },
-								},
-							},
-						],
-						selectionSet: {
-							kind: 'SelectionSet',
-							selections: [
-								{ kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-								{ kind: 'Field', name: { kind: 'Name', value: 'total' } },
-								{
-									kind: 'Field',
-									name: { kind: 'Name', value: 'results' },
-									selectionSet: {
-										kind: 'SelectionSet',
-										selections: [
-											{
-												kind: 'Field',
-												name: { kind: 'Name', value: '__typename' },
-											},
-											{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
-											{
-												kind: 'Field',
-												name: { kind: 'Name', value: 'masterData' },
-												selectionSet: {
-													kind: 'SelectionSet',
-													selections: [
-														{
-															kind: 'Field',
-															name: { kind: 'Name', value: '__typename' },
-														},
-														{
-															kind: 'Field',
-															name: { kind: 'Name', value: 'current' },
-															selectionSet: {
-																kind: 'SelectionSet',
-																selections: [
-																	{
-																		kind: 'Field',
-																		name: { kind: 'Name', value: 'name' },
-																		arguments: [
-																			{
-																				kind: 'Argument',
-																				name: { kind: 'Name', value: 'locale' },
-																				value: {
-																					kind: 'Variable',
-																					name: {
-																						kind: 'Name',
-																						value: 'locale',
-																					},
-																				},
-																			},
-																		],
-																	},
-																	{
-																		kind: 'Field',
-																		name: { kind: 'Name', value: 'slug' },
-																		arguments: [
-																			{
-																				kind: 'Argument',
-																				name: { kind: 'Name', value: 'locale' },
-																				value: {
-																					kind: 'Variable',
-																					name: {
-																						kind: 'Name',
-																						value: 'locale',
-																					},
-																				},
-																			},
-																		],
-																	},
-																	{
-																		kind: 'Field',
-																		name: { kind: 'Name', value: 'variants' },
-																		selectionSet: {
-																			kind: 'SelectionSet',
-																			selections: [
-																				{
-																					kind: 'Field',
-																					name: { kind: 'Name', value: 'id' },
-																				},
-																				{
-																					kind: 'Field',
-																					name: { kind: 'Name', value: 'sku' },
-																				},
-																				{
-																					kind: 'Field',
-																					name: {
-																						kind: 'Name',
-																						value: 'images',
-																					},
-																					selectionSet: {
-																						kind: 'SelectionSet',
-																						selections: [
-																							{
-																								kind: 'Field',
-																								name: {
-																									kind: 'Name',
-																									value: 'url',
-																								},
-																							},
-																							{
-																								kind: 'Field',
-																								name: {
-																									kind: 'Name',
-																									value: 'label',
-																								},
-																							},
-																						],
-																					},
-																				},
-																				{
-																					kind: 'Field',
-																					name: {
-																						kind: 'Name',
-																						value: 'attributesRaw',
-																					},
-																					selectionSet: {
-																						kind: 'SelectionSet',
-																						selections: [
-																							{
-																								kind: 'Field',
-																								name: {
-																									kind: 'Name',
-																									value: 'name',
-																								},
-																							},
-																							{
-																								kind: 'Field',
-																								name: {
-																									kind: 'Name',
-																									value: 'value',
-																								},
-																							},
-																						],
-																					},
-																				},
-																			],
-																		},
-																	},
-																	{
-																		kind: 'Field',
-																		name: {
-																			kind: 'Name',
-																			value: 'masterVariant',
-																		},
-																		selectionSet: {
-																			kind: 'SelectionSet',
-																			selections: [
-																				{
-																					kind: 'Field',
-																					name: {
-																						kind: 'Name',
-																						value: '__typename',
-																					},
-																				},
-																				{
-																					kind: 'Field',
-																					name: {
-																						kind: 'Name',
-																						value: 'prices',
-																					},
-																					selectionSet: {
-																						kind: 'SelectionSet',
-																						selections: [
-																							{
-																								kind: 'Field',
-																								name: {
-																									kind: 'Name',
-																									value: 'value',
-																								},
-																								selectionSet: {
-																									kind: 'SelectionSet',
-																									selections: [
-																										{
-																											kind: 'Field',
-																											name: {
-																												kind: 'Name',
-																												value: 'centAmount',
-																											},
-																										},
-																									],
-																								},
-																							},
-																						],
-																					},
-																				},
-																				{
-																					kind: 'Field',
-																					name: { kind: 'Name', value: 'sku' },
-																				},
-																				{
-																					kind: 'Field',
-																					name: {
-																						kind: 'Name',
-																						value: 'images',
-																					},
-																					selectionSet: {
-																						kind: 'SelectionSet',
-																						selections: [
-																							{
-																								kind: 'Field',
-																								name: {
-																									kind: 'Name',
-																									value: 'url',
-																								},
-																							},
-																							{
-																								kind: 'Field',
-																								name: {
-																									kind: 'Name',
-																									value: 'label',
-																								},
-																							},
-																						],
-																					},
-																				},
-																				{
-																					kind: 'Field',
-																					name: {
-																						kind: 'Name',
-																						value: 'attributesRaw',
-																					},
-																					selectionSet: {
-																						kind: 'SelectionSet',
-																						selections: [
-																							{
-																								kind: 'Field',
-																								name: {
-																									kind: 'Name',
-																									value: 'name',
-																								},
-																							},
-																							{
-																								kind: 'Field',
-																								name: {
-																									kind: 'Name',
-																									value: 'value',
-																								},
-																							},
-																						],
-																					},
-																				},
-																			],
-																		},
-																	},
-																],
-															},
-														},
-													],
-												},
-											},
-										],
-									},
-								},
-							],
-						},
-					},
-				],
-			},
-		},
-	],
-} as unknown as DocumentNode<GetAllProductsQuery, GetAllProductsQueryVariables>;
-export const GetAllProductSlugsDocument = {
-	kind: 'Document',
-	definitions: [
-		{
-			kind: 'OperationDefinition',
-			operation: 'query',
-			name: { kind: 'Name', value: 'getAllProductSlugs' },
-			selectionSet: {
-				kind: 'SelectionSet',
-				selections: [
-					{
-						kind: 'Field',
-						name: { kind: 'Name', value: 'products' },
-						arguments: [
-							{
-								kind: 'Argument',
-								name: { kind: 'Name', value: 'limit' },
-								value: { kind: 'IntValue', value: '50' },
-							},
-						],
-						selectionSet: {
-							kind: 'SelectionSet',
-							selections: [
-								{
-									kind: 'Field',
-									name: { kind: 'Name', value: 'results' },
-									selectionSet: {
-										kind: 'SelectionSet',
-										selections: [
-											{
-												kind: 'Field',
-												name: { kind: 'Name', value: 'masterData' },
-												selectionSet: {
-													kind: 'SelectionSet',
-													selections: [
-														{
-															kind: 'Field',
-															name: { kind: 'Name', value: 'current' },
-															selectionSet: {
-																kind: 'SelectionSet',
-																selections: [
-																	{
-																		kind: 'Field',
-																		name: { kind: 'Name', value: 'slug' },
-																		arguments: [
-																			{
-																				kind: 'Argument',
-																				name: { kind: 'Name', value: 'locale' },
-																				value: {
-																					kind: 'StringValue',
-																					value: 'en',
-																					block: false,
-																				},
-																			},
-																		],
-																	},
-																],
-															},
-														},
-													],
-												},
-											},
-										],
-									},
-								},
-							],
-						},
-					},
-				],
-			},
-		},
-	],
-} as unknown as DocumentNode<
-	GetAllProductSlugsQuery,
-	GetAllProductSlugsQueryVariables
->;
-export const GetProductBySlugDocument = {
-	kind: 'Document',
-	definitions: [
-		{
-			kind: 'OperationDefinition',
-			operation: 'query',
-			name: { kind: 'Name', value: 'getProductBySlug' },
+			name: { kind: 'Name', value: 'getProductSlugs' },
 			variableDefinitions: [
 				{
 					kind: 'VariableDefinition',
@@ -14183,6 +13726,208 @@ export const GetProductBySlugDocument = {
 						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
 					},
 					defaultValue: { kind: 'IntValue', value: '0' },
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: {
+						kind: 'Variable',
+						name: { kind: 'Name', value: 'priceSelector' },
+					},
+					type: {
+						kind: 'NonNullType',
+						type: {
+							kind: 'NamedType',
+							name: { kind: 'Name', value: 'PriceSelectorInput' },
+						},
+					},
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: {
+						kind: 'Variable',
+						name: { kind: 'Name', value: 'sorts' },
+					},
+					type: {
+						kind: 'ListType',
+						type: {
+							kind: 'NonNullType',
+							type: {
+								kind: 'NamedType',
+								name: { kind: 'Name', value: 'String' },
+							},
+						},
+					},
+					defaultValue: { kind: 'ListValue', values: [] },
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: {
+						kind: 'Variable',
+						name: { kind: 'Name', value: 'filters' },
+					},
+					type: {
+						kind: 'ListType',
+						type: {
+							kind: 'NonNullType',
+							type: {
+								kind: 'NamedType',
+								name: { kind: 'Name', value: 'SearchFilterInput' },
+							},
+						},
+					},
+					defaultValue: { kind: 'ListValue', values: [] },
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'text' } },
+					type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+					defaultValue: { kind: 'StringValue', value: '', block: false },
+				},
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'productProjectionSearch' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'locale' },
+								value: {
+									kind: 'Variable',
+									name: { kind: 'Name', value: 'locale' },
+								},
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'text' },
+								value: {
+									kind: 'Variable',
+									name: { kind: 'Name', value: 'text' },
+								},
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'limit' },
+								value: {
+									kind: 'Variable',
+									name: { kind: 'Name', value: 'limit' },
+								},
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'offset' },
+								value: {
+									kind: 'Variable',
+									name: { kind: 'Name', value: 'offset' },
+								},
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'sorts' },
+								value: {
+									kind: 'Variable',
+									name: { kind: 'Name', value: 'sorts' },
+								},
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'priceSelector' },
+								value: {
+									kind: 'Variable',
+									name: { kind: 'Name', value: 'priceSelector' },
+								},
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'filters' },
+								value: {
+									kind: 'Variable',
+									name: { kind: 'Name', value: 'filters' },
+								},
+							},
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'results' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'slug' },
+												arguments: [
+													{
+														kind: 'Argument',
+														name: { kind: 'Name', value: 'locale' },
+														value: {
+															kind: 'Variable',
+															name: { kind: 'Name', value: 'locale' },
+														},
+													},
+												],
+											},
+										],
+									},
+								},
+							],
+						},
+					},
+				],
+			},
+		},
+	],
+} as unknown as DocumentNode<
+	GetProductSlugsQuery,
+	GetProductSlugsQueryVariables
+>;
+export const GetProductsDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'query',
+			name: { kind: 'Name', value: 'getProducts' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: {
+						kind: 'Variable',
+						name: { kind: 'Name', value: 'locale' },
+					},
+					type: {
+						kind: 'NonNullType',
+						type: {
+							kind: 'NamedType',
+							name: { kind: 'Name', value: 'Locale' },
+						},
+					},
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: {
+						kind: 'Variable',
+						name: { kind: 'Name', value: 'limit' },
+					},
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+					},
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: {
+						kind: 'Variable',
+						name: { kind: 'Name', value: 'offset' },
+					},
+					type: {
+						kind: 'NonNullType',
+						type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+					},
 				},
 				{
 					kind: 'VariableDefinition',
@@ -14360,183 +14105,13 @@ export const GetProductBySlugDocument = {
 											},
 											{
 												kind: 'Field',
-												name: { kind: 'Name', value: 'variants' },
-												selectionSet: {
-													kind: 'SelectionSet',
-													selections: [
-														{
-															kind: 'Field',
-															name: { kind: 'Name', value: 'id' },
-														},
-														{
-															kind: 'Field',
-															name: { kind: 'Name', value: 'sku' },
-														},
-														{
-															kind: 'Field',
-															name: { kind: 'Name', value: 'images' },
-															selectionSet: {
-																kind: 'SelectionSet',
-																selections: [
-																	{
-																		kind: 'Field',
-																		name: { kind: 'Name', value: 'url' },
-																	},
-																	{
-																		kind: 'Field',
-																		name: { kind: 'Name', value: 'label' },
-																	},
-																],
-															},
-														},
-														{
-															kind: 'Field',
-															name: { kind: 'Name', value: 'attributesRaw' },
-															selectionSet: {
-																kind: 'SelectionSet',
-																selections: [
-																	{
-																		kind: 'Field',
-																		name: { kind: 'Name', value: 'name' },
-																	},
-																	{
-																		kind: 'Field',
-																		name: { kind: 'Name', value: 'value' },
-																	},
-																],
-															},
-														},
-														{
-															kind: 'Field',
-															name: { kind: 'Name', value: 'scopedPrice' },
-															selectionSet: {
-																kind: 'SelectionSet',
-																selections: [
-																	{
-																		kind: 'Field',
-																		name: { kind: 'Name', value: 'value' },
-																		selectionSet: {
-																			kind: 'SelectionSet',
-																			selections: [
-																				{
-																					kind: 'Field',
-																					name: {
-																						kind: 'Name',
-																						value: 'currencyCode',
-																					},
-																				},
-																				{
-																					kind: 'Field',
-																					name: {
-																						kind: 'Name',
-																						value: 'centAmount',
-																					},
-																				},
-																				{
-																					kind: 'Field',
-																					name: {
-																						kind: 'Name',
-																						value: 'fractionDigits',
-																					},
-																				},
-																			],
-																		},
-																	},
-																	{
-																		kind: 'Field',
-																		name: { kind: 'Name', value: 'discounted' },
-																		selectionSet: {
-																			kind: 'SelectionSet',
-																			selections: [
-																				{
-																					kind: 'Field',
-																					name: {
-																						kind: 'Name',
-																						value: 'discount',
-																					},
-																					selectionSet: {
-																						kind: 'SelectionSet',
-																						selections: [
-																							{
-																								kind: 'Field',
-																								name: {
-																									kind: 'Name',
-																									value: 'name',
-																								},
-																								arguments: [
-																									{
-																										kind: 'Argument',
-																										name: {
-																											kind: 'Name',
-																											value: 'locale',
-																										},
-																										value: {
-																											kind: 'Variable',
-																											name: {
-																												kind: 'Name',
-																												value: 'locale',
-																											},
-																										},
-																									},
-																								],
-																							},
-																						],
-																					},
-																				},
-																				{
-																					kind: 'Field',
-																					name: {
-																						kind: 'Name',
-																						value: 'value',
-																					},
-																					selectionSet: {
-																						kind: 'SelectionSet',
-																						selections: [
-																							{
-																								kind: 'Field',
-																								name: {
-																									kind: 'Name',
-																									value: 'currencyCode',
-																								},
-																							},
-																							{
-																								kind: 'Field',
-																								name: {
-																									kind: 'Name',
-																									value: 'centAmount',
-																								},
-																							},
-																							{
-																								kind: 'Field',
-																								name: {
-																									kind: 'Name',
-																									value: 'fractionDigits',
-																								},
-																							},
-																						],
-																					},
-																				},
-																			],
-																		},
-																	},
-																	{
-																		kind: 'Field',
-																		name: { kind: 'Name', value: 'country' },
-																	},
-																],
-															},
-														},
-													],
-												},
-											},
-											{
-												kind: 'Field',
 												name: { kind: 'Name', value: 'masterVariant' },
 												selectionSet: {
 													kind: 'SelectionSet',
 													selections: [
 														{
 															kind: 'Field',
+															alias: { kind: 'Name', value: 'variantId' },
 															name: { kind: 'Name', value: 'id' },
 														},
 														{
@@ -14710,10 +14285,7 @@ export const GetProductBySlugDocument = {
 			},
 		},
 	],
-} as unknown as DocumentNode<
-	GetProductBySlugQuery,
-	GetProductBySlugQueryVariables
->;
+} as unknown as DocumentNode<GetProductsQuery, GetProductsQueryVariables>;
 export const GetMyCartDocument = {
 	kind: 'Document',
 	definitions: [

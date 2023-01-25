@@ -6,6 +6,9 @@ export const CREATE_MY_CART = gql`
 			id
 			version
 			totalLineItemQuantity
+			shippingAddress {
+				country
+			}
 			lineItems {
 				productId
 				id
@@ -13,10 +16,12 @@ export const CREATE_MY_CART = gql`
 				quantity
 				totalPrice {
 					centAmount
+					currencyCode
 				}
 			}
 			totalPrice {
 				centAmount
+				currencyCode
 			}
 		}
 	}
@@ -39,10 +44,12 @@ export const UPDATE_MY_CART = gql`
 				quantity
 				totalPrice {
 					centAmount
+					currencyCode
 				}
 			}
 			totalPrice {
 				centAmount
+				currencyCode
 			}
 		}
 	}

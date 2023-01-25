@@ -19,7 +19,13 @@ function get<K extends keyof LocalStorage>(key: K): Maybe<LocalStorage[K]> {
 			return value as LocalStorage[K];
 		}
 
-		return null;
+		if (key === 'ct/test') {
+			const value = ctTokenInfoSchema.parse(JSON.parse(item));
+			return value as LocalStorage[K];
+		}
+
+		const _exhaustiveCheck: never = key;
+		return _exhaustiveCheck;
 	} catch (err) {
 		console.error('[LocalStorage]: Failed to get ' + key, err);
 		return null;

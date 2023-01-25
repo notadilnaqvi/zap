@@ -10,15 +10,15 @@ import { HeartIcon, PlusIcon } from '~/components/icons';
 import { useUi } from '~/hooks/ui';
 import { useToggle } from '~/hooks/util';
 import { useAddToCart } from '~/lib/commercetools/hooks';
-import { GetAllProductsQuery } from '~/lib/commercetools/types';
+import { NormalisedProduct } from '~/lib/commercetools/types';
 import { Utils } from '~/utils';
 
 type Props = {
-	product: GetAllProductsQuery['products']['results'][number];
+	product: NormalisedProduct;
 };
 
 type HandleAddToCartProps = {
-	productId: string;
+	sku: string;
 };
 
 export function ProductCard(props: Props) {
@@ -42,10 +42,11 @@ export function ProductCard(props: Props) {
 	async function handleAddToCart(props: HandleAddToCartProps) {
 		if (addToCartLoading) return;
 		setAddToCartLoading(true);
-		const { productId } = props;
+		const { sku } = props;
 		try {
-			await addToCart({ productId });
+			await addToCart({ sku });
 			openMiniCart();
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			if (error?.graphQLErrors?.at(0)?.code === 'ConcurrentModification') {
 				showToast({ message: 'Whoa! Slow down my man', type: 'error' });
@@ -58,6 +59,10 @@ export function ProductCard(props: Props) {
 
 	// const isOnSale = Number(product.masterData.current?.name?.length) < 16;
 
+	// console.log('origi', product.mainImage.src);
+	// console.log('small', product.mainImage.src.replace('large', 'small'));
+	// console.log('=====');
+
 	return (
 		<div
 			className='flex flex-col w-full group focusable'
@@ -67,14 +72,10 @@ export function ProductCard(props: Props) {
 				<Image
 					className='rounded-sm invert-[0.05] object-cover'
 					fill
-					src={
-						product?.masterData?.current?.masterVariant?.images?.[0]?.url ??
-						'/placeholder.png'
-					}
-					sizes='(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw'
-					alt={product?.masterData?.current?.name ?? ''}
+					src={product.mainImage.src}
+					alt={product.mainImage.label}
+					placeholder='blur'
+					blurDataURL={product.mainImage.src.replace('large', 'small')}
 				/>
 				<div className='bottom-0 absolute w-full p-1.5'>
 					<button
@@ -82,7 +83,7 @@ export function ProductCard(props: Props) {
 							{ 'opacity-0': !addToCartLoading }, // Only hide the button if it's not loading
 							'z-[1] mx-auto flex items-center justify-center space-x-1 bg-white shadow-sm w-full tracking-widest group-focus-visible:opacity-100 focus-visible:opacity-100 group-hover:opacity-100 hover:opacity-100 transition-opacity duration-100',
 						)}
-						onClick={() => handleAddToCart({ productId: product.id })}
+						onClick={() => handleAddToCart({ sku: product.sku })}
 						aria-disabled={addToCartLoading}
 					>
 						{addToCartLoading ? (
@@ -110,10 +111,10 @@ export function ProductCard(props: Props) {
 			<div className='flex flex-col py-1.5'>
 				<div className='flex flex-row items-center'>
 					<Link
-						href={'/product/' + product?.masterData?.current?.slug}
+						href={'/product/' + product?.slug}
 						className='text-xs font-medium hover:underline leading-[18px] truncate mr-4 '
 					>
-						{product?.masterData?.current?.name}
+						{product?.name}
 					</Link>
 					<button
 						aria-label={
@@ -142,11 +143,7 @@ export function ProductCard(props: Props) {
 				</div>
 				<div className='flex items-center justify-between'>
 					<p className='text-[11px] font-light leading-5 text-slate-700'>
-						{
-							product.masterData.current?.masterVariant.attributesRaw.find(
-								attr => attr.name === 'designer',
-							)?.value?.label
-						}
+						{product.designer?.label}
 					</p>
 					<div className='flex space-x-2'>
 						{/* {isOnSale && (
@@ -161,10 +158,8 @@ export function ProductCard(props: Props) {
 						)} */}
 						<p className='text-xs font-light leading-5 text-slate-900'>
 							{Utils.formatCurrency({
-								locale: 'de',
-								centAmount:
-									product?.masterData?.current?.masterVariant?.prices?.[0].value
-										.centAmount,
+								locale: 'en',
+								centAmount: product?.price,
 							})}
 						</p>
 					</div>

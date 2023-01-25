@@ -1,7 +1,7 @@
 export default function Head() {
 	return (
 		<>
-			<title>Taxonomy</title>
+			<title>ZAP</title>
 			<meta charSet='utf-8' />
 			<meta
 				name='viewport'
@@ -22,7 +22,7 @@ export default function Head() {
 			/>
 			<meta
 				property='og:url'
-				content='https://tx.shadcn.com'
+				content='https://the-zap-store.vercel.app'
 			/>
 			<meta
 				property='og:image'
@@ -30,7 +30,7 @@ export default function Head() {
 			/>
 			<meta
 				name='twitter:title'
-				content='Taxonomy'
+				content='ZAP'
 			/>
 			<meta
 				name='twitter:card'
@@ -38,7 +38,7 @@ export default function Head() {
 			/>
 			<meta
 				property='twitter:url'
-				content='https://tx.shadcn.com'
+				content='https://the-zap-store.vercel.app'
 			/>
 			<meta
 				name='twitter:image'

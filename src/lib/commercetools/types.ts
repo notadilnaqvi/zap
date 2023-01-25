@@ -10,13 +10,13 @@ export type CtTokenInfo = z.infer<typeof ctTokenInfoSchema>;
 
 type PId = string;
 
-type PVariantId = number;
-
 type PSku = string;
 
 type PSlug = string;
 
 type PName = string;
+
+type PDesigner = { key: string; label: string };
 
 type PImage = {
 	src: string;
@@ -27,19 +27,14 @@ type PDescription = string;
 
 type PPrice = number;
 
-type PVariant = {
-	id: PVariantId;
-	sku?: Maybe<PSku>;
-	price: PPrice;
-};
-
 export type NormalisedProduct = {
 	id: PId;
+	sku: PSku;
 	mainImage: PImage;
 	slug?: Maybe<PSlug>;
 	name?: Maybe<PName>;
-	images: PImage[];
+	images: [PImage, ...PImage[]];
 	description?: Maybe<PDescription>;
-	variants: Maybe<PVariant[]>;
+	designer?: Maybe<PDesigner>;
 	price: PPrice;
 };

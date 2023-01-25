@@ -2,21 +2,19 @@ import SdkAuth, { TokenProvider } from '@commercetools/sdk-auth';
 
 import { apolloClient } from '~/lib/commercetools/graphql/client';
 import {
-	GET_ALL_PRODUCTS,
-	GET_ALL_PRODUCT_SLUGS,
-	GET_PRODUCT_BY_SLUG,
+	GET_PRODUCTS,
+	GET_PRODUCT_SLUGS,
 } from '~/lib/commercetools/graphql/queries';
+import { normaliseProduct } from '~/lib/commercetools/normalisation';
 
 import type {
 	CtTokenInfo,
-	GetAllProductSlugsQuery,
-	GetAllProductSlugsQueryVariables,
-	GetAllProductsQuery,
-	GetAllProductsQueryVariables,
-	GetProductBySlugQuery,
-	GetProductBySlugQueryVariables,
+	GetProductSlugsQuery,
+	GetProductSlugsQueryVariables,
+	GetProductsQuery,
+	GetProductsQueryVariables,
+	NormalisedProduct,
 } from '~/lib/commercetools/types';
-import { normaliseProduct } from './normalisation';
 
 interface CustomerCredentials {
 	username: string;
@@ -30,7 +28,7 @@ const sdkAuth = new SdkAuth({
 		clientId: process.env.NEXT_PUBLIC_CTP_CLIENT_ID,
 		clientSecret: process.env.NEXT_PUBLIC_CTP_CLIENT_SECRET,
 	},
-	scopes: process.env.NEXT_PUBLIC_CTP_SCOPES?.split(' '),
+	scopes: process.env.NEXT_PUBLIC_CTP_SCOPES.split(' '),
 });
 
 async function generateAnonymousTokenInfo(): Promise<CtTokenInfo> {
@@ -58,26 +56,54 @@ async function refreshTokenInfo(
 	return tokenInfo;
 }
 
-async function getAllProducts({ locale }: { locale: string }) {
+async function getProducts() {
 	const { data, loading, error } = await apolloClient.query<
-		GetAllProductsQuery,
-		GetAllProductsQueryVariables
+		GetProductsQuery,
+		GetProductsQueryVariables
 	>({
-		query: GET_ALL_PRODUCTS,
+		query: GET_PRODUCTS,
 		variables: {
-			locale,
+			sorts: null,
+			filters: [
+				{
+					model: {
+						range: {
+							path: 'variants.scopedPrice.value.centAmount',
+							ranges: [
+								{
+									from: '0',
+									to: '1000000000000',
+								},
+							],
+						},
+					},
+				},
+			],
+			text: '',
+			locale: 'en',
 			limit: 500,
+			offset: 100,
+			priceSelector: {
+				currency: 'USD',
+				country: 'US',
+				channel: null,
+				customerGroup: null,
+			},
 		},
 	});
-	return { data, loading, error };
+	const products = data.productProjectionSearch.results
+		.map(result => normaliseProduct({ product: result }))
+		.filter((product): product is NormalisedProduct => !!product);
+
+	return { data: { products }, loading, error };
 }
 
 async function getProductBySlug({ slug }: { slug: string }) {
 	const { data, loading, error } = await apolloClient.query<
-		GetProductBySlugQuery,
-		GetProductBySlugQueryVariables
+		GetProductsQuery,
+		GetProductsQueryVariables
 	>({
-		query: GET_PRODUCT_BY_SLUG,
+		query: GET_PRODUCTS,
 		variables: {
 			sorts: null,
 			filters: [
@@ -91,11 +117,11 @@ async function getProductBySlug({ slug }: { slug: string }) {
 				},
 			],
 			locale: 'en',
-			limit: 5,
+			limit: 1,
 			offset: 0,
 			priceSelector: {
-				currency: 'EUR',
-				country: 'DE',
+				currency: 'USD',
+				country: 'US',
 				channel: null,
 				customerGroup: null,
 			},
@@ -108,21 +134,45 @@ async function getProductBySlug({ slug }: { slug: string }) {
 	return { data: normalisedProduct, loading, error };
 }
 
-async function getAllProductSlugs() {
+async function getProductSlugs() {
 	const { data, loading, error } = await apolloClient.query<
-		GetAllProductSlugsQuery,
-		GetAllProductSlugsQueryVariables
+		GetProductSlugsQuery,
+		GetProductSlugsQueryVariables
 	>({
-		query: GET_ALL_PRODUCT_SLUGS,
+		query: GET_PRODUCT_SLUGS,
+		variables: {
+			sorts: null,
+			filters: [
+				{
+					model: {
+						range: {
+							path: 'variants.scopedPrice.value.centAmount',
+							ranges: [
+								{
+									from: '0',
+									to: '1000000000000',
+								},
+							],
+						},
+					},
+				},
+			],
+			text: '',
+			locale: 'en',
+			limit: 500,
+			offset: 0,
+			priceSelector: {
+				currency: 'USD',
+				country: 'US',
+				channel: null,
+				customerGroup: null,
+			},
+		},
 	});
 
-	const slugs = data.products.results
-		?.map?.(product => product?.masterData?.current?.slug)
-		// TS doesn't know we're filtering out all falsey values and that `slug`
-		// will always be present. It (incorrectly) thinks that `slugs` can be
-		// an array of `undefined` or `null`. We use `as string[]` to force the
-		// correct type.
-		.filter(slug => !!slug) as string[];
+	const slugs = data.productProjectionSearch.results
+		.map(result => result.slug)
+		.filter((slug): slug is string => !!slug);
 
 	return { data: { slugs }, loading, error };
 }
@@ -131,7 +181,7 @@ export const Commercetools = {
 	generateAnonymousTokenInfo,
 	generateCustomerTokenInfo,
 	refreshTokenInfo,
-	getAllProductSlugs,
-	getAllProducts,
+	getProductSlugs,
+	getProducts,
 	getProductBySlug,
 };

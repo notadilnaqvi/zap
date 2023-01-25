@@ -2,13 +2,10 @@ import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_MY_CART, UPDATE_MY_CART } from './graphql/mutations';
 import { GET_MY_CART } from './graphql/queries';
 import {
-	AddMyCartLineItem,
 	CreateMyCartMutation,
 	CreateMyCartMutationVariables,
 	GetMyCartQuery,
 	GetMyCartQueryVariables,
-	InputMaybe,
-	MyCartUpdateAction,
 	UpdateMyCartMutation,
 	UpdateMyCartMutationVariables,
 } from './types';
@@ -16,27 +13,11 @@ import {
 export function useAddToCart() {
 	const [updateMyCart, { data, loading, error }] = useUpdateMyCart();
 
-	async function addToCart(props: {
-		// TODO: Replace the type with just `string`. This is technically the
-		// "correctest" way to define this type but is also overkill.
-		productId: Extract<
-			Extract<
-				Pick<
-					Extract<
-						Pick<UpdateMyCartMutationVariables, 'actions'>['actions'],
-						MyCartUpdateAction
-					>,
-					'addLineItem'
-				>['addLineItem'],
-				InputMaybe<AddMyCartLineItem>
-			>,
-			AddMyCartLineItem
-		>['productId'];
-	}) {
-		const { productId } = props;
+	async function addToCart(props: { sku: string }) {
+		const { sku } = props;
 
 		await updateMyCart({
-			actions: [{ addLineItem: { productId, quantity: 1 } }],
+			actions: [{ addLineItem: { sku, quantity: 1 } }],
 		});
 	}
 
@@ -47,14 +28,12 @@ export function useCreateMyCart() {
 	const [mutate, { data, loading, error }] = useMutation<
 		CreateMyCartMutation,
 		CreateMyCartMutationVariables
-	>(CREATE_MY_CART);
+	>(CREATE_MY_CART, {
+		variables: { draft: { currency: 'USD', country: 'US' } },
+	});
 
-	async function createMyCart(
-		props: Pick<CreateMyCartMutationVariables, 'draft'>,
-	) {
-		const { draft } = props;
+	async function createMyCart() {
 		const result = await mutate({
-			variables: { draft },
 			update: (cache, { data }) => {
 				cache.writeQuery({
 					query: GET_MY_CART,
@@ -103,9 +82,7 @@ export function useUpdateMyCart() {
 		let version = myCart?.me.activeCart?.version;
 
 		if (!id || !version) {
-			const { data: createMyCartData } = await createMyCart({
-				draft: { currency: 'EUR', shippingAddress: { country: 'DE' } },
-			});
+			const { data: createMyCartData } = await createMyCart();
 			id = createMyCartData?.createMyCart?.id;
 			version = createMyCartData?.createMyCart?.version;
 		}

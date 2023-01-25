@@ -11,11 +11,12 @@
 		"prettier"
 	],
 	"rules": {
+		"no-alert": "error",
 		"no-constant-binary-expression": "error",
 		"react/display-name": "off",
 		"react/no-unescaped-entities": "off",
 		"@typescript-eslint/no-empty-function": "off",
-		"@typescript-eslint/no-explicit-any": "off",
+		"@typescript-eslint/no-explicit-any": "error",
 		"@typescript-eslint/ban-ts-comment": "off",
 		"@typescript-eslint/ban-types": [
 			"error",
@@ -49,5 +50,6 @@
 		"ecmaVersion": 12,
 		"sourceType": "module"
 	},
-	"plugins": ["@typescript-eslint"]
+	"plugins": ["@typescript-eslint"],
+	"ignorePatterns": ["**/__generated__/*.*"]
 }

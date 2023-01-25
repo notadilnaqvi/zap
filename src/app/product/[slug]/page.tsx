@@ -33,7 +33,7 @@ export default async function ProductPage(props: PageProps) {
 }
 
 export async function generateStaticParams() {
-	const { data, error } = await Commercetools.getAllProductSlugs();
+	const { data, error } = await Commercetools.getProductSlugs();
 
 	if (error) {
 		throw new Error(

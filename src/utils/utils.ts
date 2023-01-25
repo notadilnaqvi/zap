@@ -10,7 +10,7 @@ const LOCALE_TO_CURRENCY_MAPPING = {
 
 function formatCurrency({ locale, centAmount }: FormatCurrency) {
 	try {
-		const formatter = new Intl.NumberFormat('en', {
+		const formatter = new Intl.NumberFormat(locale, {
 			style: 'currency',
 			currency: LOCALE_TO_CURRENCY_MAPPING[locale],
 		});
