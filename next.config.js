@@ -36,12 +36,12 @@ if (process.env.NODE_ENV === 'production') {
 	}
 
 	if (missingEnvVars) {
-		console.log(
+		console.error(
 			`\u274c The following environment variables were not set. Please set them and try again.\n${missingEnvVars}`,
 		);
 		process.exit(1);
 	} else {
-		console.log(
+		console.info(
 			'\u2705 next.config.js',
 			JSON.stringify(module.exports, null, 2),
 		);
