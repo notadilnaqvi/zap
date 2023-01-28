@@ -15,6 +15,7 @@ import { Utils } from '~/utils';
 
 type Props = {
 	product: NormalisedProduct;
+	prioritiseImage?: boolean;
 };
 
 type HandleAddToCartProps = {
@@ -22,7 +23,7 @@ type HandleAddToCartProps = {
 };
 
 export function ProductCard(props: Props) {
-	const { product } = props;
+	const { product, prioritiseImage } = props;
 
 	const [addToCart] = useAddToCart();
 	const [loading, setLoading] = useState(false);
@@ -72,6 +73,7 @@ export function ProductCard(props: Props) {
 					blurDataURL={product.mainImage.blurDataUrl}
 					src={product.mainImage.src}
 					alt={product.mainImage.label}
+					priority={prioritiseImage}
 				/>
 				<div className='bottom-0 absolute w-full p-1.5'>
 					<button

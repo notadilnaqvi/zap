@@ -28,11 +28,13 @@ export default async function HomePage() {
 	return (
 		<div className='w-full py-16'>
 			<div className='grid grid-flow-row grid-cols-4 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
-				{products?.map(product => {
+				{products?.map((product, index) => {
 					return (
 						<ProductCard
 							product={product}
 							key={product.id}
+							// Prioritise images for the first 10 products which will be above the fold
+							prioritiseImage={index < 10}
 						/>
 					);
 				})}
