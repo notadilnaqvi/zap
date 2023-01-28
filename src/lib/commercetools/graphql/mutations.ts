@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_MY_CART = gql`
-	mutation createMyCart($draft: MyCartDraft!) {
+	mutation createMyCart($draft: MyCartDraft!, $locale: Locale!) {
 		createMyCart(draft: $draft) {
 			id
 			version
@@ -12,7 +12,7 @@ export const CREATE_MY_CART = gql`
 			lineItems {
 				productId
 				id
-				name(locale: "en")
+				name(locale: $locale)
 				quantity
 				totalPrice {
 					centAmount
@@ -32,6 +32,7 @@ export const UPDATE_MY_CART = gql`
 		$actions: [MyCartUpdateAction!]!
 		$version: Long!
 		$id: String!
+		$locale: Locale!
 	) {
 		updateMyCart(actions: $actions, version: $version, id: $id) {
 			id
@@ -40,7 +41,7 @@ export const UPDATE_MY_CART = gql`
 			lineItems {
 				productId
 				id
-				name(locale: "en")
+				name(locale: $locale)
 				quantity
 				totalPrice {
 					centAmount

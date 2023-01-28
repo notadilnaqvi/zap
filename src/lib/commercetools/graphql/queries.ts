@@ -87,7 +87,7 @@ export const GET_PRODUCTS = gql`
 `;
 
 export const GET_MY_CART = gql`
-	query getMyCart {
+	query getMyCart($locale: Locale!) {
 		me {
 			activeCart {
 				id
@@ -96,7 +96,7 @@ export const GET_MY_CART = gql`
 				lineItems {
 					productId
 					id
-					name(locale: "en")
+					name(locale: $locale)
 					quantity
 					totalPrice {
 						centAmount

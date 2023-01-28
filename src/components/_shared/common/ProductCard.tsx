@@ -24,11 +24,11 @@ type HandleAddToCartProps = {
 export function ProductCard(props: Props) {
 	const { product } = props;
 
+	const [addToCart] = useAddToCart();
 	const [loading, setLoading] = useState(false);
-	const [addToCartLoading, setAddToCartLoading] = useState(false);
 	const showToast = useUi(state => state.showToast);
 	const openMiniCart = useUi(state => state.openMiniCart);
-	const [addToCart] = useAddToCart();
+	const [addToCartLoading, setAddToCartLoading] = useState(false);
 	const [isAddedToWishlist, toggleIsAddedToWishlist] = useToggle(false);
 
 	function handleToggleIsAddedToWishlist() {
@@ -57,11 +57,7 @@ export function ProductCard(props: Props) {
 		setAddToCartLoading(false);
 	}
 
-	// const isOnSale = Number(product.masterData.current?.name?.length) < 16;
-
-	// console.log('origi', product.mainImage.src);
-	// console.log('small', product.mainImage.src.replace('large', 'small'));
-	// console.log('=====');
+	const isOnSale = Number(product.name?.length) < 16;
 
 	return (
 		<div
@@ -72,10 +68,10 @@ export function ProductCard(props: Props) {
 				<Image
 					className='rounded-sm invert-[0.05] object-cover'
 					fill
+					placeholder='blur'
+					blurDataURL={product.mainImage.blurDataUrl}
 					src={product.mainImage.src}
 					alt={product.mainImage.label}
-					placeholder='blur'
-					blurDataURL={product.mainImage.src.replace('large', 'small')}
 				/>
 				<div className='bottom-0 absolute w-full p-1.5'>
 					<button
@@ -146,19 +142,15 @@ export function ProductCard(props: Props) {
 						{product.designer?.label}
 					</p>
 					<div className='flex space-x-2'>
-						{/* {isOnSale && (
+						{isOnSale && (
 							<p className='text-xs font-light leading-5 line-through text-slate-500'>
-								{Utils.formatCurrency({
-									locale: 'en',
-									centAmount:
-										product?.masterData?.current?.masterVariant?.prices?.[0]
-											.value.centAmount,
+								{Utils.formatPrice({
+									centAmount: product?.price,
 								})}
 							</p>
-						)} */}
+						)}
 						<p className='text-xs font-light leading-5 text-slate-900'>
-							{Utils.formatCurrency({
-								locale: 'en',
+							{Utils.formatPrice({
 								centAmount: product?.price,
 							})}
 						</p>

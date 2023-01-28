@@ -1,26 +1,22 @@
-interface FormatCurrency {
-	locale: 'en' | 'de';
+import { Constants } from '~/utils';
+
+interface FormatPriceProps {
 	centAmount: number;
 }
 
-const LOCALE_TO_CURRENCY_MAPPING = {
-	en: 'USD',
-	de: 'EUR',
-};
-
-function formatCurrency({ locale, centAmount }: FormatCurrency) {
+function formatPrice({ centAmount }: FormatPriceProps) {
 	try {
-		const formatter = new Intl.NumberFormat(locale, {
+		const formatter = new Intl.NumberFormat(Constants.LOCALE, {
 			style: 'currency',
-			currency: LOCALE_TO_CURRENCY_MAPPING[locale],
+			currency: Constants.CURRENCY,
 		});
 		return formatter.format(centAmount / 100);
 	} catch (err) {
-		console.error('[Utils.formatCurrency]', err);
+		console.error('[Utils.formatPrice]', err);
 		return 'NaN';
 	}
 }
 
 export const Utils = {
-	formatCurrency,
+	formatPrice,
 };

@@ -144,9 +144,8 @@ export function MiniCart() {
 								<div className='flex flex-row justify-between'>
 									<p className='text-sm font-medium'>Your total</p>
 									<p className='text-sm font-medium'>
-										{Utils.formatCurrency({
+										{Utils.formatPrice({
 											centAmount: myCart.me.activeCart?.totalPrice.centAmount,
-											locale: 'en',
 										})}
 									</p>
 								</div>

@@ -59,6 +59,7 @@ const errorLink = onError(({ graphQLErrors }) => {
 });
 
 const httpLink = new HttpLink({
+	fetch,
 	uri:
 		process.env.NEXT_PUBLIC_CTP_API_URL +
 		'/' +
@@ -70,6 +71,7 @@ const apolloClient = new ApolloClient({
 	link: from([authLink, errorLink, httpLink]),
 	cache: new InMemoryCache({}),
 	connectToDevTools: process.env.NODE_ENV === 'development',
+	ssrMode: typeof window === 'undefined',
 });
 
 export { apolloClient };

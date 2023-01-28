@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
+import { Constants } from '~/utils';
 import { CREATE_MY_CART, UPDATE_MY_CART } from './graphql/mutations';
 import { GET_MY_CART } from './graphql/queries';
 import {
@@ -29,7 +30,14 @@ export function useCreateMyCart() {
 		CreateMyCartMutation,
 		CreateMyCartMutationVariables
 	>(CREATE_MY_CART, {
-		variables: { draft: { currency: 'USD', country: 'US' } },
+		variables: {
+			locale: Constants.LOCALE,
+			draft: {
+				currency: Constants.CURRENCY,
+				country: Constants.COUNTRY,
+				locale: Constants.LOCALE,
+			},
+		},
 	});
 
 	async function createMyCart() {
@@ -58,6 +66,7 @@ export function useGetMyCart() {
 		GetMyCartQuery,
 		GetMyCartQueryVariables
 	>(GET_MY_CART, {
+		variables: { locale: Constants.LOCALE },
 		fetchPolicy: 'network-only',
 		nextFetchPolicy: 'cache-first',
 	});
@@ -92,7 +101,7 @@ export function useUpdateMyCart() {
 		}
 
 		await mutate({
-			variables: { id, version, actions },
+			variables: { id, version, actions, locale: Constants.LOCALE },
 		});
 	}
 

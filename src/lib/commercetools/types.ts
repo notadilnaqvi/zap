@@ -21,6 +21,14 @@ type PDesigner = { key: string; label: string };
 type PImage = {
 	src: string;
 	label: string;
+	/**
+	 * This is the `base64` encoded data URL of a very low resolution version of
+	 * the image. It is used by `next/image` as a placeholder for the image while
+	 * it is loading. This field is only available for products fetched on the
+	 * server as the library used to generate the data URL (`plaiceholder`) is not
+	 * available on the client.
+	 */
+	blurDataUrl?: string;
 };
 
 type PDescription = string;

@@ -6,20 +6,17 @@ import {
 	GET_PRODUCT_SLUGS,
 } from '~/lib/commercetools/graphql/queries';
 import { normaliseProduct } from '~/lib/commercetools/normalisation';
+import { Constants } from '~/utils';
 
 import type {
 	CtTokenInfo,
+	CustomerSignMeInDraft,
 	GetProductSlugsQuery,
 	GetProductSlugsQueryVariables,
 	GetProductsQuery,
 	GetProductsQueryVariables,
 	NormalisedProduct,
 } from '~/lib/commercetools/types';
-
-interface CustomerCredentials {
-	username: string;
-	password: string;
-}
 
 const sdkAuth = new SdkAuth({
 	host: process.env.NEXT_PUBLIC_CTP_AUTH_URL,
@@ -38,11 +35,14 @@ async function generateAnonymousTokenInfo(): Promise<CtTokenInfo> {
 	return tokenInfo;
 }
 
-async function generateCustomerTokenInfo({
-	username,
-	password,
-}: CustomerCredentials): Promise<CtTokenInfo> {
-	const tokenFlow = await sdkAuth.customerPasswordFlow({ username, password });
+async function generateCustomerTokenInfo(
+	props: Pick<CustomerSignMeInDraft, 'email' | 'password'>,
+): Promise<CtTokenInfo> {
+	const { email, password } = props;
+	const tokenFlow = await sdkAuth.customerPasswordFlow({
+		username: email,
+		password,
+	});
 	const tokenProvider = new TokenProvider({ sdkAuth }, tokenFlow);
 	const tokenInfo = await tokenProvider.getTokenInfo();
 	return tokenInfo;
@@ -80,12 +80,12 @@ async function getProducts() {
 				},
 			],
 			text: '',
-			locale: 'en',
+			locale: Constants.LOCALE,
 			limit: 500,
-			offset: 100,
+			offset: 0,
 			priceSelector: {
-				currency: 'USD',
-				country: 'US',
+				currency: Constants.CURRENCY,
+				country: Constants.COUNTRY,
 				channel: null,
 				customerGroup: null,
 			},
@@ -110,18 +110,18 @@ async function getProductBySlug({ slug }: { slug: string }) {
 				{
 					model: {
 						value: {
-							path: 'slug.en',
+							path: 'slug.' + Constants.LOCALE,
 							values: [slug],
 						},
 					},
 				},
 			],
-			locale: 'en',
-			limit: 1,
+			locale: Constants.LOCALE,
+			limit: 500,
 			offset: 0,
 			priceSelector: {
-				currency: 'USD',
-				country: 'US',
+				currency: Constants.CURRENCY,
+				country: Constants.COUNTRY,
 				channel: null,
 				customerGroup: null,
 			},
@@ -158,12 +158,12 @@ async function getProductSlugs() {
 				},
 			],
 			text: '',
-			locale: 'en',
+			locale: Constants.LOCALE,
 			limit: 500,
 			offset: 0,
 			priceSelector: {
-				currency: 'USD',
-				country: 'US',
+				currency: Constants.CURRENCY,
+				country: Constants.COUNTRY,
 				channel: null,
 				customerGroup: null,
 			},

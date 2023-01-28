@@ -39,7 +39,7 @@ function normaliseProductImages(
 	// TODO: Add comments explaining the following...
 	const normalisedImages: NormalisedProduct['images'] = [
 		{
-			src: './product-fallback-image.png',
+			src: './placeholder.png',
 			label: '',
 		},
 		...images.map(image => {

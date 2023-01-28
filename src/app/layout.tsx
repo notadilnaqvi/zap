@@ -15,6 +15,7 @@ import {
 } from '~/components/common';
 import { apolloClient } from '~/lib/commercetools/graphql/client';
 import '~/styles/globals.css';
+import { Constants } from '~/utils';
 
 const interFont = Inter({
 	subsets: ['latin'],
@@ -25,13 +26,13 @@ export default function RootLayout(props: PropsWithChildren<{}>) {
 	const { children } = props;
 	return (
 		<html
-			lang='en'
+			lang={Constants.LOCALE}
 			className={cn(
 				'bg-white font-sans text-slate-900 antialiased no-scrollbar',
 			)}
 		>
 			<head />
-			<body className={cn('min-h-screen', interFont.variable)}>
+			<body className={cn('min-h-screen', interFont.className)}>
 				<ApolloProvider client={apolloClient}>
 					{/* Skip-to-content link */}
 					<div className=''>

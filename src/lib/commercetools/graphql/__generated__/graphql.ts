@@ -13198,6 +13198,7 @@ export type SetKey = {
 
 export type CreateMyCartMutationVariables = Exact<{
 	draft: MyCartDraft;
+	locale: Scalars['Locale'];
 }>;
 
 export type CreateMyCartMutation = {
@@ -13228,6 +13229,7 @@ export type UpdateMyCartMutationVariables = Exact<{
 	actions: Array<MyCartUpdateAction> | MyCartUpdateAction;
 	version: Scalars['Long'];
 	id: Scalars['String'];
+	locale: Scalars['Locale'];
 }>;
 
 export type UpdateMyCartMutation = {
@@ -13348,7 +13350,9 @@ export type GetProductsQuery = {
 	};
 };
 
-export type GetMyCartQueryVariables = Exact<{ [key: string]: never }>;
+export type GetMyCartQueryVariables = Exact<{
+	locale: Scalars['Locale'];
+}>;
 
 export type GetMyCartQuery = {
 	__typename?: 'Query';
@@ -13391,6 +13395,20 @@ export const CreateMyCartDocument = {
 						type: {
 							kind: 'NamedType',
 							name: { kind: 'Name', value: 'MyCartDraft' },
+						},
+					},
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: {
+						kind: 'Variable',
+						name: { kind: 'Name', value: 'locale' },
+					},
+					type: {
+						kind: 'NonNullType',
+						type: {
+							kind: 'NamedType',
+							name: { kind: 'Name', value: 'Locale' },
 						},
 					},
 				},
@@ -13452,9 +13470,8 @@ export const CreateMyCartDocument = {
 														kind: 'Argument',
 														name: { kind: 'Name', value: 'locale' },
 														value: {
-															kind: 'StringValue',
-															value: 'en',
-															block: false,
+															kind: 'Variable',
+															name: { kind: 'Name', value: 'locale' },
 														},
 													},
 												],
@@ -13561,6 +13578,20 @@ export const UpdateMyCartDocument = {
 						},
 					},
 				},
+				{
+					kind: 'VariableDefinition',
+					variable: {
+						kind: 'Variable',
+						name: { kind: 'Name', value: 'locale' },
+					},
+					type: {
+						kind: 'NonNullType',
+						type: {
+							kind: 'NamedType',
+							name: { kind: 'Name', value: 'Locale' },
+						},
+					},
+				},
 			],
 			selectionSet: {
 				kind: 'SelectionSet',
@@ -13622,9 +13653,8 @@ export const UpdateMyCartDocument = {
 														kind: 'Argument',
 														name: { kind: 'Name', value: 'locale' },
 														value: {
-															kind: 'StringValue',
-															value: 'en',
-															block: false,
+															kind: 'Variable',
+															name: { kind: 'Name', value: 'locale' },
 														},
 													},
 												],
@@ -14293,6 +14323,22 @@ export const GetMyCartDocument = {
 			kind: 'OperationDefinition',
 			operation: 'query',
 			name: { kind: 'Name', value: 'getMyCart' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: {
+						kind: 'Variable',
+						name: { kind: 'Name', value: 'locale' },
+					},
+					type: {
+						kind: 'NonNullType',
+						type: {
+							kind: 'NamedType',
+							name: { kind: 'Name', value: 'Locale' },
+						},
+					},
+				},
+			],
 			selectionSet: {
 				kind: 'SelectionSet',
 				selections: [
@@ -14339,9 +14385,8 @@ export const GetMyCartDocument = {
 																	kind: 'Argument',
 																	name: { kind: 'Name', value: 'locale' },
 																	value: {
-																		kind: 'StringValue',
-																		value: 'en',
-																		block: false,
+																		kind: 'Variable',
+																		name: { kind: 'Name', value: 'locale' },
 																	},
 																},
 															],

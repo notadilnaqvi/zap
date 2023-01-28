@@ -4,6 +4,7 @@ export { Footer } from './Footer';
 export { FullscreenLoadingOverlay } from './FullscreenLoadingOverlay';
 export { Header } from './Header';
 export { Layout } from './Layout';
+export { LoadingDots } from './LoadingDots';
 export { LoadingSpinner } from './LoadingSpinner';
 export { MiniCart } from './MiniCart';
 export { ProductCard } from './ProductCard';
