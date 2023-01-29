@@ -1,4 +1,5 @@
 import { getPlaiceholder as generateBase64EncodedDataUrl } from 'plaiceholder';
+
 import { ProductCard } from '~/components/common';
 import { Commercetools } from '~/lib/commercetools';
 

@@ -4,86 +4,44 @@ interface Props {
 	size?: 'large' | 'small';
 }
 
+// TODO: This component worked fine for next@10.0.3 but starting failing the build
+// in next@13.1.6. The error was:
+
+// Error: This module cannot be imported from a Server Component module. It should only be used from a Client Component.
+//     at Object.81916 (/Users/adil.naqvi/code/temp/zap-frontend/.next/server/chunks/506.js:65:7)
+//     at __webpack_require__ (/Users/adil.naqvi/code/temp/zap-frontend/.next/server/webpack-runtime.js:25:43)
+//     at Object.64915 (/Users/adil.naqvi/code/temp/zap-frontend/.next/server/chunks/506.js:85809:1)
+//     at __webpack_require__ (/Users/adil.naqvi/code/temp/zap-frontend/.next/server/webpack-runtime.js:25:43)
+//     at Object.66837 (/Users/adil.naqvi/code/temp/zap-frontend/.next/server/chunks/506.js:86287:23)
+//     at __webpack_require__ (/Users/adil.naqvi/code/temp/zap-frontend/.next/server/webpack-runtime.js:25:43)
+//     at Module.28791 (/Users/adil.naqvi/code/temp/zap-frontend/.next/server/app/(home)/page.js:1202:13)
+//     at Function.__webpack_require__ (/Users/adil.naqvi/code/temp/zap-frontend/.next/server/webpack-runtime.js:25:43)
+//     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+//     at async collectGenerateParams (/Users/adil.naqvi/code/temp/zap-frontend/node_modules/next/dist/build/utils.js:714:17)
+
+// > Build error occurred
+// Error: Failed to collect page data for /
+//     at /Users/adil.naqvi/code/temp/zap-frontend/node_modules/next/dist/build/utils.js:963:15
+//     at processTicksAndRejections (node:internal/process/task_queues:96:5) {
+//   type: 'Error'
+// }
+// error Command failed with exit code 1.
+
+// After an hour of debugging, I found that the problem was with this component. Specifically, the `jsx`
+// prop on the `style` tag. I removed it and the build worked fine but the UI for this component broke.
+// Have to revisit this later.
+
+// The following might help
+// 	- https://stackoverflow.com/questions/74680263/styled-jsx-rendering-with-next-13
+// 	- https://github.com/vercel/next.js/pull/43386
+
 export function LoadingSpinner({ size = 'large' }: Props) {
 	return (
-		<div className={cn('block', size === 'large' ? 'h-6 w-6' : 'h-4 w-4')}>
-			<div className='relative w-full h-full top-1/2 left-1/2'>
-				{/* One span for each line thingy in the loader */}
-				{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(index => {
-					return (
-						<span key={index}>
-							<style jsx>{`
-								span {
-									background-color: #333333;
-									position: absolute;
-									top: -5%;
-									width: 25%;
-									height: ${size === 'large' ? '2px' : '1.5px'};
-									left: -10%;
-									border-radius: 9999px;
-									animation: spinner 1.2s linear 0s infinite normal none running;
-								}
-								span:nth-child(1) {
-									animation-delay: -1.2s;
-									transform: rotate(0deg) translate(146%);
-								}
-								span:nth-child(2) {
-									animation-delay: -1.1s;
-									transform: rotate(30deg) translate(146%);
-								}
-								span:nth-child(3) {
-									animation-delay: -1s;
-									transform: rotate(60deg) translate(146%);
-								}
-								span:nth-child(4) {
-									animation-delay: -0.9s;
-									transform: rotate(90deg) translate(146%);
-								}
-								span:nth-child(5) {
-									animation-delay: -0.8s;
-									transform: rotate(120deg) translate(146%);
-								}
-								span:nth-child(6) {
-									animation-delay: -0.7s;
-									transform: rotate(150deg) translate(146%);
-								}
-								span:nth-child(7) {
-									animation-delay: -0.6s;
-									transform: rotate(180deg) translate(146%);
-								}
-								span:nth-child(8) {
-									animation-delay: -0.5s;
-									transform: rotate(210deg) translate(146%);
-								}
-								span:nth-child(9) {
-									animation-delay: -0.4s;
-									transform: rotate(240deg) translate(146%);
-								}
-								span:nth-child(10) {
-									animation-delay: -0.3s;
-									transform: rotate(270deg) translate(146%);
-								}
-								span:nth-child(11) {
-									animation-delay: -0.2s;
-									transform: rotate(300deg) translate(146%);
-								}
-								span:nth-child(12) {
-									animation-delay: -0.1s;
-									transform: rotate(330deg) translate(146%);
-								}
-								@keyframes spinner {
-									0% {
-										opacity: 1;
-									}
-									100% {
-										opacity: 0.15;
-									}
-								}
-							`}</style>
-						</span>
-					);
-				})}
-			</div>
-		</div>
+		<div
+			className={cn(
+				'block rounded-full bg-slate-200',
+				size === 'large' ? 'h-6 w-6' : 'h-4 w-4',
+			)}
+		></div>
 	);
 }

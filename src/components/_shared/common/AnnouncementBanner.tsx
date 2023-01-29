@@ -1,3 +1,5 @@
+'use client';
+
 import { XIcon } from '~/components/icons';
 import { useUi } from '~/hooks/ui';
 

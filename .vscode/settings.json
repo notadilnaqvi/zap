@@ -4,11 +4,8 @@
 		"source.fixAll": true,
 		"source.sortImports": true
 	},
-	"typescript.tsdk": "node_modules/typescript/lib",
-	"typescript.enablePromptUseWorkspaceTsdk": true,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"files.exclude": {
-		"**/node_modules": true
-	},
-	"editor.formatOnSaveMode": "file"
+	"editor.formatOnSaveMode": "file",
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true
 }
