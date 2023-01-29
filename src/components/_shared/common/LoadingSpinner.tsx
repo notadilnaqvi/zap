@@ -4,7 +4,7 @@ interface Props {
 	size?: 'large' | 'small';
 }
 
-// TODO: This component worked fine for next@10.0.3 but starting failing the build
+// TODO: This component worked fine for next@13.0.3 but starting failing the build
 // in next@13.1.6. The error was:
 
 // Error: This module cannot be imported from a Server Component module. It should only be used from a Client Component.
