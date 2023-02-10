@@ -1,7 +1,10 @@
 import { getPlaiceholder as generateBase64EncodedDataUrl } from 'plaiceholder';
 
-import { ProductCard } from '~/components/common';
+import { PageGenerationTimeBanner, ProductCard } from '~/components/common';
 import { Commercetools } from '~/lib/commercetools';
+import { Constants } from '~/utils';
+
+export const revalidate = 300;
 
 export default async function HomePage() {
 	const { data } = await Commercetools.getProducts();
@@ -19,15 +22,20 @@ export default async function HomePage() {
 
 	const products = data.products.map(product => {
 		const blurDataUrl =
-			blurDataUrls.find(url => url.id === product.id)?.blurDataUrl ??
-			'/placeholder.png';
+			blurDataUrls.find(url => url.id === product.id)?.blurDataUrl ||
+			Constants.FALLBACK_IMAGE;
 
 		// Add the blurDataURL to the normalised product
 		return { ...product, mainImage: { ...product.mainImage, blurDataUrl } };
 	});
 
+	const now = new Date().toISOString();
+
 	return (
 		<div className='w-full py-16'>
+			<div className='mb-4'>
+				<PageGenerationTimeBanner generatedAt={now} />
+			</div>
 			<div className='grid grid-flow-row grid-cols-4 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
 				{products?.map((product, index) => {
 					return (

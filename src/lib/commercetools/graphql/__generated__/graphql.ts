@@ -13219,9 +13219,15 @@ export type CreateMyCartMutation = {
 				__typename?: 'Money';
 				centAmount: any;
 				currencyCode: any;
+				fractionDigits: number;
 			} | null;
 		}>;
-		totalPrice: { __typename?: 'Money'; centAmount: any; currencyCode: any };
+		totalPrice: {
+			__typename?: 'Money';
+			centAmount: any;
+			currencyCode: any;
+			fractionDigits: number;
+		};
 	} | null;
 };
 
@@ -13249,9 +13255,15 @@ export type UpdateMyCartMutation = {
 				__typename?: 'Money';
 				centAmount: any;
 				currencyCode: any;
+				fractionDigits: number;
 			} | null;
 		}>;
-		totalPrice: { __typename?: 'Money'; centAmount: any; currencyCode: any };
+		totalPrice: {
+			__typename?: 'Money';
+			centAmount: any;
+			currencyCode: any;
+			fractionDigits: number;
+		};
 	} | null;
 };
 
@@ -13369,9 +13381,19 @@ export type GetMyCartQuery = {
 				id: string;
 				name?: string | null;
 				quantity: any;
-				totalPrice?: { __typename?: 'Money'; centAmount: any } | null;
+				totalPrice?: {
+					__typename?: 'Money';
+					currencyCode: any;
+					centAmount: any;
+					fractionDigits: number;
+				} | null;
 			}>;
-			totalPrice: { __typename?: 'Money'; centAmount: any };
+			totalPrice: {
+				__typename?: 'Money';
+				currencyCode: any;
+				centAmount: any;
+				fractionDigits: number;
+			};
 		} | null;
 	};
 };
@@ -13494,6 +13516,10 @@ export const CreateMyCartDocument = {
 															kind: 'Field',
 															name: { kind: 'Name', value: 'currencyCode' },
 														},
+														{
+															kind: 'Field',
+															name: { kind: 'Name', value: 'fractionDigits' },
+														},
 													],
 												},
 											},
@@ -13513,6 +13539,10 @@ export const CreateMyCartDocument = {
 											{
 												kind: 'Field',
 												name: { kind: 'Name', value: 'currencyCode' },
+											},
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'fractionDigits' },
 											},
 										],
 									},
@@ -13677,6 +13707,10 @@ export const UpdateMyCartDocument = {
 															kind: 'Field',
 															name: { kind: 'Name', value: 'currencyCode' },
 														},
+														{
+															kind: 'Field',
+															name: { kind: 'Name', value: 'fractionDigits' },
+														},
 													],
 												},
 											},
@@ -13696,6 +13730,10 @@ export const UpdateMyCartDocument = {
 											{
 												kind: 'Field',
 												name: { kind: 'Name', value: 'currencyCode' },
+											},
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'fractionDigits' },
 											},
 										],
 									},
@@ -14403,7 +14441,21 @@ export const GetMyCartDocument = {
 																selections: [
 																	{
 																		kind: 'Field',
+																		name: {
+																			kind: 'Name',
+																			value: 'currencyCode',
+																		},
+																	},
+																	{
+																		kind: 'Field',
 																		name: { kind: 'Name', value: 'centAmount' },
+																	},
+																	{
+																		kind: 'Field',
+																		name: {
+																			kind: 'Name',
+																			value: 'fractionDigits',
+																		},
 																	},
 																],
 															},
@@ -14419,7 +14471,15 @@ export const GetMyCartDocument = {
 													selections: [
 														{
 															kind: 'Field',
+															name: { kind: 'Name', value: 'currencyCode' },
+														},
+														{
+															kind: 'Field',
 															name: { kind: 'Name', value: 'centAmount' },
+														},
+														{
+															kind: 'Field',
+															name: { kind: 'Name', value: 'fractionDigits' },
 														},
 													],
 												},

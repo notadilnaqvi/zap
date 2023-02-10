@@ -2,12 +2,19 @@ import type {
 	GetProductsQuery,
 	NormalisedProduct,
 } from '~/lib/commercetools/types';
+import { Constants } from '~/utils';
 
 type NormaliseProductProps = {
 	product?: Maybe<
 		GetProductsQuery['productProjectionSearch']['results'][number]
 	>;
 };
+
+type NormaliseProductImagesProps = {
+	images: GetProductsQuery['productProjectionSearch']['results'][number]['masterVariant']['images'];
+	fallbackLabel: string;
+};
+
 export function normaliseProduct(
 	props: NormaliseProductProps,
 ): Maybe<NormalisedProduct> {
@@ -15,13 +22,31 @@ export function normaliseProduct(
 
 	if (!product) return null;
 
-	if (!product.masterVariant?.sku) return null;
+	if (!product.masterVariant?.sku) {
+		console.warn(
+			'[normaliseProduct]: Product with ID ' + product.id + ' has no SKU.',
+		);
+		return null;
+	}
+
+	if (!product.name) {
+		console.warn(
+			'[normaliseProduct]: Product with ID ' + product.id + ' has no name.',
+		);
+		return null;
+	}
 
 	return {
 		id: product.id,
 		sku: product.masterVariant?.sku,
-		mainImage: normaliseProductImages(product.masterVariant.images)[0],
-		images: normaliseProductImages(product.masterVariant.images),
+		mainImage: normaliseProductImages({
+			images: product.masterVariant.images,
+			fallbackLabel: product.name,
+		})[0],
+		images: normaliseProductImages({
+			images: product.masterVariant.images,
+			fallbackLabel: product.name,
+		}),
 		description: product.description,
 		designer: extractCustomAttribute<{ key: string; label: string }>({
 			attributes: product.masterVariant.attributesRaw,
@@ -33,19 +58,18 @@ export function normaliseProduct(
 	};
 }
 
-function normaliseProductImages(
-	images: GetProductsQuery['productProjectionSearch']['results'][number]['masterVariant']['images'],
-) {
+function normaliseProductImages(props: NormaliseProductImagesProps) {
+	const { images, fallbackLabel } = props;
 	// TODO: Add comments explaining the following...
 	const normalisedImages: NormalisedProduct['images'] = [
 		{
-			src: './placeholder.png',
-			label: '',
+			src: Constants.FALLBACK_IMAGE,
+			label: fallbackLabel,
 		},
 		...images.map(image => {
 			return {
-				src: image.url,
-				label: image.label ?? '',
+				src: image.url || Constants.FALLBACK_IMAGE,
+				label: image.label || fallbackLabel,
 			};
 		}),
 	];
@@ -56,22 +80,6 @@ function normaliseProductImages(
 
 	return normalisedImages;
 }
-
-// function normaliseProductVariants(
-// 	variants: GetProductsQuery['productProjectionSearch']['results'][number]['variants'],
-// ) {
-// 	const normalisedVariants: NormalisedProduct['variants'] = variants.map(
-// 		variant => {
-// 			return {
-// 				id: variant.variantId,
-// 				price: variant.scopedPrice?.value.centAmount,
-// 				sku: variant.sku,
-// 			};
-// 		},
-// 	);
-
-// 	return normalisedVariants;
-// }
 
 function extractCustomAttribute<T>({
 	attributes,

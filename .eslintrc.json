@@ -18,6 +18,7 @@
 		"@typescript-eslint/no-empty-function": "off",
 		"@typescript-eslint/no-explicit-any": "error",
 		"@typescript-eslint/ban-ts-comment": "off",
+		"@next/next/no-html-link-for-pages": ["error", "src/app/"],
 		"@typescript-eslint/ban-types": [
 			"error",
 			{

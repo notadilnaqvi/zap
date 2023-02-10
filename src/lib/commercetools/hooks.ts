@@ -33,7 +33,7 @@ export function useCreateMyCart() {
 		variables: {
 			locale: Constants.LOCALE,
 			draft: {
-				currency: Constants.CURRENCY,
+				currency: Constants.CURRENCY_CODE,
 				country: Constants.COUNTRY,
 				locale: Constants.LOCALE,
 			},

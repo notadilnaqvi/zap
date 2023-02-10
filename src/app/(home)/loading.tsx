@@ -1,6 +1,15 @@
 export default function Loading() {
 	return (
 		<div className='w-full py-16'>
+			<div className='mb-4 w-full rounded-sm relative before:absolute before:inset-0 before:-translate-x-full before:-skew-x-12 before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent overflow-hidden'>
+				<div className='bg-gray-200 h-full'>
+					{' '}
+					{/* TODO: Explain this hack */}
+					<div className='w-full rounded-sm p-3 bg-gray-200 font-mono text-sm select-none text-gray-200'>
+						xxxx xxxx xxx xxxxxxxxx xx xx/xxx/xxxx xx:xx:xx xx (xx xxxxxx xxx)
+					</div>
+				</div>
+			</div>
 			<div className='grid grid-flow-row grid-cols-4 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
 				{Array(8)
 					.fill(null)
@@ -11,18 +20,18 @@ export default function Loading() {
 								className='relative before:absolute before:inset-0 before:-translate-x-full before:-skew-x-12 before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent overflow-hidden'
 								key={index}
 							>
-								<div className='aspect-[4/5] bg-slate-200 rounded-sm'></div>
-								<div className='flex flex-col py-1.5'>
+								<div className='aspect-[4/5] bg-gray-200 rounded-sm'></div>
+								<div className='flex flex-col py-[5px]'>
 									<div className='flex flex-row items-center'>
 										<div className='w-full'>
-											<div className='w-36 h-3 my-1 bg-slate-200 rounded-full'></div>
+											<div className='w-36 h-3 my-1 bg-gray-200 rounded-full'></div>
 										</div>
-										<div className='w-4 h-3 my-1 bg-slate-200 rounded-full'></div>
+										<div className='w-4 h-3 my-1 bg-gray-200 rounded-full'></div>
 									</div>
 									<div className='flex items-center justify-between'>
-										<div className='w-16 h-3 my-1 bg-slate-200 rounded-full'></div>
+										<div className='w-16 h-3 my-1 bg-gray-200 rounded-full'></div>
 										<div className='flex space-x-2'>
-											<div className='w-10 h-3 my-1 bg-slate-200 rounded-full'></div>
+											<div className='w-10 h-3 my-1 bg-gray-200 rounded-full'></div>
 										</div>
 									</div>
 								</div>

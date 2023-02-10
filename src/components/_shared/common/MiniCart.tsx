@@ -51,7 +51,7 @@ export function MiniCart() {
 					leaveFrom='translate-x-0'
 					leaveTo='translate-x-[350px] sm:translate-x-[350px]'
 				>
-					<aside className='fixed bottom-0 top-0 right-0 bg-white w-[350px] sm:w-[300px] h-screen flex flex-col'>
+					<aside className='fixed bottom-0 top-0 right-0 bg-white w-[350px] sm:w-[300px] h-full flex flex-col'>
 						<div className='flex flex-row w-full h-min justify-between items-center p-4'>
 							<div>
 								{!isMyCartEmpty && (
@@ -140,7 +140,7 @@ export function MiniCart() {
 							)}
 						</div>
 						{!isMyCartEmpty && (
-							<div className='flex w-full p-4 border-t bg-slate-50 flex-col space-y-4'>
+							<div className='flex w-full p-4 border-t bg-gray-50 flex-col space-y-4'>
 								<div className='flex flex-row justify-between'>
 									<p className='text-sm font-medium'>Your total</p>
 									<p className='text-sm font-medium'>

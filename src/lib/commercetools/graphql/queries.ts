@@ -99,11 +99,15 @@ export const GET_MY_CART = gql`
 					name(locale: $locale)
 					quantity
 					totalPrice {
+						currencyCode
 						centAmount
+						fractionDigits
 					}
 				}
 				totalPrice {
+					currencyCode
 					centAmount
+					fractionDigits
 				}
 			}
 		}

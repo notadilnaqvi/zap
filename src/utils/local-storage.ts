@@ -25,7 +25,8 @@ function get<K extends keyof LocalStorage>(key: K): Maybe<LocalStorage[K]> {
 		}
 
 		const _exhaustiveCheck: never = key;
-		return _exhaustiveCheck;
+
+		return null;
 	} catch (err) {
 		console.error('[LocalStorage]: Failed to get ' + key, err);
 		return null;

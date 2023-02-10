@@ -17,11 +17,13 @@ export const CREATE_MY_CART = gql`
 				totalPrice {
 					centAmount
 					currencyCode
+					fractionDigits
 				}
 			}
 			totalPrice {
 				centAmount
 				currencyCode
+				fractionDigits
 			}
 		}
 	}
@@ -46,11 +48,13 @@ export const UPDATE_MY_CART = gql`
 				totalPrice {
 					centAmount
 					currencyCode
+					fractionDigits
 				}
 			}
 			totalPrice {
 				centAmount
 				currencyCode
+				fractionDigits
 			}
 		}
 	}

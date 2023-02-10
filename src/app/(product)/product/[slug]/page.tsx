@@ -1,16 +1,20 @@
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
+import { PageGenerationTimeBanner } from '~/components/common';
 import { Commercetools } from '~/lib/commercetools';
 
 import type { NormalisedProduct } from '~/lib/commercetools/types';
 
-type PageProps = {
+type ProductPageProps = {
 	params: {
 		slug: string;
 	};
 };
 
-export default async function ProductPage(props: PageProps) {
+export const revalidate = 30;
+
+export default async function ProductPage(props: ProductPageProps) {
 	const { params } = props;
 	const { slug } = params;
 
@@ -29,7 +33,38 @@ export default async function ProductPage(props: PageProps) {
 		return notFound();
 	}
 
-	return <div>{JSON.stringify(product, null, '  ')}</div>;
+	const now = new Date().toISOString();
+
+	return (
+		<div className='w-full py-16'>
+			<div className='mb-4'>
+				<PageGenerationTimeBanner generatedAt={now} />
+			</div>
+			<h1 className='text-lg font-medium'>{product.name}</h1>
+			<div className='mt-8 grid grid-flow-row grid-cols-4 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
+				{product.images.map(image => {
+					return (
+						<div
+							className='aspect-[4/5] w-full relative'
+							key={image.src}
+						>
+							<Image
+								src={image.src}
+								alt={image.label}
+								className='rounded-sm invert-[0.05] object-cover'
+								fill
+							/>
+						</div>
+					);
+				})}
+			</div>
+			<div className='bg-gray-100 p-4 rounded-sm mt-4 text-sm'>
+				<pre>
+					<code>{JSON.stringify(product, null, 2)}</code>
+				</pre>
+			</div>
+		</div>
+	);
 }
 
 export async function generateStaticParams() {

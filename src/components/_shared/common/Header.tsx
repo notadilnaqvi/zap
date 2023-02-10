@@ -44,7 +44,7 @@ export function Header() {
 	}
 
 	return (
-		<div className='bg-white border-slate-200 sticky flex top-0 items-center justify-center w-full h-16 px-4 z-[2] border-b duration-300 backdrop-blur-md sm:bg-white sm:border-slate-200 bg-opacity-70 transition'>
+		<div className='bg-white border-gray-200 sticky flex top-0 items-center justify-center w-full h-16 px-4 z-[2] border-b duration-300 backdrop-blur-md sm:bg-white sm:border-gray-200 bg-opacity-70 transition'>
 			<nav className='relative flex items-center justify-between w-full max-w-[1200px]'>
 				{/* Hamburger menu button */}
 				<div className='items-center hidden sm:flex'>
@@ -75,8 +75,8 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cn(
-															'py-3 transition-colors duration-200 rounded-sm hover:bg-slate-100',
-															active && 'bg-slate-100',
+															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															active && 'bg-gray-100',
 														)}
 														href='/'
 													>
@@ -93,8 +93,8 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cn(
-															'py-3 transition-colors duration-200 rounded-sm hover:bg-slate-100',
-															active && 'bg-slate-100',
+															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															active && 'bg-gray-100',
 														)}
 														href='/browse'
 													>
@@ -114,8 +114,8 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cn(
-															'py-3 transition-colors duration-200 rounded-sm hover:bg-slate-100',
-															active && 'bg-slate-100',
+															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															active && 'bg-gray-100',
 														)}
 														href='/'
 													>
@@ -132,8 +132,8 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cn(
-															'py-3 transition-colors duration-200 rounded-sm hover:bg-slate-100',
-															active && 'bg-slate-100',
+															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															active && 'bg-gray-100',
 														)}
 														href='/browse'
 													>
@@ -150,8 +150,8 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cn(
-															'py-3 transition-colors duration-200 rounded-sm hover:bg-slate-100',
-															active && 'bg-slate-100',
+															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															active && 'bg-gray-100',
 														)}
 														href='/browse'
 													>
@@ -168,8 +168,8 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cn(
-															'py-3 transition-colors duration-200 rounded-sm hover:bg-slate-100',
-															active && 'bg-slate-100',
+															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															active && 'bg-gray-100',
 														)}
 														href='/browse'
 													>
@@ -187,8 +187,8 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cn(
-															'py-3 transition-colors duration-200 rounded-sm hover:bg-slate-100',
-															active && 'bg-slate-100',
+															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															active && 'bg-gray-100',
 														)}
 														href='/browse'
 													>
@@ -207,8 +207,8 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cn(
-															'py-3 transition-colors duration-200 rounded-sm hover:bg-slate-100',
-															active && 'bg-slate-100',
+															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															active && 'bg-gray-100',
 														)}
 														href='/browse'
 													>
@@ -253,8 +253,8 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cn(
-															'px-4 py-3 transition-colors duration-200 rounded-sm hover:bg-slate-100',
-															active && 'bg-slate-100',
+															'px-4 py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															active && 'bg-gray-100',
 														)}
 														href='/'
 													>
@@ -271,8 +271,8 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cn(
-															'px-4 py-3 transition-colors duration-200 rounded-sm hover:bg-slate-100',
-															active && 'bg-slate-100',
+															'px-4 py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															active && 'bg-gray-100',
 														)}
 														href='/browse'
 													>
@@ -291,8 +291,8 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cn(
-															'px-4 py-3 transition-colors duration-200 rounded-sm hover:bg-slate-100',
-															active && 'bg-slate-100',
+															'px-4 py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															active && 'bg-gray-100',
 														)}
 														href='/search'
 													>

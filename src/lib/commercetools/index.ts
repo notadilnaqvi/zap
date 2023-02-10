@@ -18,6 +18,8 @@ import type {
 	NormalisedProduct,
 } from '~/lib/commercetools/types';
 
+const PRODUCTS_LIMIT = 20;
+
 const sdkAuth = new SdkAuth({
 	host: process.env.NEXT_PUBLIC_CTP_AUTH_URL,
 	projectKey: process.env.NEXT_PUBLIC_CTP_PROJECT_KEY,
@@ -81,10 +83,11 @@ async function getProducts() {
 			],
 			text: '',
 			locale: Constants.LOCALE,
-			limit: 500,
+			// +20 just so have some products that are not staticaly generated and we can test ISR
+			limit: PRODUCTS_LIMIT + 20,
 			offset: 0,
 			priceSelector: {
-				currency: Constants.CURRENCY,
+				currency: Constants.CURRENCY_CODE,
 				country: Constants.COUNTRY,
 				channel: null,
 				customerGroup: null,
@@ -117,10 +120,10 @@ async function getProductBySlug({ slug }: { slug: string }) {
 				},
 			],
 			locale: Constants.LOCALE,
-			limit: 500,
+			limit: 1,
 			offset: 0,
 			priceSelector: {
-				currency: Constants.CURRENCY,
+				currency: Constants.CURRENCY_CODE,
 				country: Constants.COUNTRY,
 				channel: null,
 				customerGroup: null,
@@ -159,10 +162,10 @@ async function getProductSlugs() {
 			],
 			text: '',
 			locale: Constants.LOCALE,
-			limit: 500,
+			limit: PRODUCTS_LIMIT,
 			offset: 0,
 			priceSelector: {
-				currency: Constants.CURRENCY,
+				currency: Constants.CURRENCY_CODE,
 				country: Constants.COUNTRY,
 				channel: null,
 				customerGroup: null,

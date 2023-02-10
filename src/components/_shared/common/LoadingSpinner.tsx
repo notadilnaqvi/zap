@@ -39,7 +39,7 @@ export function LoadingSpinner({ size = 'large' }: Props) {
 	return (
 		<div
 			className={cn(
-				'block rounded-full bg-slate-200',
+				'block rounded-full bg-gray-200',
 				size === 'large' ? 'h-6 w-6' : 'h-4 w-4',
 			)}
 		></div>
