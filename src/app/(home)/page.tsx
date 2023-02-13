@@ -4,8 +4,6 @@ import { PageGenerationTimeBanner, ProductCard } from '~/components/common';
 import { Commercetools } from '~/lib/commercetools';
 import { FALLBACK_IMAGE } from '~/utils/constants';
 
-export const revalidate = 0; // Never static, always generated on request
-
 export default async function HomePage() {
 	const { data } = await Commercetools.getProducts({ limit: 100 });
 
