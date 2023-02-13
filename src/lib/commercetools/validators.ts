@@ -8,3 +8,8 @@ export const ctTokenInfoSchema = z.object({
 	token_type: z.literal('Bearer'),
 	refresh_token: z.string().optional(),
 });
+
+export const ctTestDataSchema = z.object({
+	foo: z.string(),
+	bar: z.number(),
+});

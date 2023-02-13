@@ -1,10 +1,19 @@
 import { z } from 'zod';
 
-import { ctTokenInfoSchema } from '~/lib/commercetools/validators';
+import {
+	ctTestDataSchema,
+	ctTokenInfoSchema,
+} from '~/lib/commercetools/validators';
+
+// Generated types
 
 export * from '~/lib/commercetools/graphql/__generated__/graphql';
 
+// Valitated data types
+
 export type CtTokenInfo = z.infer<typeof ctTokenInfoSchema>;
+
+export type CtTestData = z.infer<typeof ctTestDataSchema>;
 
 // Normalised product
 

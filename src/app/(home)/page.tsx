@@ -2,12 +2,12 @@ import { getPlaiceholder as generateBase64EncodedDataUrl } from 'plaiceholder';
 
 import { PageGenerationTimeBanner, ProductCard } from '~/components/common';
 import { Commercetools } from '~/lib/commercetools';
-import { Constants } from '~/utils';
+import { FALLBACK_IMAGE } from '~/utils/constants';
 
-export const revalidate = 300;
+export const revalidate = 0; // Never static, always generated on request
 
 export default async function HomePage() {
-	const { data } = await Commercetools.getProducts();
+	const { data } = await Commercetools.getProducts({ limit: 100 });
 
 	// TODO: Use Promise.allSettled here
 	const blurDataUrls = await Promise.all(
@@ -23,7 +23,7 @@ export default async function HomePage() {
 	const products = data.products.map(product => {
 		const blurDataUrl =
 			blurDataUrls.find(url => url.id === product.id)?.blurDataUrl ||
-			Constants.FALLBACK_IMAGE;
+			FALLBACK_IMAGE;
 
 		// Add the blurDataURL to the normalised product
 		return { ...product, mainImage: { ...product.mainImage, blurDataUrl } };

@@ -1,4 +1,4 @@
-import { Constants } from '~/utils';
+import { CURRENCY_CODE, FRACTION_DIGITS, LOCALE } from '~/utils/constants';
 
 interface FormatPriceProps {
 	centAmount: number;
@@ -6,11 +6,11 @@ interface FormatPriceProps {
 
 function formatPrice({ centAmount }: FormatPriceProps) {
 	try {
-		const formatter = new Intl.NumberFormat(Constants.LOCALE, {
+		const formatter = new Intl.NumberFormat(LOCALE, {
 			style: 'currency',
-			currency: Constants.CURRENCY_CODE,
+			currency: CURRENCY_CODE,
 		});
-		return formatter.format(centAmount / 10 ** Constants.FRACTION_DIGITS);
+		return formatter.format(centAmount / 10 ** FRACTION_DIGITS);
 	} catch (err) {
 		console.error('[Utils.formatPrice]', err);
 		return 'NaN';

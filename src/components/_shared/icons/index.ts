@@ -1,3 +1,4 @@
+export { ArrowRightIcon } from './ArrowRightIcon';
 export { AwardIcon } from './AwardIcon';
 export { CheckCircleIcon } from './CheckCircleIcon';
 export { FilterIcon } from './FilterIcon';

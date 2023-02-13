@@ -1,4 +1,3 @@
-export { Constants } from './constants';
 export { Cookie } from './cookie';
 export { LocalStorage } from './local-storage';
 export { SessionStorage } from './session-storage';

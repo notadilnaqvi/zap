@@ -3,7 +3,7 @@
 import { ApolloProvider } from '@apollo/client';
 import { Inter } from '@next/font/google';
 import cn from 'classnames';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 
 import {
 	AnnouncementBanner,
@@ -13,20 +13,32 @@ import {
 	Header,
 	MiniCart,
 } from '~/components/common';
+import { useSyncWithPersistedUiState } from '~/hooks/ui';
 import { apolloClient } from '~/lib/commercetools/graphql/client';
 import '~/styles/globals.css';
-import { Constants } from '~/utils';
+import { LOCALE } from '~/utils/constants';
 
 const interFont = Inter({
 	subsets: ['latin'],
-	variable: '--font-inter',
+	variable: '--inter-font',
 });
 
 export default function RootLayout(props: PropsWithChildren<{}>) {
 	const { children } = props;
+
+	const _syncWithPersistedUiState = useSyncWithPersistedUiState();
+
+	useEffect(() => {
+		// Spread the love
+		console.log('Made with 💖 by @notadilnaqvi');
+		console.log('Source code available at https://github.com/notadilnaqvi');
+
+		// NOTE: Disabling temporarily
+		// syncWithPersistedUiState();
+	}, []);
 	return (
 		<html
-			lang={Constants.LOCALE}
+			lang={LOCALE}
 			className={cn(
 				'bg-white font-sans text-slate-900 antialiased no-scrollbar',
 			)}
@@ -35,11 +47,11 @@ export default function RootLayout(props: PropsWithChildren<{}>) {
 			<body className={cn('min-h-screen', interFont.className)}>
 				<ApolloProvider client={apolloClient}>
 					{/* Skip-to-content link */}
-					<div className=''>
-						<div className='max-w-[1200px] relative mx-auto'>
+					<div className='flex w-full justify-center px-4'>
+						<div className='relative w-full max-w-[1200px]'>
 							<a
 								href='#content'
-								className='absolute px-2 py-1 z-50 mt-4 text-sm text-blue-500 underline bg-white rounded-sm opacity-0 pointer-events-none focus:opacity-100 focus:pointer-events-auto'
+								className='absolute z-50 mt-4 -translate-y-16 bg-white px-2.5 py-1.5 text-sm text-blue-500 underline ring-2 ring-white focus:translate-y-0'
 							>
 								Skip to content
 							</a>
@@ -48,10 +60,10 @@ export default function RootLayout(props: PropsWithChildren<{}>) {
 					<CustomToaster />
 					<FullscreenLoadingOverlay />
 					<MiniCart />
-					<div className='flex flex-col items-center min-h-screen'>
+					<div className='flex min-h-screen flex-col items-center'>
 						<AnnouncementBanner />
 						<Header />
-						<div className='flex flex-col items-center flex-1 w-full px-4'>
+						<div className='flex w-full flex-1 flex-col items-center px-4'>
 							<main
 								className='w-full max-w-[1200px]'
 								id='content'

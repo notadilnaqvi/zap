@@ -2,7 +2,7 @@ import type {
 	GetProductsQuery,
 	NormalisedProduct,
 } from '~/lib/commercetools/types';
-import { Constants } from '~/utils';
+import { FALLBACK_IMAGE } from '~/utils/constants';
 
 type NormaliseProductProps = {
 	product?: Maybe<
@@ -63,12 +63,12 @@ function normaliseProductImages(props: NormaliseProductImagesProps) {
 	// TODO: Add comments explaining the following...
 	const normalisedImages: NormalisedProduct['images'] = [
 		{
-			src: Constants.FALLBACK_IMAGE,
+			src: FALLBACK_IMAGE,
 			label: fallbackLabel,
 		},
 		...images.map(image => {
 			return {
-				src: image.url || Constants.FALLBACK_IMAGE,
+				src: image.url || FALLBACK_IMAGE,
 				label: image.label || fallbackLabel,
 			};
 		}),

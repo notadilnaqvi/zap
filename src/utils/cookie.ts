@@ -1,13 +1,15 @@
 import Cookies from 'js-cookie';
-import { z } from 'zod';
+import { CtTestData } from '~/lib/commercetools/types';
+import { ctTestDataSchema } from '~/lib/commercetools/validators';
 
-const someCookieSchema = z.string();
+import type { CookieAttributes } from 'js-cookie';
 
 type Cookie = {
-	'test/some-cookie': z.infer<typeof someCookieSchema>;
+	'ct/test-data': CtTestData;
 };
 
-function get<K extends keyof Cookie>(key: K): Maybe<Cookie[K]> {
+function get(key: 'ct/test-data'): Maybe<Cookie['ct/test-data']>;
+function get(key: keyof Cookie) {
 	try {
 		if (typeof window === 'undefined') return null;
 
@@ -15,10 +17,12 @@ function get<K extends keyof Cookie>(key: K): Maybe<Cookie[K]> {
 
 		if (!item) return null;
 
-		if (key === 'test/some-cookie') {
-			const value = someCookieSchema.parse(JSON.parse(item));
-			return value as Cookie[K];
+		if (key === 'ct/test-data') {
+			const value = ctTestDataSchema.parse(JSON.parse(item));
+			return value;
 		}
+
+		const _exhaustiveCheck: never = key;
 
 		return null;
 	} catch (err) {
@@ -27,14 +31,18 @@ function get<K extends keyof Cookie>(key: K): Maybe<Cookie[K]> {
 	}
 }
 
-function set<K extends keyof Cookie, V extends Cookie[K]>(key: K, val: V) {
+function set<K extends keyof Cookie, V extends Cookie[K]>(
+	key: K,
+	val: V,
+	options?: CookieAttributes,
+) {
 	if (typeof window === 'undefined') return;
-	Cookies.set(key, JSON.stringify(val));
+	Cookies.set(key, JSON.stringify(val), options);
 }
 
-function remove<K extends keyof Cookie>(key: K): void {
+function remove(key: keyof Cookie, options?: CookieAttributes): void {
 	if (typeof window === 'undefined') return;
-	Cookies.remove(key);
+	Cookies.remove(key, options);
 }
 
 export const Cookie = { get, set, remove };

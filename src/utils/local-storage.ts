@@ -1,12 +1,17 @@
-import { CtTokenInfo } from '~/lib/commercetools/types';
-import { ctTokenInfoSchema } from '~/lib/commercetools/validators';
+import { CtTestData, CtTokenInfo } from '~/lib/commercetools/types';
+import {
+	ctTestDataSchema,
+	ctTokenInfoSchema,
+} from '~/lib/commercetools/validators';
 
 type LocalStorage = {
 	'ct/token-info': CtTokenInfo;
-	'ct/test': string;
+	'ct/test-data': CtTestData;
 };
 
-function get<K extends keyof LocalStorage>(key: K): Maybe<LocalStorage[K]> {
+function get(key: 'ct/token-info'): Maybe<LocalStorage['ct/token-info']>;
+function get(key: 'ct/test-data'): Maybe<LocalStorage['ct/test-data']>;
+function get(key: keyof LocalStorage) {
 	try {
 		if (typeof window === 'undefined') return null;
 
@@ -16,12 +21,12 @@ function get<K extends keyof LocalStorage>(key: K): Maybe<LocalStorage[K]> {
 
 		if (key === 'ct/token-info') {
 			const value = ctTokenInfoSchema.parse(JSON.parse(item));
-			return value as LocalStorage[K];
+			return value;
 		}
 
-		if (key === 'ct/test') {
-			const value = ctTokenInfoSchema.parse(JSON.parse(item));
-			return value as LocalStorage[K];
+		if (key === 'ct/test-data') {
+			const value = ctTestDataSchema.parse(JSON.parse(item));
+			return value;
 		}
 
 		const _exhaustiveCheck: never = key;
@@ -41,7 +46,7 @@ function set<K extends keyof LocalStorage, V extends LocalStorage[K]>(
 	window.localStorage.setItem(key, JSON.stringify(val));
 }
 
-function remove<K extends keyof LocalStorage>(key: K) {
+function remove(key: keyof LocalStorage) {
 	if (typeof window === 'undefined') return;
 	window.localStorage.removeItem(key);
 }

@@ -22,10 +22,10 @@ export function PageGenerationTimeBanner(props: TimeAgoProps) {
 
 	useEffect(() => {
 		setTimeAgo('(' + pageGenerationDateTime.toRelative() + ')');
-	}, []);
+	}, [pageGenerationDateTime]);
 
 	return (
-		<div className='w-full rounded-sm p-3 bg-gray-100 font-mono text-sm'>
+		<div className='w-full rounded-sm bg-gray-100 p-3 font-mono text-sm'>
 			This page was generated at {formattedDateTime} {timeAgo}
 		</div>
 	);

@@ -38,7 +38,7 @@ export function MiniCart() {
 					leaveTo='opacity-0'
 				>
 					<div
-						className='fixed inset-0 bg-black bg-opacity-30'
+						className='fixed inset-0 bg-black/30'
 						onClick={closeMiniCart}
 					/>
 				</Transition.Child>
@@ -51,8 +51,8 @@ export function MiniCart() {
 					leaveFrom='translate-x-0'
 					leaveTo='translate-x-[350px] sm:translate-x-[350px]'
 				>
-					<aside className='fixed bottom-0 top-0 right-0 bg-white w-[350px] sm:w-[300px] h-full flex flex-col'>
-						<div className='flex flex-row w-full h-min justify-between items-center p-4'>
+					<aside className='fixed inset-y-0 right-0 flex h-full w-[350px] flex-col bg-white sm:w-[300px]'>
+						<div className='flex h-min w-full flex-row items-center justify-between p-4'>
 							<div>
 								{!isMyCartEmpty && (
 									<p className='text-lg font-medium text-slate-900'>
@@ -63,13 +63,13 @@ export function MiniCart() {
 							<button
 								aria-label='Close mini-cart'
 								title='Close mini-cart'
-								className='p-1 rounded-sm '
+								className='rounded-sm p-1 '
 								onClick={closeMiniCart}
 							>
 								<XIcon />
 							</button>
 						</div>
-						<div className='flex flex-col overflow-y-auto no-scrollbar px-4 pb-4 h-full'>
+						<div className='no-scrollbar flex h-full flex-col overflow-y-auto px-4 pb-4'>
 							{myCartLoading ? (
 								<Transition
 									enter='transition-opacity duration-300'
@@ -80,7 +80,7 @@ export function MiniCart() {
 									leaveTo='opacity-0'
 									appear
 									as='div'
-									className='flex flex-col items-center font-light space-y-4 pt-64'
+									className='flex flex-col items-center space-y-4 pt-64 font-light'
 								>
 									<LoadingSpinner />
 								</Transition>
@@ -94,7 +94,7 @@ export function MiniCart() {
 									leaveTo='opacity-0'
 									appear
 									as='div'
-									className='flex flex-col items-center font-light space-y-4 pt-64'
+									className='flex flex-col items-center space-y-4 pt-64 font-light'
 								>
 									<p className='text-2xl font-semibold text-slate-900'>
 										Your cart is empty
@@ -104,7 +104,7 @@ export function MiniCart() {
 									</p>
 									<Link
 										href='/browse'
-										className='px-4 py-2 text-sm tracking-widest font-medium text-white bg-blue-500 rounded-sm transition duration-100 hover:bg-blue-400'
+										className='rounded-sm bg-blue-500 px-4 py-2 text-sm font-medium tracking-widest text-white transition duration-100 hover:bg-blue-400'
 									>
 										Continue shopping
 									</Link>
@@ -125,11 +125,11 @@ export function MiniCart() {
 										{myCart.me.activeCart?.lineItems.map(lineItem => {
 											return (
 												<li
-													className='border rounded-sm p-2 flex flex-row justify-between'
+													className='flex flex-row justify-between rounded-sm border p-2'
 													key={lineItem.id}
 												>
-													<p className='font-medium text-sm'>{lineItem.name}</p>
-													<p className='text-sm text-slate-500 tabular-nums'>
+													<p className='text-sm font-medium'>{lineItem.name}</p>
+													<p className='text-sm tabular-nums text-slate-500'>
 														x {lineItem.quantity}
 													</p>
 												</li>
@@ -140,7 +140,7 @@ export function MiniCart() {
 							)}
 						</div>
 						{!isMyCartEmpty && (
-							<div className='flex w-full p-4 border-t bg-gray-50 flex-col space-y-4'>
+							<div className='flex w-full flex-col space-y-4 border-t bg-gray-50 p-4'>
 								<div className='flex flex-row justify-between'>
 									<p className='text-sm font-medium'>Your total</p>
 									<p className='text-sm font-medium'>
@@ -151,7 +151,7 @@ export function MiniCart() {
 								</div>
 								<Link
 									href='/checkout'
-									className='w-full px-4 py-3 text-sm tracking-widest text-center font-medium text-white bg-blue-500 rounded-sm'
+									className='w-full rounded-sm bg-blue-500 px-4 py-3 text-center text-sm font-medium tracking-widest text-white'
 								>
 									Proceed to checkout
 								</Link>

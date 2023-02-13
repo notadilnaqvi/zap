@@ -1,14 +1,12 @@
-import { z } from 'zod';
-
-const wasAnnouncementBannerClosedSchema = z.boolean();
+import { CtTestData } from '~/lib/commercetools/types';
+import { ctTestDataSchema } from '~/lib/commercetools/validators';
 
 type SessionStorage = {
-	'ui/was-announcement-banner-closed': z.infer<
-		typeof wasAnnouncementBannerClosedSchema
-	>;
+	'ct/test-data': CtTestData;
 };
 
-function get<K extends keyof SessionStorage>(key: K): Maybe<SessionStorage[K]> {
+function get(key: 'ct/test-data'): Maybe<SessionStorage['ct/test-data']>;
+function get(key: keyof SessionStorage) {
 	try {
 		if (typeof window === 'undefined') return null;
 
@@ -16,10 +14,12 @@ function get<K extends keyof SessionStorage>(key: K): Maybe<SessionStorage[K]> {
 
 		if (!item) return null;
 
-		if (key === 'ui/was-announcement-banner-closed') {
-			const value = wasAnnouncementBannerClosedSchema.parse(JSON.parse(item));
-			return value as SessionStorage[K];
+		if (key === 'ct/test-data') {
+			const value = ctTestDataSchema.parse(JSON.parse(item));
+			return value;
 		}
+
+		const _exhaustiveCheck: never = key;
 
 		return null;
 	} catch (err) {
@@ -36,7 +36,7 @@ function set<K extends keyof SessionStorage, V extends SessionStorage[K]>(
 	window.sessionStorage.setItem(key, JSON.stringify(val));
 }
 
-function remove<K extends keyof SessionStorage>(key: K) {
+function remove(key: keyof SessionStorage) {
 	if (typeof window === 'undefined') return;
 	window.sessionStorage.removeItem(key);
 }

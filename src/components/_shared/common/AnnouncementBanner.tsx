@@ -1,6 +1,8 @@
 'use client';
 
-import { XIcon } from '~/components/icons';
+import Link from 'next/link';
+
+import { ArrowRightIcon, XIcon } from '~/components/icons';
 import { useUi } from '~/hooks/ui';
 
 export function AnnouncementBanner() {
@@ -12,17 +14,27 @@ export function AnnouncementBanner() {
 	if (!isAnnouncementBannerOpen) return null;
 
 	return (
-		<div className='flex items-center justify-center w-full px-4 py-2 bg-blue-100 min-h-8'>
-			<div className='relative flex items-center justify-center w-full max-w-[1200px]'>
+		<div className='flex w-full items-center justify-center border-b border-gray-200 bg-gray-100 px-4 py-2'>
+			<div className='relative flex w-full max-w-[1200px] items-center justify-center'>
 				<div className='flex flex-row items-end space-x-2'>
-					<p className='font-mono text-xs sm:text-[10px] font-bold leading-4 text-center text-blue-500 uppercase'>
-						Use code <span className='underline'>#LAUNCH20</span> to get 20% off
-						your first order
-					</p>
+					<Link
+						href='#'
+						className='flex items-center space-x-1 px-2'
+					>
+						<p className='text-center text-sm font-semibold leading-7 text-slate-700'>
+							Same-day delivery now available
+						</p>
+						<div>
+							<ArrowRightIcon
+								size={16}
+								strokeWidth={2}
+							/>
+						</div>
+					</Link>
 				</div>
 				<div className='absolute right-0 flex items-center'>
 					<button
-						className='rounded-sm'
+						className='rounded-sm p-1'
 						aria-label='Close announcement banner'
 						title='Close announcement banner'
 						onClick={closeAnnouncementBanner}

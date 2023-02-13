@@ -1,9 +1,9 @@
 export function LoadingDots() {
 	return (
 		<span className='inline-flex items-center gap-0.5'>
-			<span className='animate-blink h-1 w-1 rounded-full bg-white'></span>
-			<span className='animate-blink animation-delay-[200ms] h-1 w-1 rounded-full bg-white'></span>
-			<span className='animate-blink animation-delay-[400ms] h-1 w-1 rounded-full bg-white'></span>
+			<span className='h-1 w-1 animate-blink rounded-full bg-white'></span>
+			<span className='h-1 w-1 animate-blink rounded-full bg-white animation-delay-[200ms]'></span>
+			<span className='h-1 w-1 animate-blink rounded-full bg-white animation-delay-[400ms]'></span>
 		</span>
 	);
 }

@@ -44,15 +44,15 @@ export function Header() {
 	}
 
 	return (
-		<div className='bg-white border-gray-200 sticky flex top-0 items-center justify-center w-full h-16 px-4 z-[2] border-b duration-300 backdrop-blur-md sm:bg-white sm:border-gray-200 bg-opacity-70 transition'>
-			<nav className='relative flex items-center justify-between w-full max-w-[1200px]'>
+		<div className='sticky top-0 z-[2] flex h-16 w-full items-center justify-center border-b border-gray-200 bg-white/70 px-4 backdrop-blur-md transition duration-300'>
+			<nav className='relative flex w-full max-w-[1200px] items-center justify-between'>
 				{/* Hamburger menu button */}
-				<div className='items-center hidden sm:flex'>
+				<div className='hidden items-center sm:flex'>
 					<Menu>
 						{({ open }) => (
 							<>
 								<Menu.Button
-									className='p-1 mr-2'
+									className='mr-2 p-1'
 									aria-pressed={open}
 									aria-label='Open sm menu'
 								>
@@ -69,7 +69,7 @@ export function Header() {
 									leaveFrom='opacity-100'
 									leaveTo='opacity-0'
 								>
-									<div className='p-4 w-screen -ml-4 bg-white shadow-[0px_16px_16px_1px_rgba(0,0,0,0.1)] absolute top-[46.5px]'>
+									<div className='absolute top-[46.5px] -ml-4 w-screen bg-white p-4 shadow-[0px_16px_16px_1px_rgba(0,0,0,0.1)]'>
 										<Menu.Items className='flex flex-col outline-none'>
 											<Menu.Item>
 												{({ active }) => (
@@ -247,7 +247,7 @@ export function Header() {
 									leaveFrom='opacity-100'
 									leaveTo='opacity-0'
 								>
-									<div className='py-8 w-screen -ml-4 bg-white shadow-[0_16px_16px_rgba(0,0,0,0.08)] absolute top-[47px]'>
+									<div className='absolute top-[47px] -ml-4 w-screen bg-white py-8 shadow-[0_16px_16px_rgba(0,0,0,0.08)]'>
 										<Menu.Items className='flex flex-col outline-none'>
 											<Menu.Item>
 												{({ active }) => (
@@ -318,7 +318,7 @@ export function Header() {
 				{/* Home link */}
 				<Link
 					href='/'
-					className='p-1 rounded-sm'
+					className='rounded-sm p-1'
 					title='ZAP'
 					aria-label='ZAP homepage'
 				>
@@ -326,10 +326,10 @@ export function Header() {
 				</Link>
 
 				{/* Nav links */}
-				<ul className='flex flex-row space-x-8 sm:hidden md:space-x-4'>
+				<ul className='flex flex-row space-x-8 md:space-x-4 sm:hidden'>
 					<li className='flex items-center'>
 						<button
-							className='p-1 text-sm font-light rounded-sm text-slate-700 hover:text-slate-900'
+							className='rounded-sm p-1 text-sm font-light text-slate-700 hover:text-slate-900'
 							onClick={() => {}}
 						>
 							New
@@ -337,7 +337,7 @@ export function Header() {
 					</li>
 					<li className='flex items-center'>
 						<button
-							className='p-1 text-sm font-light rounded-sm text-slate-700 hover:text-slate-900'
+							className='rounded-sm p-1 text-sm font-light text-slate-700 hover:text-slate-900'
 							onClick={() => {}}
 						>
 							Men
@@ -345,7 +345,7 @@ export function Header() {
 					</li>
 					<li className='flex items-center'>
 						<button
-							className='p-1 text-sm font-light rounded-sm text-slate-700 hover:text-slate-900'
+							className='rounded-sm p-1 text-sm font-light text-slate-700 hover:text-slate-900'
 							onClick={() => {}}
 						>
 							Women
@@ -353,7 +353,7 @@ export function Header() {
 					</li>
 					<li className='flex items-center'>
 						<button
-							className='p-1 text-sm font-light rounded-sm text-slate-700 hover:text-slate-900'
+							className='rounded-sm p-1 text-sm font-light text-slate-700 hover:text-slate-900'
 							onClick={() => {}}
 						>
 							Sale
@@ -367,7 +367,7 @@ export function Header() {
 						<button
 							onClick={handleLogin}
 							aria-label='Login'
-							className='p-1 rounded-sm hover:text-slate-900 text-slate-700'
+							className='rounded-sm p-1 text-slate-700 hover:text-slate-900'
 							title='Login'
 						>
 							<UserIcon />
@@ -376,7 +376,7 @@ export function Header() {
 					<li className='flex items-center'>
 						<Link
 							href='/search'
-							className='p-1 rounded-sm hover:text-slate-900 text-slate-700'
+							className='rounded-sm p-1 text-slate-700 hover:text-slate-900'
 							title='Search for products'
 							aria-label='Search for products'
 						>
@@ -387,11 +387,11 @@ export function Header() {
 						<button
 							aria-label='Open mini-cart'
 							title='Open mini-cart'
-							className='relative p-1 rounded-sm hover:text-slate-900 text-slate-700'
+							className='relative rounded-sm p-1 text-slate-700 hover:text-slate-900'
 							onClick={openMiniCart}
 						>
 							{!isMyCartEmpty && (
-								<span className='absolute px-1 min-w-[16px] h-4 bg-blue-500 left-3.5 -top-0.5 rounded-full text-[10px] font-semibold text-white flex items-center justify-center'>
+								<span className='absolute left-3.5 -top-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-blue-500 px-1 text-[10px] font-semibold text-white'>
 									{myCart?.me.activeCart?.totalLineItemQuantity}
 								</span>
 							)}

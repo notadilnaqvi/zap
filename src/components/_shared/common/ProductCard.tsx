@@ -62,12 +62,12 @@ export function ProductCard(props: Props) {
 
 	return (
 		<div
-			className='flex flex-col w-full group focusable'
+			className='focusable group flex w-full flex-col'
 			tabIndex={0}
 		>
-			<div className='aspect-[4/5] w-full relative'>
+			<div className='relative aspect-[4/5] w-full'>
 				<Image
-					className='rounded-sm invert-[0.05] object-cover'
+					className='rounded-sm object-cover invert-[0.05]'
 					fill
 					placeholder='blur'
 					blurDataURL={product.mainImage.blurDataUrl}
@@ -75,7 +75,7 @@ export function ProductCard(props: Props) {
 					alt={product.mainImage.label}
 					priority={prioritiseImage}
 				/>
-				<div className='bottom-0 absolute w-full p-1.5'>
+				<div className='absolute bottom-0 w-full p-1.5'>
 					<button
 						className={cn(
 							{ 'opacity-0': !addToCartLoading }, // Only hide the button if it's not loading
@@ -89,7 +89,7 @@ export function ProductCard(props: Props) {
 								<div>
 									<LoadingSpinner size='small' />
 								</div>
-								<p className='py-2.5 uppercase text-[10px] font-medium'>
+								<p className='py-2.5 text-[10px] font-medium uppercase'>
 									Adding...
 								</p>
 							</div>
@@ -98,7 +98,7 @@ export function ProductCard(props: Props) {
 								<div>
 									<PlusIcon size={10} />
 								</div>
-								<p className='py-2.5 uppercase text-[10px] font-medium'>
+								<p className='py-2.5 text-[10px] font-medium uppercase'>
 									Quick add
 								</p>
 							</>
@@ -110,7 +110,7 @@ export function ProductCard(props: Props) {
 				<div className='flex flex-row items-center'>
 					<Link
 						href={'/product/' + product?.slug}
-						className='text-xs font-medium hover:underline leading-[18px] truncate mr-4 '
+						className='mr-4 truncate text-xs font-medium leading-[18px] hover:underline '
 					>
 						{product?.name}
 					</Link>
@@ -145,7 +145,7 @@ export function ProductCard(props: Props) {
 					</p>
 					<div className='flex space-x-2'>
 						{isOnSale && (
-							<p className='text-xs font-light leading-5 line-through text-slate-500'>
+							<p className='text-xs font-light leading-5 text-slate-500 line-through'>
 								{Utils.formatPrice({
 									centAmount: product?.price,
 								})}

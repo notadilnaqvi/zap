@@ -6,7 +6,6 @@ import {
 	GET_PRODUCT_SLUGS,
 } from '~/lib/commercetools/graphql/queries';
 import { normaliseProduct } from '~/lib/commercetools/normalisation';
-import { Constants } from '~/utils';
 
 import type {
 	CtTokenInfo,
@@ -17,8 +16,29 @@ import type {
 	GetProductsQueryVariables,
 	NormalisedProduct,
 } from '~/lib/commercetools/types';
+import {
+	COMMERCETOOLS_MAX_LIMIT,
+	COMMERCETOOLS_MIN_LIMIT,
+	COUNTRY,
+	CURRENCY_CODE,
+	LOCALE,
+} from '~/utils/constants';
 
-const PRODUCTS_LIMIT = 20;
+type GerProductsProps = {
+	/**
+	 * Number of products to be returned. Should be within 1-500
+	 * Defaults to 1 or 500 if value provided goes beyond allowed range
+	 */
+	limit: number;
+};
+
+type GerProductSlugsProps = {
+	/**
+	 * Number of products to be returned. Should be within 1-500
+	 * Defaults to 1 or 500 if value provided goes beyond allowed range
+	 */
+	limit: number;
+};
 
 const sdkAuth = new SdkAuth({
 	host: process.env.NEXT_PUBLIC_CTP_AUTH_URL,
@@ -58,7 +78,15 @@ async function refreshTokenInfo(
 	return tokenInfo;
 }
 
-async function getProducts() {
+async function getProducts(props: GerProductsProps) {
+	let { limit } = props;
+
+	// Restrict limit to be within 1-500
+	limit = Math.min(
+		Math.max(limit, COMMERCETOOLS_MIN_LIMIT),
+		COMMERCETOOLS_MAX_LIMIT,
+	);
+
 	const { data, loading, error } = await apolloClient.query<
 		GetProductsQuery,
 		GetProductsQueryVariables
@@ -82,13 +110,12 @@ async function getProducts() {
 				},
 			],
 			text: '',
-			locale: Constants.LOCALE,
-			// +20 just so have some products that are not staticaly generated and we can test ISR
-			limit: PRODUCTS_LIMIT + 20,
+			locale: LOCALE,
+			limit: limit,
 			offset: 0,
 			priceSelector: {
-				currency: Constants.CURRENCY_CODE,
-				country: Constants.COUNTRY,
+				currency: CURRENCY_CODE,
+				country: COUNTRY,
 				channel: null,
 				customerGroup: null,
 			},
@@ -113,18 +140,18 @@ async function getProductBySlug({ slug }: { slug: string }) {
 				{
 					model: {
 						value: {
-							path: 'slug.' + Constants.LOCALE,
+							path: 'slug.' + LOCALE,
 							values: [slug],
 						},
 					},
 				},
 			],
-			locale: Constants.LOCALE,
+			locale: LOCALE,
 			limit: 1,
 			offset: 0,
 			priceSelector: {
-				currency: Constants.CURRENCY_CODE,
-				country: Constants.COUNTRY,
+				currency: CURRENCY_CODE,
+				country: COUNTRY,
 				channel: null,
 				customerGroup: null,
 			},
@@ -137,7 +164,12 @@ async function getProductBySlug({ slug }: { slug: string }) {
 	return { data: normalisedProduct, loading, error };
 }
 
-async function getProductSlugs() {
+async function getProductSlugs(props: GerProductSlugsProps) {
+	let { limit } = props;
+
+	// Restrict limit to be within 1-500
+	limit = Math.min(Math.max(limit, 1), COMMERCETOOLS_MAX_LIMIT);
+
 	const { data, loading, error } = await apolloClient.query<
 		GetProductSlugsQuery,
 		GetProductSlugsQueryVariables
@@ -161,12 +193,12 @@ async function getProductSlugs() {
 				},
 			],
 			text: '',
-			locale: Constants.LOCALE,
-			limit: PRODUCTS_LIMIT,
+			locale: LOCALE,
+			limit: limit,
 			offset: 0,
 			priceSelector: {
-				currency: Constants.CURRENCY_CODE,
-				country: Constants.COUNTRY,
+				currency: CURRENCY_CODE,
+				country: COUNTRY,
 				channel: null,
 				customerGroup: null,
 			},

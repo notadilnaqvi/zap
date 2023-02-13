@@ -38,9 +38,9 @@ export function FullscreenLoadingOverlay() {
 					leaveFrom='opacity-100'
 					leaveTo='opacity-0'
 				>
-					<div className='fixed inset-0 flex flex-col items-center justify-center bg-white bg-opacity-90 space-y-3'>
+					<div className='fixed inset-0 flex flex-col items-center justify-center space-y-3 bg-white/90'>
 						<LoadingSpinner />
-						<p className='font-medium text-slate-700 pl-[2ch]'>
+						<p className='pl-[2ch] font-medium text-slate-700'>
 							{fullscreenLoadingOverlayText}
 						</p>
 					</div>

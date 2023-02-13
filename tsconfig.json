@@ -26,6 +26,7 @@
 			"~/hooks/*": ["src/hooks/*"],
 			"~/styles/*": ["src/styles/*"],
 			"~/components/*": ["src/components/*"],
+			"~/utils/constants": ["src/utils/constants"],
 			"~/components/ui": ["src/components/_shared/ui"],
 			"~/components/icons": ["src/components/_shared/icons"],
 			"~/components/common": ["src/components/_shared/common"]

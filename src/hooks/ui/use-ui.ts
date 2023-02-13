@@ -3,8 +3,6 @@
 import { toast } from 'react-hot-toast';
 import { create } from 'zustand';
 
-import { SessionStorage } from '~/utils';
-
 type ShowToastProps = {
 	message: string;
 	type: 'success' | 'error';
@@ -42,10 +40,9 @@ export const useUi = create<UiState>(set => ({
 	openMiniCart: () => set({ isMiniCartOpen: true }),
 	closeMiniCart: () => set({ isMiniCartOpen: false }),
 	// Announcement banner
-	isAnnouncementBannerOpen: false,
+	isAnnouncementBannerOpen: true,
 	openAnnouncementBanner: () => set({ isAnnouncementBannerOpen: true }),
 	closeAnnouncementBanner: () => {
-		SessionStorage.set('ui/was-announcement-banner-closed', true);
 		set({ isAnnouncementBannerOpen: false });
 	},
 	// Fullscreen loading overlay

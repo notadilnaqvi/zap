@@ -12,7 +12,7 @@ type ProductPageProps = {
 	};
 };
 
-export const revalidate = 30;
+export const revalidate = 0; // Generate on request
 
 export default async function ProductPage(props: ProductPageProps) {
 	const { params } = props;
@@ -45,20 +45,20 @@ export default async function ProductPage(props: ProductPageProps) {
 				{product.images.map(image => {
 					return (
 						<div
-							className='aspect-[4/5] w-full relative'
+							className='relative aspect-[4/5] w-full'
 							key={image.src}
 						>
 							<Image
 								src={image.src}
 								alt={image.label}
-								className='rounded-sm invert-[0.05] object-cover'
+								className='rounded-sm object-cover invert-[0.05]'
 								fill
 							/>
 						</div>
 					);
 				})}
 			</div>
-			<div className='bg-gray-100 p-4 rounded-sm mt-4 text-sm'>
+			<div className='mt-4 overflow-x-scroll rounded-sm bg-gray-100 p-4 text-sm'>
 				<pre>
 					<code>{JSON.stringify(product, null, 2)}</code>
 				</pre>
@@ -67,18 +67,19 @@ export default async function ProductPage(props: ProductPageProps) {
 	);
 }
 
-export async function generateStaticParams() {
-	const { data, error } = await Commercetools.getProductSlugs();
+// NOTE: Disabled temporarily. Do not remove.
+// export async function generateStaticParams() {
+// 	const { data, error } = await Commercetools.getProductSlugs({ limit: 1 });
 
-	if (error) {
-		throw new Error(
-			'Failed to fetch product slugs. Product pages were not statically generated.',
-		);
-	}
+// 	if (error) {
+// 		throw new Error(
+// 			'Failed to fetch product slugs. Product pages were not statically generated.',
+// 		);
+// 	}
 
-	const params = data.slugs.map(slug => {
-		return { slug };
-	});
+// 	const params = data.slugs.map(slug => {
+// 		return { slug };
+// 	});
 
-	return params;
-}
+// 	return params;
+// }
