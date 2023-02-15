@@ -12,7 +12,7 @@ type ProductPageProps = {
 	};
 };
 
-export const revalidate = 0; // Generate on request
+export const revalidate = 300; // Revalidate every 5 minutes
 
 export default async function ProductPage(props: ProductPageProps) {
 	const { params } = props;
@@ -67,19 +67,18 @@ export default async function ProductPage(props: ProductPageProps) {
 	);
 }
 
-// NOTE: Disabled temporarily. Do not remove.
-// export async function generateStaticParams() {
-// 	const { data, error } = await Commercetools.getProductSlugs({ limit: 1 });
+export async function generateStaticParams() {
+	const { data, error } = await Commercetools.getProductSlugs({ limit: 1 });
 
-// 	if (error) {
-// 		throw new Error(
-// 			'Failed to fetch product slugs. Product pages were not statically generated.',
-// 		);
-// 	}
+	if (error) {
+		throw new Error(
+			'Failed to fetch product slugs. Product pages were not statically generated.',
+		);
+	}
 
-// 	const params = data.slugs.map(slug => {
-// 		return { slug };
-// 	});
+	const params = data.slugs.map(slug => {
+		return { slug };
+	});
 
-// 	return params;
-// }
+	return params;
+}
