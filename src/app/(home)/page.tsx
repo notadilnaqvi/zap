@@ -9,7 +9,7 @@ export const revalidate = 300; // Revalidate every 5 minutes
 export default async function HomePage() {
 	const { data } = await Commercetools.getProducts({ limit: 100 });
 
-	// TODO: Use Promise.allSettled here
+	// NOTE: `getBlurDataUrl` won't ever reject so we can safely use `Promise.all`
 	const blurDataUrls = await Promise.all(
 		data.products.map(async product => {
 			const blurDataUrl = await getBlurDataUrl(product.mainImage?.src);
@@ -63,7 +63,7 @@ async function getBlurDataUrl(src: string) {
 		);
 		return base64;
 	} catch (error: unknown) {
-		console.error('[getBlurDataUrl]:', error);
+		console.warn('[getBlurDataUrl]:', error);
 		return null;
 	}
 }

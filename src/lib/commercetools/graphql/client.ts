@@ -59,7 +59,6 @@ const errorLink = onError(({ graphQLErrors }) => {
 });
 
 const httpLink = new HttpLink({
-	fetch,
 	uri:
 		process.env.NEXT_PUBLIC_CTP_API_URL +
 		'/' +
