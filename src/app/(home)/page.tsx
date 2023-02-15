@@ -4,8 +4,6 @@ import { PageGenerationTimeBanner, ProductCard } from '~/components/common';
 import { Commercetools } from '~/lib/commercetools';
 import { FALLBACK_IMAGE } from '~/utils/constants';
 
-export const revalidate = 300; // Revalidate every 5 minutes
-
 export default async function HomePage() {
 	const { data } = await Commercetools.getProducts({ limit: 100 });
 
@@ -51,6 +49,8 @@ export default async function HomePage() {
 		</div>
 	);
 }
+
+export const revalidate = 300; // Revalidate every 5 minutes
 
 async function getBlurDataUrl(src: string) {
 	try {
