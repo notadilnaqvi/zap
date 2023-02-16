@@ -5,7 +5,7 @@ import { Commercetools } from '~/lib/commercetools';
 import { FALLBACK_IMAGE } from '~/utils/constants';
 
 export default async function HomePage() {
-	// const { data } = await Commercetools.getProducts({ limit: 100 });
+	const { data } = await Commercetools.getProducts({ limit: 100 });
 
 	// // NOTE: `getBlurDataUrl` won't ever reject so we can safely use `Promise.all`
 	// const blurDataUrls = await Promise.all(
@@ -36,8 +36,8 @@ export default async function HomePage() {
 			<div className='mb-4'>
 				<PageGenerationTimeBanner generatedAt={now} />
 			</div>
-			{/* <div className='grid grid-flow-row grid-cols-4 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
-				{products?.map((product, index) => {
+			<div className='grid grid-flow-row grid-cols-4 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
+				{data.products?.map((product, index) => {
 					return (
 						<ProductCard
 							product={product}
@@ -47,12 +47,12 @@ export default async function HomePage() {
 						/>
 					);
 				})}
-			</div> */}
+			</div>
 		</div>
 	);
 }
 
-export const revalidate = 300; // Revalidate every 5 minutes
+export const revalidate = 60; // Revalidate every minute
 
 // async function getBlurDataUrl(src: string) {
 // 	try {
