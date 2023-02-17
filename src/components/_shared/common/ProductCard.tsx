@@ -69,8 +69,8 @@ export function ProductCard(props: Props) {
 				<Image
 					className='rounded-sm object-cover invert-[0.05]'
 					fill
-					placeholder='empty'
-					// blurDataURL={product.mainImage.blurDataUrl}
+					placeholder='blur'
+					blurDataURL={product.mainImage.blurDataUrl}
 					src={product.mainImage.src}
 					alt={product.mainImage.label}
 					priority={prioritiseImage}
