@@ -19,7 +19,7 @@ import {
 	XIcon,
 	ZapIcon,
 } from '~/components/icons';
-import { useUi } from '~/hooks/ui';
+import { useUi } from '~/hooks';
 import { useGetMyCart } from '~/lib/commercetools/hooks';
 
 export function Header() {

@@ -4,7 +4,7 @@ interface FormatPriceProps {
 	centAmount: number;
 }
 
-function formatPrice({ centAmount }: FormatPriceProps) {
+export function formatPrice({ centAmount }: FormatPriceProps) {
 	try {
 		const formatter = new Intl.NumberFormat(LOCALE, {
 			style: 'currency',
@@ -16,7 +16,3 @@ function formatPrice({ centAmount }: FormatPriceProps) {
 		return 'NaN';
 	}
 }
-
-export const Utils = {
-	formatPrice,
-};

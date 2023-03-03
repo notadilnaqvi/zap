@@ -2,15 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-	.animation-delay-200 {
-		animation-delay: 200ms;
-	}
-	.animation-delay-400 {
-		animation-delay: 400ms;
-	}
-}
-
+/* Makes a red border around a component for debugging */
 .debug {
 	@apply border border-red-500;
 }
@@ -22,10 +14,10 @@ button,
 }
 
 /* Hide scrollbar */
-.no-scrollbar::-webkit-scrollbar {
+.hide-scrollbar::-webkit-scrollbar {
 	display: none;
 }
-.no-scrollbar {
+.hide-scrollbar {
 	-ms-overflow-style: none;
 	scrollbar-width: none;
 }

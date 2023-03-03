@@ -7,11 +7,10 @@ import { useState } from 'react';
 
 import { LoadingSpinner } from '~/components/common';
 import { HeartIcon, PlusIcon } from '~/components/icons';
-import { useUi } from '~/hooks/ui';
-import { useToggle } from '~/hooks/util';
+import { useToggle, useUi } from '~/hooks';
 import { useAddToCart } from '~/lib/commercetools/hooks';
 import { NormalisedProduct } from '~/lib/commercetools/types';
-import { Utils } from '~/utils';
+import { formatPrice } from '~/utils';
 
 type Props = {
 	product: NormalisedProduct;
@@ -146,13 +145,13 @@ export function ProductCard(props: Props) {
 					<div className='flex space-x-2'>
 						{isOnSale && (
 							<p className='text-xs font-light leading-5 text-slate-500 line-through'>
-								{Utils.formatPrice({
+								{formatPrice({
 									centAmount: product?.price,
 								})}
 							</p>
 						)}
 						<p className='text-xs font-light leading-5 text-slate-900'>
-							{Utils.formatPrice({
+							{formatPrice({
 								centAmount: product?.price,
 							})}
 						</p>

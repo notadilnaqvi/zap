@@ -6,9 +6,9 @@ import { Fragment } from 'react';
 
 import { LoadingSpinner } from '~/components/common';
 import { XIcon } from '~/components/icons';
-import { useUi } from '~/hooks/ui';
+import { useUi } from '~/hooks';
 import { useGetMyCart } from '~/lib/commercetools/hooks';
-import { Utils } from '~/utils';
+import { formatPrice } from '~/utils';
 
 export function MiniCart() {
 	const closeMiniCart = useUi(state => state.closeMiniCart);
@@ -69,7 +69,7 @@ export function MiniCart() {
 								<XIcon />
 							</button>
 						</div>
-						<div className='no-scrollbar flex h-full flex-col overflow-y-auto px-4 pb-4'>
+						<div className='hide-scrollbar flex h-full flex-col overflow-y-auto px-4 pb-4'>
 							{myCartLoading ? (
 								<Transition
 									enter='transition-opacity duration-300'
@@ -144,7 +144,7 @@ export function MiniCart() {
 								<div className='flex flex-row justify-between'>
 									<p className='text-sm font-medium'>Your total</p>
 									<p className='text-sm font-medium'>
-										{Utils.formatPrice({
+										{formatPrice({
 											centAmount: myCart.me.activeCart?.totalPrice.centAmount,
 										})}
 									</p>

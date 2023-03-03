@@ -3,7 +3,7 @@
 import Link from 'next/link';
 
 import { ArrowRightIcon, XIcon } from '~/components/icons';
-import { useUi } from '~/hooks/ui';
+import { useUi } from '~/hooks';
 
 export function AnnouncementBanner() {
 	const isAnnouncementBannerOpen = useUi(

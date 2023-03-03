@@ -12,10 +12,10 @@ module.exports = {
 	},
 };
 
-// Any environment variables that are listed in .env.example are considered required.
-// We read all environment variables from .env.example and check if they are set. If
-// any are missing from process.env, we fail the build. Else we print the config to
-// the console and continue as normal.
+// Any environment variables that are listed in .env.example are considered
+// required. We read all environment variables from .env.example and check if
+// they are set. If any are missing from process.env, we fail the build. Else
+// we print the config to the console and continue as normal.
 if (process.env.NODE_ENV === 'production') {
 	const fs = require('fs');
 	const path = require('path');

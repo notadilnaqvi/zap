@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
 import { LoadingSpinner } from '~/components/common';
-import { useUi } from '~/hooks/ui';
+import { useUi } from '~/hooks';
 
 export function FullscreenLoadingOverlay() {
 	const isFullscreenLoadingOverlayOpen = useUi(

@@ -2,13 +2,10 @@
  * Read persisted UI state from browser storage and update the current UI
  * state accordingly.
  *
- * This hook only needs to be used once and only in `_app.tsx`
- *
- * NOTE: Middlewares like `zustand/persist` are not used here because they
- * do not work well with SSR.
+ * This hook only needs to be used once and only in the root layout
  */
 export function useSyncWithPersistedUiState() {
-	// TODO
+	// TODO: Implement this
 	function syncWithPersistedUiState() {
 		console.log('Syncing with persisted UI state...');
 	}

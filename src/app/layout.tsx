@@ -13,7 +13,7 @@ import {
 	Header,
 	MiniCart,
 } from '~/components/common';
-import { useSyncWithPersistedUiState } from '~/hooks/ui';
+import { useSyncWithPersistedUiState } from '~/hooks';
 import { apolloClient } from '~/lib/commercetools/graphql/client';
 import '~/styles/globals.css';
 import { LOCALE } from '~/utils/constants';
@@ -40,7 +40,7 @@ export default function RootLayout(props: PropsWithChildren<{}>) {
 		<html
 			lang={LOCALE}
 			className={cn(
-				'bg-white font-sans text-slate-900 antialiased no-scrollbar',
+				'bg-white font-sans text-slate-900 antialiased hide-scrollbar',
 			)}
 		>
 			<head />
