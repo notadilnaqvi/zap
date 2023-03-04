@@ -20,3 +20,16 @@ export const COMMERCETOOLS_MIN_LIMIT = 1;
 
 /** Reference: https://docs.commercetools.com/api/general-concepts#limit */
 export const COMMERCETOOLS_MAX_LIMIT = 500;
+
+export const DEFAULT_ICON_PROPS: React.SVGProps<SVGSVGElement> = {
+	width: '20',
+	height: '20',
+	viewBox: '0 0 24 24',
+	fill: 'none',
+	stroke: 'currentColor',
+	strokeWidth: '1.5',
+	strokeLinecap: 'round',
+	strokeLinejoin: 'round',
+	xmlns: 'http://www.w3.org/2000/svg',
+	'aria-hidden': true,
+};

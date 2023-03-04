@@ -95,7 +95,10 @@ export function ProductCard(props: Props) {
 						) : (
 							<>
 								<div>
-									<PlusIcon size={10} />
+									<PlusIcon
+										height={10}
+										width={10}
+									/>
 								</div>
 								<p className='py-2.5 text-[10px] font-medium uppercase'>
 									Quick add
@@ -131,8 +134,10 @@ export function ProductCard(props: Props) {
 						) : (
 							<div className='p-[1px]'>
 								<HeartIcon
-									size={14}
-									filled={isAddedToWishlist}
+									height={12}
+									width={12}
+									strokeWidth={2}
+									fill={isAddedToWishlist ? 'currentColor' : 'none'}
 								/>
 							</div>
 						)}

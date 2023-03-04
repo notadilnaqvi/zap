@@ -26,7 +26,8 @@ export function AnnouncementBanner() {
 						</p>
 						<div>
 							<ArrowRightIcon
-								size={16}
+								height={16}
+								width={16}
 								strokeWidth={2}
 							/>
 						</div>

@@ -322,7 +322,10 @@ export function Header() {
 					title='ZAP'
 					aria-label='ZAP homepage'
 				>
-					<ZapIcon />
+					<ZapIcon
+						fill='currentColor'
+						className='text-slate-900'
+					/>
 				</Link>
 
 				{/* Nav links */}

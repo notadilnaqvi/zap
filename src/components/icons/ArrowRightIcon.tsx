@@ -1,20 +1,10 @@
-interface Props {
-	size?: number;
-	strokeWidth?: number;
-}
+import { DEFAULT_ICON_PROPS } from '~/utils/constants';
 
-export function ArrowRightIcon({ size = 20, strokeWidth = 1.5 }: Props) {
+export function ArrowRightIcon(props: React.SVGProps<SVGSVGElement>) {
 	return (
 		<svg
-			xmlns='http://www.w3.org/2000/svg'
-			width={size}
-			height={size}
-			viewBox='0 0 24 24'
-			fill='none'
-			stroke='currentColor'
-			strokeWidth={strokeWidth}
-			strokeLinecap='round'
-			strokeLinejoin='round'
+			{...DEFAULT_ICON_PROPS}
+			{...props}
 		>
 			<line
 				x1='5'

@@ -1,20 +1,10 @@
-interface Props {
-	size?: number;
-	filled?: boolean;
-}
+import { DEFAULT_ICON_PROPS } from '~/utils/constants';
 
-export function HeartIcon({ size = 20, filled = false }: Props) {
+export function HeartIcon(props: React.SVGProps<SVGSVGElement>) {
 	return (
 		<svg
-			xmlns='http://www.w3.org/2000/svg'
-			width={size}
-			height={size}
-			viewBox='0 0 24 24'
-			fill={filled ? 'currentColor' : 'none'}
-			stroke='currentColor'
-			strokeWidth='1.5'
-			strokeLinecap='round'
-			strokeLinejoin='round'
+			{...DEFAULT_ICON_PROPS}
+			{...props}
 		>
 			<path d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'></path>
 		</svg>
