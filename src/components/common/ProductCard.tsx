@@ -1,6 +1,5 @@
 'use client';
 
-import cn from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -10,7 +9,7 @@ import { HeartIcon, PlusIcon } from '~/components/icons';
 import { useToggle, useUi } from '~/hooks';
 import { useAddToCart } from '~/lib/commercetools/hooks';
 import { NormalisedProduct } from '~/lib/commercetools/types';
-import { formatPrice } from '~/utils';
+import { cx, formatPrice } from '~/utils';
 
 type Props = {
 	product: NormalisedProduct;
@@ -76,7 +75,7 @@ export function ProductCard(props: Props) {
 				/>
 				<div className='absolute bottom-0 w-full p-1.5'>
 					<button
-						className={cn(
+						className={cx(
 							{ 'opacity-0': !addToCartLoading }, // Only hide the button if it's not loading
 							'z-[1] mx-auto flex items-center justify-center space-x-1 bg-white shadow-sm w-full tracking-widest group-focus-visible:opacity-100 focus-visible:opacity-100 group-hover:opacity-100 hover:opacity-100 transition-opacity duration-100',
 						)}
@@ -120,7 +119,7 @@ export function ProductCard(props: Props) {
 						aria-label={
 							isAddedToWishlist ? 'Remove from wishlist' : 'Add to wishlist'
 						}
-						className={cn(
+						className={cx(
 							'hover:text-red-500 pt-0.5 ml-auto',
 							isAddedToWishlist ? 'text-red-500' : 'text-slate-700',
 						)}

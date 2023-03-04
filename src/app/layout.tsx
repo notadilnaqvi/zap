@@ -2,7 +2,6 @@
 
 import { ApolloProvider } from '@apollo/client';
 import { Inter } from '@next/font/google';
-import cn from 'classnames';
 import { PropsWithChildren, useEffect } from 'react';
 
 import {
@@ -16,6 +15,7 @@ import {
 import { useSyncWithPersistedUiState } from '~/hooks';
 import { apolloClient } from '~/lib/commercetools/graphql/client';
 import '~/styles/globals.css';
+import { cx } from '~/utils';
 import { LOCALE } from '~/utils/constants';
 
 const interFont = Inter({
@@ -39,12 +39,12 @@ export default function RootLayout(props: PropsWithChildren<{}>) {
 	return (
 		<html
 			lang={LOCALE}
-			className={cn(
+			className={cx(
 				'bg-white font-sans text-slate-900 antialiased hide-scrollbar',
 			)}
 		>
 			<head />
-			<body className={cn('min-h-screen', interFont.className)}>
+			<body className={cx('min-h-screen', interFont.className)}>
 				<ApolloProvider client={apolloClient}>
 					{/* Skip-to-content link */}
 					<div className='flex w-full justify-center px-4'>

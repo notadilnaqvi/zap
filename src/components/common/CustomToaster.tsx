@@ -1,10 +1,10 @@
 'use client';
 
 import { Transition } from '@headlessui/react';
-import cn from 'classnames';
 import { resolveValue as resolveToastValue, Toaster } from 'react-hot-toast';
 
 import { CheckCircleIcon, XCircleIcon } from '~/components/icons';
+import { cx } from '~/utils';
 
 export function CustomToaster() {
 	return (
@@ -17,7 +17,7 @@ export function CustomToaster() {
 					appear
 					show={t.visible}
 					as='div'
-					className={cn(
+					className={cx(
 						{
 							'bg-red-500': t.type === 'error',
 							'bg-blue-500': t.type === 'success',

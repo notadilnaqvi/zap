@@ -1,7 +1,6 @@
 'use client';
 
 import { Menu, Transition } from '@headlessui/react';
-import cn from 'classnames';
 import Link, { LinkProps } from 'next/link';
 import { forwardRef, Fragment, HTMLProps } from 'react';
 
@@ -21,6 +20,7 @@ import {
 } from '~/components/icons';
 import { useUi } from '~/hooks';
 import { useGetMyCart } from '~/lib/commercetools/hooks';
+import { cx } from '~/utils';
 
 export function Header() {
 	const openMiniCart = useUi(state => state.openMiniCart);
@@ -74,7 +74,7 @@ export function Header() {
 											<Menu.Item>
 												{({ active }) => (
 													<HeadlessUiLink
-														className={cn(
+														className={cx(
 															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
@@ -92,7 +92,7 @@ export function Header() {
 											<Menu.Item>
 												{({ active }) => (
 													<HeadlessUiLink
-														className={cn(
+														className={cx(
 															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
@@ -113,7 +113,7 @@ export function Header() {
 											<Menu.Item>
 												{({ active }) => (
 													<HeadlessUiLink
-														className={cn(
+														className={cx(
 															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
@@ -131,7 +131,7 @@ export function Header() {
 											<Menu.Item>
 												{({ active }) => (
 													<HeadlessUiLink
-														className={cn(
+														className={cx(
 															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
@@ -149,7 +149,7 @@ export function Header() {
 											<Menu.Item>
 												{({ active }) => (
 													<HeadlessUiLink
-														className={cn(
+														className={cx(
 															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
@@ -167,7 +167,7 @@ export function Header() {
 											<Menu.Item>
 												{({ active }) => (
 													<HeadlessUiLink
-														className={cn(
+														className={cx(
 															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
@@ -186,7 +186,7 @@ export function Header() {
 											<Menu.Item>
 												{({ active }) => (
 													<HeadlessUiLink
-														className={cn(
+														className={cx(
 															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
@@ -206,7 +206,7 @@ export function Header() {
 											<Menu.Item>
 												{({ active }) => (
 													<HeadlessUiLink
-														className={cn(
+														className={cx(
 															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
@@ -252,7 +252,7 @@ export function Header() {
 											<Menu.Item>
 												{({ active }) => (
 													<HeadlessUiLink
-														className={cn(
+														className={cx(
 															'px-4 py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
@@ -270,7 +270,7 @@ export function Header() {
 											<Menu.Item>
 												{({ active }) => (
 													<HeadlessUiLink
-														className={cn(
+														className={cx(
 															'px-4 py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
@@ -290,7 +290,7 @@ export function Header() {
 											<Menu.Item>
 												{({ active }) => (
 													<HeadlessUiLink
-														className={cn(
+														className={cx(
 															'px-4 py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
