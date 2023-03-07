@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === 'production') {
 
 	if (missingEnvVars) {
 		console.error(
-			'\u274c The following environment variables were not set. Please set them and try again.\n' +
+			'The following environment variables were not set. Please set them and try again.\n' +
 			missingEnvVars,
 		);
 		process.exit(1);
