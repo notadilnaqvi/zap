@@ -1,7 +1,6 @@
 {
 	"*.{ts,tsx}": [
-		"yarn eslint --fix-dry-run --max-warnings 8",
-		"yarn prettier --write"
-	],
-	"*.json": ["yarn prettier --write"]
+		"yarn lint src/ --fix-dry-run --max-warnings 8",
+		"yarn prettier --write src/ --loglevel warn"
+	]
 }
