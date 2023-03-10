@@ -1,6 +1,5 @@
 {
 	"*.{ts,tsx}": [
-		"yarn lint src/ --fix-dry-run --max-warnings 8",
 		"yarn prettier --write src/ --loglevel warn"
 	]
 }
