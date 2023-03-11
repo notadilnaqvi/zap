@@ -104,7 +104,7 @@ export function MiniCart() {
 									</p>
 									<Link
 										href='/browse'
-										className='rounded-sm bg-blue-500 px-4 py-2 text-sm font-medium tracking-widest text-white transition duration-100 hover:bg-blue-400'
+										className='rounded-sm bg-primary px-4 py-2 text-sm font-medium tracking-widest text-white transition duration-100 hover:bg-primary-dark'
 									>
 										Continue shopping
 									</Link>
@@ -151,7 +151,7 @@ export function MiniCart() {
 								</div>
 								<Link
 									href='/checkout'
-									className='w-full rounded-sm bg-blue-500 px-4 py-3 text-center text-sm font-medium tracking-widest text-white'
+									className='w-full rounded-sm bg-primary hover:bg-white transition-colors duration-100 px-4 py-3 text-center text-sm font-medium text-white border border-primary hover:text-primary'
 								>
 									Proceed to checkout
 								</Link>

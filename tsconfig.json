@@ -1,25 +1,25 @@
 {
 	"compilerOptions": {
 		"baseUrl": ".",
-		"target": "es5",
 		"strict": true,
 		"noEmit": true,
+		"target": "es5",
 		"allowJs": true,
 		"jsx": "preserve",
 		"module": "esnext",
 		"incremental": true,
 		"skipLibCheck": true,
-		"isolatedModules": true,
 		"noImplicitAny": true,
+		"isolatedModules": true,
 		"esModuleInterop": true,
 		"strictNullChecks": true,
 		"resolveJsonModule": true,
 		"moduleResolution": "node",
 		"noUncheckedIndexedAccess": true,
 		"noFallthroughCasesInSwitch": true,
+		"forceConsistentCasingInFileNames": true,
 		"noPropertyAccessFromIndexSignature": true,
 		"lib": ["dom", "dom.iterable", "esnext"],
-		"forceConsistentCasingInFileNames": true,
 		"paths": {
 			"~/lib/*": ["src/lib/*"],
 			"~/utils": ["src/utils"],
@@ -49,7 +49,8 @@
 		".next",
 		".prismic",
 		".storybook",
+		"node_modules",
 		".slicemachine",
-		"node_modules"
+		"storybook-static"
 	]
 }

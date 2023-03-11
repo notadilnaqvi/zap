@@ -8,9 +8,8 @@
 }
 
 a,
-button,
-.focusable {
-	@apply focus-visible:outline-blue-500 focus:outline-none rounded-sm;
+button {
+	@apply focus-visible:outline-primary focus:outline-none rounded-sm;
 }
 
 /* Hide scrollbar */
@@ -20,12 +19,4 @@ button,
 .hide-scrollbar {
 	-ms-overflow-style: none;
 	scrollbar-width: none;
-}
-
-/* Change selection color */
-::selection {
-	@apply bg-blue-200;
-}
-::-moz-selection {
-	@apply bg-blue-200;
 }

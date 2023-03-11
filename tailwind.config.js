@@ -16,8 +16,32 @@ module.exports = {
 			sm: { max: '480px' },
 		},
 		extend: {
+			// https://vercel.com/design/color
+			colors: {
+				primary: {
+					lighter: '#D3E5FF',
+					light: '#3291FF',
+					DEFAULT: '#0070F3',
+					dark: '#0761D1',
+				},
+				error: {
+					lighter: '#F7D4D6',
+					light: '#FF1A1A',
+					DEFAULT: '#EE0000',
+					dark: '#C50000',
+				},
+				warning: {
+					lighter: '#FFEFCF',
+					light: '#F7B955',
+					DEFAULT: '#F5A623',
+					dark: '#AB570A',
+				},
+			},
 			fontFamily: {
 				sans: ['Inter'],
+			},
+			borderRadius: {
+				DEFAULT: '5px',
 			},
 			animation: {
 				blink: 'blink 1.4s infinite both',

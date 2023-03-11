@@ -9,7 +9,8 @@
 		"next",
 		"next/core-web-vitals",
 		"plugin:tailwindcss/recommended",
-		"prettier"
+		"prettier",
+		"plugin:storybook/recommended"
 	],
 	"rules": {
 		"no-alert": "error",

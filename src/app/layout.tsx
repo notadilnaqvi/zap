@@ -51,7 +51,7 @@ export default function RootLayout(props: PropsWithChildren<{}>) {
 						<div className='relative w-full max-w-[1200px]'>
 							<a
 								href='#content'
-								className='absolute z-50 mt-4 -translate-y-16 bg-white px-2.5 py-1.5 text-sm text-blue-500 underline ring-2 ring-white focus:translate-y-0'
+								className='absolute z-50 mt-4 -translate-y-16 bg-white px-2.5 py-1.5 text-sm text-primary underline ring-2 ring-white focus:translate-y-0'
 							>
 								Skip to content
 							</a>

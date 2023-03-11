@@ -19,8 +19,8 @@ export function CustomToaster() {
 					as='div'
 					className={cx(
 						{
-							'bg-red-500': t.type === 'error',
-							'bg-blue-500': t.type === 'success',
+							'bg-error': t.type === 'error',
+							'bg-primary': t.type === 'success',
 						},
 						'transform rounded-sm py-3 pr-4 pl-3 max-w-[256px] flex items-center space-x-2',
 					)}

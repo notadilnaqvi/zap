@@ -5,7 +5,7 @@ import { create } from 'zustand';
 
 type ShowToastProps = {
 	message: string;
-	type: 'success' | 'error';
+	type: 'success' | 'error'; // TODO: Add a warning type
 };
 
 type OpenFullscreenLoadingOverlayProps = {
@@ -61,7 +61,7 @@ export const useUi = create<UiState>(set => ({
 	},
 	// Toast
 	showToast: props => {
-		const { message, type } = props;
+		const { message, type = 'success' } = props;
 		if (type === 'error') {
 			toast.error(message);
 		} else if (type === 'success') {

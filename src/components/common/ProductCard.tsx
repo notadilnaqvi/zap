@@ -59,10 +59,7 @@ export function ProductCard(props: Props) {
 	const isOnSale = Number(product.name?.length) < 16;
 
 	return (
-		<div
-			className='focusable group flex w-full flex-col'
-			tabIndex={0}
-		>
+		<div className='group flex w-full flex-col'>
 			<div className='relative aspect-[4/5] w-full'>
 				<Image
 					className='rounded-sm object-cover invert-[0.05]'
