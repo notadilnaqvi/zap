@@ -1,11 +1,11 @@
 import React from 'react';
 import { cx } from '~/utils';
 
-type ButtonColor = 'primary' | 'error' | 'warning';
+export type ButtonColor = 'primary' | 'error' | 'warning';
 
-type ButtonVariant = 'filled' | 'outlined' | 'ghost';
+export type ButtonVariant = 'filled' | 'outlined' | 'ghost';
 
-type ButtonSize = 'small' | 'default' | 'large';
+export type ButtonSize = 'small' | 'default' | 'large';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	disabled?: boolean;
@@ -17,7 +17,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 // TODO: Use CVA here maybe? (https://cva.style/docs)
 
 const baseClassNames =
-	'rounded border px-3 disabled:cursor-not-allowed font-medium transition-colors disabled:bg-neutral-50 disabled:border-gray-200 disabled:text-neutral-400';
+	'w-full h-min rounded border px-3 disabled:cursor-not-allowed font-medium transition-colors disabled:bg-neutral-50 disabled:border-gray-200 disabled:text-neutral-400';
 
 const sizeClassNames = {
 	small: 'text-sm py-1.5',
@@ -31,27 +31,27 @@ const variantAndColorClassNames: Record<
 > = {
 	filled: {
 		primary:
-			'text-white bg-primary border-primary hover:bg-primary-light hover:border-primary-light',
+			'text-white bg-primary border-primary hover:bg-primary-light hover:border-primary-light focus-visible:outline-primary',
 		error:
-			'text-white bg-error border-error hover:bg-error-light hover:border-error-light',
+			'text-white bg-error border-error hover:bg-error-light hover:border-error-light focus-visible:outline-error',
 		warning:
-			'text-white bg-warning border-warning hover:bg-warning-light hover:border-warning-light',
+			'text-white bg-warning border-warning hover:bg-warning-light hover:border-warning-light focus-visible:outline-warning',
 	},
 	outlined: {
 		primary:
-			'text-primary-light hover:text-primary bg-transparent border-primary-lighter hover:border-primary',
+			'text-primary-light hover:text-primary bg-transparent border-primary-lighter hover:border-primary focus-visible:outline-primary',
 		error:
-			'text-error-light hover:text-error bg-transparent border-error-lighter hover:border-error',
+			'text-error-light hover:text-error bg-transparent border-error-lighter hover:border-error focus-visible:outline-error',
 		warning:
-			'text-warning-light hover:text-warning bg-transparent border-warning-lighter hover:border-warning',
+			'text-warning-light hover:text-warning bg-transparent border-warning-lighter hover:border-warning focus-visible:outline-warning',
 	},
 	ghost: {
 		primary:
-			'text-primary bg-transparent border-transparent hover:bg-primary-lighter hover:border-primary-lighter',
+			'text-primary bg-transparent border-transparent hover:bg-primary-lighter hover:border-primary-lighter focus-visible:outline-primary',
 		error:
-			'text-error bg-transparent border-transparent hover:bg-error-lighter hover:border-error-lighter',
+			'text-error bg-transparent border-transparent hover:bg-error-lighter hover:border-error-lighter focus-visible:outline-error',
 		warning:
-			'text-warning bg-transparent border-transparent hover:bg-warning-lighter hover:border-warning-lighter',
+			'text-warning bg-transparent border-transparent hover:bg-warning-lighter hover:border-warning-lighter focus-visible:outline-warning',
 	},
 };
 
