@@ -25,7 +25,7 @@ export function PageGenerationTimeBanner(props: TimeAgoProps) {
 	}, [pageGenerationDateTime]);
 
 	return (
-		<div className='w-full rounded-sm bg-gray-100 p-3 font-mono text-sm'>
+		<div className='w-full rounded bg-gray-100 p-3 font-mono text-sm'>
 			This page was generated at {formattedDateTime} {timeAgo}
 		</div>
 	);

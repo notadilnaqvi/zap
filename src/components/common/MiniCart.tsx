@@ -6,6 +6,7 @@ import { Fragment } from 'react';
 
 import { LoadingSpinner } from '~/components/common';
 import { XIcon } from '~/components/icons';
+import { ButtonLink } from '~/components/ui';
 import { useUi } from '~/hooks';
 import { useGetMyCart } from '~/lib/commercetools/hooks';
 import { formatPrice } from '~/utils';
@@ -55,7 +56,7 @@ export function MiniCart() {
 						<div className='flex h-min w-full flex-row items-center justify-between p-4'>
 							<div>
 								{!isMyCartEmpty && (
-									<p className='text-lg font-medium text-slate-900'>
+									<p className='text-lg font-medium text-gray-900'>
 										Your cart: ({myCart?.me.activeCart?.totalLineItemQuantity})
 									</p>
 								)}
@@ -63,7 +64,7 @@ export function MiniCart() {
 							<button
 								aria-label='Close mini-cart'
 								title='Close mini-cart'
-								className='rounded-sm p-1 '
+								className='rounded p-1 '
 								onClick={closeMiniCart}
 							>
 								<XIcon />
@@ -96,15 +97,15 @@ export function MiniCart() {
 									as='div'
 									className='flex flex-col items-center space-y-4 pt-64 font-light'
 								>
-									<p className='text-2xl font-semibold text-slate-900'>
+									<p className='text-2xl font-semibold text-gray-900'>
 										Your cart is empty
 									</p>
-									<p className='text-sm text-slate-700'>
+									<p className='text-sm text-gray-700'>
 										Add items to proceed to checkout
 									</p>
 									<Link
 										href='/browse'
-										className='rounded-sm bg-primary px-4 py-2 text-sm font-medium tracking-widest text-white transition duration-100 hover:bg-primary-dark'
+										className='rounded bg-primary px-4 py-2 text-sm font-medium tracking-widest text-white transition duration-100 hover:bg-primary-dark'
 									>
 										Continue shopping
 									</Link>
@@ -125,11 +126,11 @@ export function MiniCart() {
 										{myCart.me.activeCart?.lineItems.map(lineItem => {
 											return (
 												<li
-													className='flex flex-row justify-between rounded-sm border p-2'
+													className='flex flex-row justify-between rounded border p-2'
 													key={lineItem.id}
 												>
 													<p className='text-sm font-medium'>{lineItem.name}</p>
-													<p className='text-sm tabular-nums text-slate-500'>
+													<p className='text-sm tabular-nums text-gray-500'>
 														x {lineItem.quantity}
 													</p>
 												</li>
@@ -149,12 +150,7 @@ export function MiniCart() {
 										})}
 									</p>
 								</div>
-								<Link
-									href='/checkout'
-									className='w-full rounded-sm bg-primary hover:bg-white transition-colors duration-100 px-4 py-3 text-center text-sm font-medium text-white border border-primary hover:text-primary'
-								>
-									Proceed to checkout
-								</Link>
+								<ButtonLink href='/checkout'>Continue to checkout</ButtonLink>
 							</div>
 						)}
 					</aside>

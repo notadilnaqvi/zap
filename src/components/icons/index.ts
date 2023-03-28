@@ -6,6 +6,7 @@ export { GiftIcon } from './GiftIcon';
 export { HeartIcon } from './HeartIcon';
 export { HelpCircleIcon } from './HelpCircleIcon';
 export { HomeIcon } from './HomeIcon';
+export { InfoIcon } from './InfoIcon';
 export { MailIcon } from './MailIcon';
 export { MenuIcon } from './MenuIcon';
 export { PlusIcon } from './PlusIcon';

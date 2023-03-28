@@ -51,14 +51,14 @@ export default async function ProductPage(props: ProductPageProps) {
 							<Image
 								src={image.src}
 								alt={image.label}
-								className='rounded-sm object-cover invert-[0.05]'
+								className='rounded object-cover invert-[0.05]'
 								fill
 							/>
 						</div>
 					);
 				})}
 			</div>
-			<div className='mt-4 overflow-x-scroll rounded-sm bg-gray-100 p-4 text-sm'>
+			<div className='mt-4 overflow-x-scroll rounded bg-gray-100 p-4 text-sm'>
 				<pre>
 					<code>{JSON.stringify(product, null, 2)}</code>
 				</pre>

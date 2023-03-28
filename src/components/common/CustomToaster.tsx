@@ -22,7 +22,7 @@ export function CustomToaster() {
 							'bg-error': t.type === 'error',
 							'bg-primary': t.type === 'success',
 						},
-						'transform rounded-sm py-3 pr-4 pl-3 max-w-[256px] flex items-center space-x-2',
+						'flex max-w-[256px] transform items-center space-x-2 rounded py-3 pr-4 pl-3',
 					)}
 					enter='transition-all duration-300'
 					enterFrom='translate-y-4 opacity-0'

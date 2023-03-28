@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Checkbox } from './Checkbox';
+import { Toggle } from '~/components/ui';
 
-const meta: Meta<typeof Checkbox> = {
-	title: 'UI/Checkbox',
+const meta: Meta<typeof Toggle> = {
+	title: 'UI/Toggle',
 	argTypes: {
 		disabled: {
 			defaultValue: false,
@@ -16,15 +16,23 @@ const meta: Meta<typeof Checkbox> = {
 			},
 		},
 	},
-	component: Checkbox,
+	component: Toggle,
 	tags: ['autodocs'],
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Checkbox>;
+type Story = StoryObj<typeof Toggle>;
 
-export const Default: Story = {};
+export const Default: Story = {
+	decorators: [
+		Story => (
+			<div className='w-full'>
+				<Story />
+			</div>
+		),
+	],
+};
 
 export const Showcase: Story = {
 	decorators: [
@@ -35,33 +43,15 @@ export const Showcase: Story = {
 				<Story args={{ defaultChecked: false, disabled: true }} />
 				<Story args={{ defaultChecked: true, disabled: true }} />
 				<Story
-					args={{
-						defaultChecked: false,
-						disabled: false,
-						label: 'unchecked + label',
-					}}
+					args={{ defaultChecked: false, disabled: false, size: 'large' }}
 				/>
 				<Story
-					args={{
-						defaultChecked: true,
-						disabled: false,
-						label: 'checked + label',
-					}}
+					args={{ defaultChecked: true, disabled: false, size: 'large' }}
 				/>
 				<Story
-					args={{
-						defaultChecked: false,
-						disabled: true,
-						label: 'unchecked + label + disabled',
-					}}
+					args={{ defaultChecked: false, disabled: true, size: 'large' }}
 				/>
-				<Story
-					args={{
-						defaultChecked: true,
-						disabled: true,
-						label: 'checked + label + disabled',
-					}}
-				/>
+				<Story args={{ defaultChecked: true, disabled: true, size: 'large' }} />
 			</div>
 		),
 	],

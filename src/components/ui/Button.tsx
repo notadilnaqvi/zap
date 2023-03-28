@@ -16,16 +16,16 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 // TODO: Use CVA here maybe? (https://cva.style/docs)
 
-const baseClassNames =
-	'w-full h-min rounded border px-3 disabled:cursor-not-allowed font-medium transition-colors disabled:bg-neutral-50 disabled:border-gray-200 disabled:text-neutral-400';
+export const baseClassNames =
+	'w-full h-min rounded border px-3 disabled:cursor-not-allowed font-medium transition-colors disabled:bg-neutral-50 disabled:border-gray-200 disabled:text-neutral-400 whitespace-nowrap justify-center items-center flex';
 
-const sizeClassNames = {
+export const sizeClassNames: Record<ButtonSize, string> = {
 	small: 'text-sm py-1.5',
 	default: 'text-sm py-2.5',
 	large: 'text-base py-3.5',
 };
 
-const variantAndColorClassNames: Record<
+export const variantAndColorClassNames: Record<
 	ButtonVariant,
 	Record<ButtonColor, string>
 > = {
@@ -61,6 +61,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 			size = 'default',
 			color = 'primary',
 			variant = 'filled',
+			type = 'button',
 			children,
 			className,
 			...rest
@@ -73,6 +74,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 					variantAndColorClassNames[variant][color],
 					className,
 				)}
+				type={type}
 				ref={ref}
 				{...rest}
 			>

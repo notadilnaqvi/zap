@@ -50,7 +50,6 @@
 		".prismic",
 		".storybook",
 		"node_modules",
-		".slicemachine",
-		"storybook-static"
+		".slicemachine"
 	]
 }

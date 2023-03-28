@@ -8,10 +8,13 @@ export function Footer() {
 			<footer className='flex w-full max-w-[1200px] flex-row items-center justify-between py-8'>
 				<Link
 					href='/'
-					className='rounded-sm p-1'
+					className='rounded p-1'
 					title='ZAP homepage'
 				>
-					<ZapIcon />
+					<ZapIcon
+						fill='currentColor'
+						className='text-gray-900'
+					/>
 				</Link>
 			</footer>
 		</div>

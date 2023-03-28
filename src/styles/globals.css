@@ -9,7 +9,7 @@
 
 a,
 button {
-	@apply focus-visible:outline-primary focus:outline-none rounded-sm;
+	@apply rounded focus:outline-none focus-visible:outline-primary;
 }
 
 /* Hide scrollbar */

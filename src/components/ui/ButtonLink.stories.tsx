@@ -1,19 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Button, ButtonColor, ButtonSize, ButtonVariant } from './Button';
+import { ButtonColor, ButtonSize, ButtonVariant } from './Button';
+import { ButtonLink } from './ButtonLink';
 
-const meta: Meta<typeof Button> = {
-	title: 'UI/Button',
-	component: Button,
+const meta: Meta<typeof ButtonLink> = {
+	title: 'UI/ButtonLink',
+	component: ButtonLink,
 	tags: ['autodocs'],
 	args: {
-		children: 'Button',
+		children: 'Button Link',
+		href: 'https://example.com',
 	},
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof ButtonLink>;
 
 export const Default: Story = {
 	decorators: [
@@ -25,35 +27,31 @@ export const Default: Story = {
 	],
 };
 
-const disabledVariations: boolean[] = [false, true];
-
 const sizeVariations: ButtonSize[] = ['small', 'default', 'large'];
 
 const colorVariations: ButtonColor[] = ['primary', 'error', 'warning'];
 
 const variantVariations: ButtonVariant[] = ['filled', 'outlined', 'ghost'];
 
-const allVariations = disabledVariations
-	.map(disabled => {
-		return sizeVariations.map(size => {
-			return colorVariations.map(color => {
-				return variantVariations.map(variant => {
-					return {
-						children: (
-							<span>
-								{variant} + {color} + {size} {!!disabled && '+ disabled'}
-							</span>
-						),
-						variant,
-						color,
-						size,
-						disabled,
-					};
-				});
+const allVariations = sizeVariations
+	.map(size => {
+		return colorVariations.map(color => {
+			return variantVariations.map(variant => {
+				return {
+					children: (
+						<span>
+							{variant} + {color} + {size}
+						</span>
+					),
+					variant,
+					color,
+					href: 'https://example.com',
+					size,
+				};
 			});
 		});
 	})
-	.flat(3); // Update this when the number of "levels" of variations changes.
+	.flat(2); // Update this when the number of "levels" of variations changes.
 
 export const Showcase: Story = {
 	decorators: [

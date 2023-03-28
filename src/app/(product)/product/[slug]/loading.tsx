@@ -5,20 +5,20 @@
 export default function Loading() {
 	return (
 		<div className='w-full py-16'>
-			<div className='relative mb-4 w-full overflow-hidden rounded-sm before:absolute before:inset-0 before:-translate-x-full before:-skew-x-12 before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent'>
+			<div className='relative mb-4 w-full overflow-hidden rounded before:absolute before:inset-0 before:-translate-x-full before:-skew-x-12 before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent'>
 				<div className='h-full bg-gray-200'>
 					{' '}
 					{/* TODO: Explain this hack */}
-					<div className='w-full select-none rounded-sm bg-gray-200 p-3 font-mono text-sm text-gray-200'>
+					<div className='w-full select-none rounded bg-gray-200 p-3 font-mono text-sm text-gray-200'>
 						xxxx xxxx xxx xxxxxxxxx xx xx/xxx/xxxx xx:xx:xx xx (xx xxxxxx xxx)
 					</div>
 				</div>
 			</div>
-			<div className='relative mb-8 h-7 w-64 overflow-hidden rounded-sm before:absolute before:inset-0 before:-translate-x-full before:-skew-x-12 before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent'>
+			<div className='relative mb-8 h-7 w-64 overflow-hidden rounded before:absolute before:inset-0 before:-translate-x-full before:-skew-x-12 before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent'>
 				<div className='h-full bg-gray-200'>
 					{' '}
 					{/* TODO: Explain this hack */}
-					<div className='w-full select-none rounded-sm bg-gray-200 p-3 font-mono text-sm text-gray-200'></div>
+					<div className='w-full select-none rounded bg-gray-200 p-3 font-mono text-sm text-gray-200'></div>
 				</div>
 			</div>
 			<div className='mb-4 grid grid-flow-row grid-cols-4 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
@@ -31,12 +31,12 @@ export default function Loading() {
 								className='relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:-skew-x-12 before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent'
 								key={index}
 							>
-								<div className='aspect-[4/5] rounded-sm bg-gray-200'></div>
+								<div className='aspect-[4/5] rounded bg-gray-200'></div>
 							</div>
 						);
 					})}
 			</div>
-			<div className='relative mb-8 h-[512px] w-full overflow-hidden rounded-sm before:absolute before:inset-0 before:-translate-x-full before:-skew-x-12 before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent'>
+			<div className='relative mb-8 h-[512px] w-full overflow-hidden rounded before:absolute before:inset-0 before:-translate-x-full before:-skew-x-12 before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent'>
 				<div className='h-full bg-gray-200'></div>
 			</div>
 		</div>

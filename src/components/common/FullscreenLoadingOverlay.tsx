@@ -40,7 +40,7 @@ export function FullscreenLoadingOverlay() {
 				>
 					<div className='fixed inset-0 flex flex-col items-center justify-center space-y-3 bg-white/90'>
 						<LoadingSpinner />
-						<p className='pl-[2ch] font-medium text-slate-700'>
+						<p className='pl-[2ch] font-medium text-gray-700'>
 							{fullscreenLoadingOverlayText}
 						</p>
 					</div>

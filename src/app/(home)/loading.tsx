@@ -1,11 +1,11 @@
 export default function Loading() {
 	return (
 		<div className='w-full py-16'>
-			<div className='relative mb-4 w-full overflow-hidden rounded-sm before:absolute before:inset-0 before:-translate-x-full before:-skew-x-12 before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent'>
+			<div className='relative mb-4 w-full overflow-hidden rounded before:absolute before:inset-0 before:-translate-x-full before:-skew-x-12 before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent'>
 				<div className='h-full bg-gray-200'>
 					{' '}
 					{/* TODO: Explain this hack */}
-					<div className='w-full select-none rounded-sm bg-gray-200 p-3 font-mono text-sm text-gray-200'>
+					<div className='w-full select-none rounded bg-gray-200 p-3 font-mono text-sm text-gray-200'>
 						xxxx xxxx xxx xxxxxxxxx xx xx/xxx/xxxx xx:xx:xx xx (xx xxxxxx xxx)
 					</div>
 				</div>
@@ -20,7 +20,7 @@ export default function Loading() {
 								className='relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:-skew-x-12 before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent'
 								key={index}
 							>
-								<div className='aspect-[4/5] rounded-sm bg-gray-200'></div>
+								<div className='aspect-[4/5] rounded bg-gray-200'></div>
 								<div className='flex flex-col py-[5px]'>
 									<div className='flex flex-row items-center'>
 										<div className='w-full'>

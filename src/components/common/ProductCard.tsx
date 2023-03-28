@@ -60,9 +60,9 @@ export function ProductCard(props: Props) {
 
 	return (
 		<div className='group flex w-full flex-col'>
-			<div className='relative aspect-[4/5] w-full'>
+			<div className='relative aspect-[4/5] w-full rounded'>
 				<Image
-					className='rounded-sm object-cover invert-[0.05]'
+					className='rounded object-cover invert-[0.05]'
 					fill
 					placeholder='blur'
 					blurDataURL={product.mainImage.blurDataUrl}
@@ -74,7 +74,7 @@ export function ProductCard(props: Props) {
 					<button
 						className={cx(
 							{ 'opacity-0': !addToCartLoading }, // Only hide the button if it's not loading
-							'z-[1] mx-auto flex items-center justify-center space-x-1 bg-white shadow-sm w-full tracking-widest group-focus-visible:opacity-100 focus-visible:opacity-100 group-hover:opacity-100 hover:opacity-100 transition-opacity duration-100',
+							'z-[1] mx-auto flex w-full items-center justify-center space-x-1 bg-white tracking-widest shadow-sm transition-opacity duration-100 hover:opacity-100 focus-visible:opacity-100 group-hover:opacity-100 group-focus-visible:opacity-100',
 						)}
 						onClick={() => handleAddToCart({ sku: product.sku })}
 						aria-disabled={addToCartLoading}
@@ -117,8 +117,8 @@ export function ProductCard(props: Props) {
 							isAddedToWishlist ? 'Remove from wishlist' : 'Add to wishlist'
 						}
 						className={cx(
-							'hover:text-red-500 pt-0.5 ml-auto',
-							isAddedToWishlist ? 'text-red-500' : 'text-slate-700',
+							'ml-auto pt-0.5 hover:text-red-500',
+							isAddedToWishlist ? 'text-red-500' : 'text-gray-700',
 						)}
 						onClick={handleToggleIsAddedToWishlist}
 						disabled={loading}
@@ -140,18 +140,18 @@ export function ProductCard(props: Props) {
 					</button>
 				</div>
 				<div className='flex items-center justify-between'>
-					<p className='text-[11px] font-light leading-5 text-slate-700'>
+					<p className='text-[11px] font-light leading-5 text-gray-700'>
 						{product.designer?.label}
 					</p>
 					<div className='flex space-x-2'>
 						{isOnSale && (
-							<p className='text-xs font-light leading-5 text-slate-500 line-through'>
+							<p className='text-xs font-light leading-5 text-gray-500 line-through'>
 								{formatPrice({
 									centAmount: product?.price,
 								})}
 							</p>
 						)}
-						<p className='text-xs font-light leading-5 text-slate-900'>
+						<p className='text-xs font-light leading-5 text-gray-900'>
 							{formatPrice({
 								centAmount: product?.price,
 							})}

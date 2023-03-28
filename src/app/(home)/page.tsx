@@ -7,20 +7,16 @@ import {
 	FALLBACK_IMAGE_BLUR_DATA_URL,
 } from '~/utils/constants';
 
-export const revalidate = 60; // Revalidate every minute
-
 export default async function HomePage() {
 	const { data } = await Commercetools.getProducts({ limit: 100 });
 
 	// NOTE: `getBlurDataUrl` won't ever reject so we can safely use `Promise.all`
 	const blurDataUrls = await Promise.all(
 		data.products.map(async product => {
-			// FIX: Vercel keep timing out when generating the blur data URL
-			// for the images. So for now, we'll just use the fallback image
-			// const blurDataUrl = await getBlurDataUrl(product.mainImage?.src);
+			const blurDataUrl = await getBlurDataUrl(product.mainImage?.src);
 			return {
 				id: product.id,
-				blurDataUrl: FALLBACK_IMAGE_BLUR_DATA_URL,
+				blurDataUrl,
 			};
 		}),
 	);

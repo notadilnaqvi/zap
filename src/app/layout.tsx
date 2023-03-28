@@ -39,9 +39,7 @@ export default function RootLayout(props: PropsWithChildren<{}>) {
 	return (
 		<html
 			lang={LOCALE}
-			className={cx(
-				'bg-white font-sans text-slate-900 antialiased hide-scrollbar',
-			)}
+			className={cx('bg-white font-sans text-gray-900 antialiased')}
 		>
 			<head />
 			<body className={cx('min-h-screen', interFont.className)}>

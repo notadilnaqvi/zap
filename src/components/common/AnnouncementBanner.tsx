@@ -21,7 +21,7 @@ export function AnnouncementBanner() {
 						href='#'
 						className='flex items-center space-x-1 px-2'
 					>
-						<p className='text-center text-sm font-semibold leading-7 text-slate-700'>
+						<p className='text-center text-sm font-semibold leading-7 text-gray-700'>
 							Same-day delivery now available
 						</p>
 						<div>
@@ -35,7 +35,7 @@ export function AnnouncementBanner() {
 				</div>
 				<div className='absolute right-0 flex items-center'>
 					<button
-						className='rounded-sm p-1'
+						className='rounded p-1'
 						aria-label='Close announcement banner'
 						title='Close announcement banner'
 						onClick={closeAnnouncementBanner}

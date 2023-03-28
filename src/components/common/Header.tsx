@@ -75,7 +75,7 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cx(
-															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															'rounded py-3 transition-colors duration-200 hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
 														href='/'
@@ -84,7 +84,7 @@ export function Header() {
 															<div className='p-1'>
 																<HomeIcon />
 															</div>
-															<p className='font-light text-slate-900'>Home</p>
+															<p className='text-gray-900'>Home</p>
 														</div>
 													</HeadlessUiLink>
 												)}
@@ -93,7 +93,7 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cx(
-															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															'rounded py-3 transition-colors duration-200 hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
 														href='/browse'
@@ -102,9 +102,7 @@ export function Header() {
 															<div className='p-1'>
 																<FilterIcon />
 															</div>
-															<p className='font-light text-slate-900'>
-																Browse
-															</p>
+															<p className='text-gray-900'>Browse</p>
 														</div>
 													</HeadlessUiLink>
 												)}
@@ -114,7 +112,7 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cx(
-															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															'rounded py-3 transition-colors duration-200 hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
 														href='/'
@@ -123,7 +121,7 @@ export function Header() {
 															<div className='p-1'>
 																<AwardIcon />
 															</div>
-															<p className='font-light text-slate-900'>New</p>
+															<p className='text-gray-900'>New</p>
 														</div>
 													</HeadlessUiLink>
 												)}
@@ -132,7 +130,7 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cx(
-															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															'rounded py-3 transition-colors duration-200 hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
 														href='/browse'
@@ -141,7 +139,7 @@ export function Header() {
 															<div className='p-1'>
 																<UserIcon />
 															</div>
-															<p className='font-light text-slate-900'>Men</p>
+															<p className='text-gray-900'>Men</p>
 														</div>
 													</HeadlessUiLink>
 												)}
@@ -150,7 +148,7 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cx(
-															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															'rounded py-3 transition-colors duration-200 hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
 														href='/browse'
@@ -159,7 +157,7 @@ export function Header() {
 															<div className='p-1'>
 																<UserIcon />
 															</div>
-															<p className='font-light text-slate-900'>Women</p>
+															<p className='text-gray-900'>Women</p>
 														</div>
 													</HeadlessUiLink>
 												)}
@@ -168,7 +166,7 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cx(
-															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															'rounded py-3 transition-colors duration-200 hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
 														href='/browse'
@@ -177,7 +175,7 @@ export function Header() {
 															<div className='p-1'>
 																<TagIcon />
 															</div>
-															<p className='font-light text-slate-900'>Sale</p>
+															<p className='text-gray-900'>Sale</p>
 														</div>
 													</HeadlessUiLink>
 												)}
@@ -187,7 +185,7 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cx(
-															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															'rounded py-3 transition-colors duration-200 hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
 														href='/browse'
@@ -196,9 +194,7 @@ export function Header() {
 															<div className='p-1'>
 																<MailIcon />
 															</div>
-															<p className='font-light text-slate-900'>
-																Contact
-															</p>
+															<p className='text-gray-900'>Contact</p>
 														</div>
 													</HeadlessUiLink>
 												)}
@@ -207,7 +203,7 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cx(
-															'py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															'rounded py-3 transition-colors duration-200 hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
 														href='/browse'
@@ -216,7 +212,7 @@ export function Header() {
 															<div className='p-1'>
 																<HelpCircleIcon />
 															</div>
-															<p className='font-light text-slate-900'>FAQ</p>
+															<p className='text-gray-900'>FAQ</p>
 														</div>
 													</HeadlessUiLink>
 												)}
@@ -253,7 +249,7 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cx(
-															'px-4 py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															'rounded px-4 py-3 transition-colors duration-200 hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
 														href='/'
@@ -262,7 +258,7 @@ export function Header() {
 															<div className='p-1'>
 																<HomeIcon />
 															</div>
-															<p className='font-light text-slate-900'>Home</p>
+															<p className='text-gray-900'>Home</p>
 														</div>
 													</HeadlessUiLink>
 												)}
@@ -271,7 +267,7 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cx(
-															'px-4 py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															'rounded px-4 py-3 transition-colors duration-200 hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
 														href='/browse'
@@ -280,9 +276,7 @@ export function Header() {
 															<div className='p-1'>
 																<SearchIcon />
 															</div>
-															<p className='font-light text-slate-900'>
-																Browse
-															</p>
+															<p className='text-gray-900'>Browse</p>
 														</div>
 													</HeadlessUiLink>
 												)}
@@ -291,7 +285,7 @@ export function Header() {
 												{({ active }) => (
 													<HeadlessUiLink
 														className={cx(
-															'px-4 py-3 transition-colors duration-200 rounded-sm hover:bg-gray-100',
+															'rounded px-4 py-3 transition-colors duration-200 hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
 														href='/search'
@@ -300,9 +294,7 @@ export function Header() {
 															<div className='p-1'>
 																<SearchIcon />
 															</div>
-															<p className='font-light text-slate-900'>
-																Search
-															</p>
+															<p className='text-gray-900'>Search</p>
 														</div>
 													</HeadlessUiLink>
 												)}
@@ -318,13 +310,13 @@ export function Header() {
 				{/* Home link */}
 				<Link
 					href='/'
-					className='rounded-sm p-1'
+					className='rounded p-1'
 					title='ZAP'
 					aria-label='ZAP homepage'
 				>
 					<ZapIcon
 						fill='currentColor'
-						className='text-slate-900'
+						className='text-gray-900'
 					/>
 				</Link>
 
@@ -332,7 +324,7 @@ export function Header() {
 				<ul className='flex flex-row space-x-8 md:space-x-4 sm:hidden'>
 					<li className='flex items-center'>
 						<button
-							className='rounded-sm p-1 text-sm font-light text-slate-700 hover:text-slate-900'
+							className='rounded p-1 text-sm text-gray-700'
 							onClick={() => {}}
 						>
 							New
@@ -340,7 +332,7 @@ export function Header() {
 					</li>
 					<li className='flex items-center'>
 						<button
-							className='rounded-sm p-1 text-sm font-light text-slate-700 hover:text-slate-900'
+							className='rounded p-1 text-sm text-gray-700'
 							onClick={() => {}}
 						>
 							Men
@@ -348,7 +340,7 @@ export function Header() {
 					</li>
 					<li className='flex items-center'>
 						<button
-							className='rounded-sm p-1 text-sm font-light text-slate-700 hover:text-slate-900'
+							className='rounded p-1 text-sm text-gray-700'
 							onClick={() => {}}
 						>
 							Women
@@ -356,7 +348,7 @@ export function Header() {
 					</li>
 					<li className='flex items-center'>
 						<button
-							className='rounded-sm p-1 text-sm font-light text-slate-700 hover:text-slate-900'
+							className='rounded p-1 text-sm text-gray-700'
 							onClick={() => {}}
 						>
 							Sale
@@ -370,7 +362,7 @@ export function Header() {
 						<button
 							onClick={handleLogin}
 							aria-label='Login'
-							className='rounded-sm p-1 text-slate-700 hover:text-slate-900'
+							className='rounded p-1 text-gray-700'
 							title='Login'
 						>
 							<UserIcon />
@@ -379,7 +371,7 @@ export function Header() {
 					<li className='flex items-center'>
 						<Link
 							href='/search'
-							className='rounded-sm p-1 text-slate-700 hover:text-slate-900'
+							className='rounded p-1 text-gray-700'
 							title='Search for products'
 							aria-label='Search for products'
 						>
@@ -390,7 +382,7 @@ export function Header() {
 						<button
 							aria-label='Open mini-cart'
 							title='Open mini-cart'
-							className='relative rounded-sm p-1 text-slate-700 hover:text-slate-900'
+							className='relative rounded p-1 text-gray-700'
 							onClick={openMiniCart}
 						>
 							{!isMyCartEmpty && (
