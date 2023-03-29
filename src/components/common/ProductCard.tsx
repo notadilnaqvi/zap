@@ -74,7 +74,7 @@ export function ProductCard(props: Props) {
 					<button
 						className={cx(
 							{ 'opacity-0': !addToCartLoading }, // Only hide the button if it's not loading
-							'z-[1] mx-auto flex w-full items-center justify-center space-x-1 bg-white tracking-widest shadow-sm transition-opacity duration-100 hover:opacity-100 focus-visible:opacity-100 group-hover:opacity-100 group-focus-visible:opacity-100',
+							'z-[1] mx-auto flex w-full items-center justify-center space-x-1 bg-white tracking-widest shadow-sm transition-opacity duration-100 hover:opacity-100 focus-visible:opacity-100 group-hover:opacity-100 group-focus-visible:opacity-100 sm:opacity-100',
 						)}
 						onClick={() => handleAddToCart({ sku: product.sku })}
 						aria-disabled={addToCartLoading}
