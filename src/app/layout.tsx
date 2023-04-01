@@ -1,7 +1,7 @@
 'use client';
 
 import { ApolloProvider } from '@apollo/client';
-import { Inter } from '@next/font/google';
+import { Inter } from 'next/font/google';
 import { PropsWithChildren, useEffect } from 'react';
 
 import {
