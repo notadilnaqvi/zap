@@ -4,10 +4,10 @@
 	"scripts": {
 		"dev": "next dev",
 		"lint": "next lint",
-		"build": "next build",
+		"build": "yarn build:storybook && next build",
 		"start": "next start",
 		"storybook": "storybook dev -p 6006",
-		"build:storybook": "storybook build --loglevel silent --output-dir public/__storybook/",
+		"build:storybook": "storybook build --loglevel silent --output-dir public/_storybook/",
 		"codegen:graphql": "npx graphql-codegen --config graphql-codegen.config.ts",
 		"prepare": "husky install"
 	},
