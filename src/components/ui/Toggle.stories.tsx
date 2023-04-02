@@ -37,7 +37,7 @@ export const Default: Story = {
 export const Showcase: Story = {
 	decorators: [
 		Story => (
-			<div className='grid grid-cols-4 gap-4'>
+			<div className='grid grid-cols-4 gap-4 md:grid-cols-2 sm:grid-cols-1'>
 				<Story args={{ defaultChecked: false, disabled: false }} />
 				<Story args={{ defaultChecked: true, disabled: false }} />
 				<Story args={{ defaultChecked: false, disabled: true }} />

@@ -56,7 +56,7 @@ const allVariations = sizeVariations
 export const Showcase: Story = {
 	decorators: [
 		Story => (
-			<div className='grid grid-cols-3 gap-4'>
+			<div className='grid grid-cols-3 gap-4 md:grid-cols-2 sm:grid-cols-1'>
 				{allVariations.map(variation => {
 					return (
 						<Story
