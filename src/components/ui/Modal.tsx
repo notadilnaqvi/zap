@@ -51,7 +51,7 @@ export const Modal = (props: ModalProps) => {
 					>
 						<ModalPrimitive.Panel
 							className={cx(
-								'flex max-h-[80vh] w-full max-w-[540px] flex-col overflow-hidden rounded-lg bg-white shadow-[0px_30px_60px_rgba(0,0,0,0.12)] sm:rounded-b-none',
+								'flex max-h-[80vh] w-full max-w-[540px] flex-col overflow-hidden rounded-lg bg-white shadow-[0px_30px_60px_rgba(0,0,0,0.12)] sm:max-h-[90vh] sm:rounded-b-none sm:shadow-none',
 								className,
 							)}
 						>
