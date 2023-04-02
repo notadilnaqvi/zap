@@ -386,7 +386,7 @@ export function Header() {
 							onClick={openMiniCart}
 						>
 							{!isMyCartEmpty && (
-								<span className='absolute left-3.5 -top-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-semibold text-white'>
+								<span className='absolute -top-0.5 left-3.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-semibold text-white'>
 									{myCart?.me.activeCart?.totalLineItemQuantity}
 								</span>
 							)}

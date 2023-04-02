@@ -8,7 +8,7 @@ import {
 } from '~/utils/constants';
 
 export default async function HomePage() {
-	const { data } = await Commercetools.getProducts({ limit: 100 });
+	const { data } = await Commercetools.getProducts({ limit: 16 });
 
 	// NOTE: `getBlurDataUrl` won't ever reject so we can safely use `Promise.all`
 	const blurDataUrls = await Promise.all(

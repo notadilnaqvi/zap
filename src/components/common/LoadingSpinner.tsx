@@ -9,7 +9,7 @@ interface Props {
 export function LoadingSpinner({ size = 'large' }: Props) {
 	return (
 		<div className={cx('block', size === 'large' ? 'h-6 w-6' : 'h-4 w-4')}>
-			<div className='relative top-1/2 left-1/2 h-full w-full'>
+			<div className='relative left-1/2 top-1/2 h-full w-full'>
 				{/* One span for each line thingy in the loader */}
 				{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(index => {
 					return (

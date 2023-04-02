@@ -38,9 +38,11 @@ export function MiniCart() {
 					leaveFrom='opacity-100'
 					leaveTo='opacity-0'
 				>
+					{/* Overlay */}
 					<div
-						className='fixed inset-0 bg-black/30'
+						className='fixed inset-0 bg-black/30 sm:bg-black/50'
 						onClick={closeMiniCart}
+						aria-hidden='true'
 					/>
 				</Transition.Child>
 				<Transition.Child

@@ -31,11 +31,12 @@ export default function RootLayout(props: PropsWithChildren<{}>) {
 	useEffect(() => {
 		// Spread the love
 		console.log('Made with 💖 by @notadilnaqvi');
-		console.log('Source code available at https://github.com/notadilnaqvi');
+		console.log('Source code available at https://github.com/notadilnaqvi/zap');
 
 		// NOTE: Disabling temporarily
 		// syncWithPersistedUiState();
 	}, []);
+
 	return (
 		<html
 			lang={LOCALE}
