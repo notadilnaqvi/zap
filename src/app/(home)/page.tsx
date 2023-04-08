@@ -58,13 +58,13 @@ async function getBlurDataUrl(src: string) {
 		// Don't need to generate a data URL for the fallback image
 		if (src === FALLBACK_IMAGE) return FALLBACK_IMAGE_BLUR_DATA_URL;
 
-		// The current project has 2 sizes of images: large and small. But only
-		// the large images are used in CT products for obvious reasons. Since
-		// we want the data URL to be very light and small, we use the small
-		// version of the image to generate the data URL by replacing `_large`
-		// with `_small` in the image source.
+		// The current project has 4 sizes of images: large, medium, small, and
+		// thumbnail. But only the large images are used in CT products for
+		// obvious reasons. Since we want the data URL to be very light and small,
+		// we use the small version of the image to generate the data URL by
+		// replacing `_large` with `_thumbnail` in the image source.
 		const { base64 } = await generateBase64EncodedDataUrl(
-			src.replace('_large', '_small'),
+			src.replace('_large', '_thumbnail'),
 		);
 		return base64;
 	} catch (error: unknown) {

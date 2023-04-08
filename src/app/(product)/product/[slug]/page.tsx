@@ -68,7 +68,7 @@ export default async function ProductPage(props: ProductPageProps) {
 }
 
 export async function generateStaticParams() {
-	const { data, error } = await Commercetools.getProductSlugs({ limit: 1 });
+	const { data, error } = await Commercetools.getProductSlugs({ limit: 16 });
 
 	if (error) {
 		throw new Error(
