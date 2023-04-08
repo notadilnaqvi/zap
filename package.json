@@ -4,7 +4,7 @@
 	"scripts": {
 		"dev": "next dev",
 		"lint": "next lint",
-		"build": "yarn build:storybook && next build",
+		"build": "next build",
 		"start": "next start",
 		"storybook": "storybook dev -p 6006",
 		"build:storybook": "storybook build --loglevel silent --output-dir public/_storybook/",
