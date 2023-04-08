@@ -19,7 +19,7 @@ interface ButtonLinkProps extends React.ComponentProps<typeof Link> {
 
 export const ButtonLink = (props: ButtonLinkProps) => {
 	const {
-		size = 'default',
+		size = 'medium',
 		color = 'primary',
 		variant = 'filled',
 		children,

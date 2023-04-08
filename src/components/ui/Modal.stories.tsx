@@ -11,7 +11,25 @@ import {
 
 const meta: Meta<typeof Modal> = {
 	title: 'UI/Modal',
-	argTypes: {},
+	// Deliberately omitting these. Don't want to show them in Storybook
+	// controls.
+	argTypes: {
+		isOpen: {
+			table: {
+				disable: true,
+			},
+		},
+		onClose: {
+			table: {
+				disable: true,
+			},
+		},
+		className: {
+			table: {
+				disable: true,
+			},
+		},
+	},
 	component: Modal,
 	tags: ['autodocs'],
 };

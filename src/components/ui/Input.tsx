@@ -1,40 +1,40 @@
 import React, { useId } from 'react';
+
 import { InfoIcon } from '~/components/icons';
 import { Label } from '~/components/ui';
-
 import { cx } from '~/utils';
 
-export type InputSize = 'small' | 'default' | 'large';
+export type InputSize = 'small' | 'medium' | 'large';
 
 interface InputProps
 	extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
 	label?: string;
-	error?: Maybe<string>;
+	error?: string;
 	disabled?: boolean;
 	size?: InputSize;
 }
 
 const baseClassNames =
-	'peer w-full bg-white text-gray-900 border border-gray-400 rounded px-3 disabled:cursor-not-allowed disabled:bg-gray-100 font-normal focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary outline-none transition-colors disabled:text-gray-600';
+	'peer w-full bg-white text-gray-900 border border-gray-400 disabled:border-gray-300 rounded px-3 disabled:cursor-not-allowed disabled:bg-gray-100 font-normal focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary outline-none transition-colors disabled:text-gray-600';
 
 const errorClassNames =
-	'border-error focus-visible:border-error focus-visible:ring-error placeholder-[#fba8a3] text-error disabled:text-[#fba8a3]';
+	'border-error focus-visible:border-error focus-visible:ring-error placeholder-error/40 text-error disabled:border-error disabled:text-error/40';
 
 const sizeClassNames: Record<InputSize, string> = {
 	small: 'py-1.5 text-sm',
-	default: 'py-2 text-base',
+	medium: 'py-2 text-base',
 	large: 'py-3 text-base',
 };
 
 const errorsTextSizeClassNames: Record<InputSize, string> = {
 	small: 'text-sm',
-	default: 'text-sm',
+	medium: 'text-sm',
 	large: 'text-base',
 };
 
 const iconSizes: Record<InputSize, number> = {
 	small: 20,
-	default: 20,
+	medium: 20,
 	large: 24,
 };
 
@@ -43,9 +43,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 		const randomId = useId();
 		const {
 			id,
-			size = 'default',
+			size = 'medium',
 			label,
-			error = null,
+			error = undefined,
 			className,
 			...rest
 		} = props;
@@ -87,6 +87,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 					<Label
 						error={!!error}
 						htmlFor={id || randomId}
+						size={size}
 						className='mb-1.5'
 					>
 						{label}

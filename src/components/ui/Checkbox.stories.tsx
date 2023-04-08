@@ -1,13 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 
-import { Checkbox } from './Checkbox';
+import { Checkbox } from '~/components/ui/Checkbox';
 
 const meta: Meta<typeof Checkbox> = {
 	title: 'UI/Checkbox',
 	argTypes: {
 		disabled: {
-			defaultValue: false,
-			type: { name: 'boolean' },
+			table: { defaultValue: { summary: 'false' } },
+			control: { type: 'boolean' },
+		},
+		label: {
+			table: { defaultValue: { summary: 'undefined' } },
 		},
 		// Extraneous prop. Don't need to show it in Storybook controls.
 		asChild: {
@@ -22,47 +25,105 @@ const meta: Meta<typeof Checkbox> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Checkbox>;
+export const DefaultCheckbox: StoryFn<typeof Checkbox> = args => {
+	return <Checkbox {...args}>Button Link</Checkbox>;
+};
 
-export const Default: Story = {};
+export const CheckboxWithLabel: StoryFn<typeof Checkbox> = args => {
+	return (
+		<Checkbox
+			label='Label'
+			{...args}
+		>
+			Button Link
+		</Checkbox>
+	);
+};
 
-export const Showcase: Story = {
-	decorators: [
-		Story => (
-			<div className='grid grid-cols-4 gap-4 md:grid-cols-2 sm:grid-cols-1'>
-				<Story args={{ defaultChecked: false, disabled: false }} />
-				<Story args={{ defaultChecked: true, disabled: false }} />
-				<Story args={{ defaultChecked: false, disabled: true }} />
-				<Story args={{ defaultChecked: true, disabled: true }} />
-				<Story
-					args={{
-						defaultChecked: false,
-						disabled: false,
-						label: 'unchecked + label',
-					}}
-				/>
-				<Story
-					args={{
-						defaultChecked: true,
-						disabled: false,
-						label: 'checked + label',
-					}}
-				/>
-				<Story
-					args={{
-						defaultChecked: false,
-						disabled: true,
-						label: 'unchecked + label + disabled',
-					}}
-				/>
-				<Story
-					args={{
-						defaultChecked: true,
-						disabled: true,
-						label: 'checked + label + disabled',
-					}}
-				/>
-			</div>
-		),
-	],
+export const DisabledCheckbox: StoryFn<typeof Checkbox> = args => {
+	return (
+		<Checkbox
+			disabled
+			{...args}
+		>
+			Button Link
+		</Checkbox>
+	);
+};
+
+export const DisabledCheckboxWithLabel: StoryFn<typeof Checkbox> = args => {
+	return (
+		<Checkbox
+			label='Label'
+			disabled
+			{...args}
+		>
+			Button Link
+		</Checkbox>
+	);
+};
+
+export const DisabledCheckedCheckboxWithLabel: StoryFn<
+	typeof Checkbox
+> = args => {
+	return (
+		<Checkbox
+			label='Label'
+			disabled
+			defaultChecked
+			{...args}
+		>
+			Button Link
+		</Checkbox>
+	);
+};
+
+export const CheckboxWithVeryLongLabel: StoryFn<typeof Checkbox> = args => {
+	return (
+		<Checkbox
+			label='This is a very long label that should wrap to the next line. The maximum width of a label is 65ch by default.'
+			{...args}
+		>
+			Button Link
+		</Checkbox>
+	);
+};
+
+const disabledVariations: boolean[] = [false, true];
+
+const checkedVariations: boolean[] = [false, true];
+
+const labelVariations: (string | undefined)[] = [undefined, 'Label'];
+
+const allVariations = disabledVariations
+	.map(disabled => {
+		return checkedVariations.map(defaultChecked => {
+			return labelVariations.map(label => {
+				return {
+					disabled,
+					defaultChecked,
+					label,
+				};
+			});
+		});
+	})
+	.flat(2);
+
+export const Showcase: StoryFn<typeof Checkbox> = args => {
+	return (
+		<div className='grid grid-cols-2 gap-4 sm:grid-cols-1'>
+			{allVariations.map(variation => {
+				const { defaultChecked, disabled, label } = variation;
+				return (
+					<Checkbox
+						key={JSON.stringify(variation)}
+						disabled={disabled}
+						defaultChecked={defaultChecked}
+						label={label}
+						{...args}
+					/>
+				);
+			})}
+		</div>
+	);
 };

@@ -65,8 +65,8 @@ module.exports = {
 				},
 			},
 			spacing: {
-				'4.5': '18px'
-			}
+				4.5: '18px',
+			},
 		},
 	},
 	plugins: [

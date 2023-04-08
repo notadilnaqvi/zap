@@ -5,7 +5,7 @@ export type ButtonColor = 'primary' | 'error' | 'warning';
 
 export type ButtonVariant = 'filled' | 'outlined' | 'ghost';
 
-export type ButtonSize = 'small' | 'default' | 'large';
+export type ButtonSize = 'small' | 'medium' | 'large';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	disabled?: boolean;
@@ -17,11 +17,11 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 // TODO: Use CVA here maybe? (https://cva.style/docs)
 
 export const baseClassNames =
-	'w-full h-min rounded border px-3 disabled:cursor-not-allowed font-medium transition-colors disabled:bg-neutral-50 disabled:border-gray-200 disabled:text-neutral-400 whitespace-nowrap justify-center items-center flex';
+	'w-min h-min rounded border px-3 disabled:cursor-not-allowed font-medium transition-colors disabled:bg-neutral-50 disabled:border-gray-200 disabled:text-neutral-400 whitespace-nowrap justify-center items-center flex';
 
 export const sizeClassNames: Record<ButtonSize, string> = {
 	small: 'text-sm py-1.5',
-	default: 'text-sm py-2.5',
+	medium: 'text-sm py-2.5',
 	large: 'text-base py-3.5',
 };
 
@@ -58,7 +58,7 @@ export const variantAndColorClassNames: Record<
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 	(props, ref) => {
 		const {
-			size = 'default',
+			size = 'medium',
 			color = 'primary',
 			variant = 'filled',
 			type = 'button',

@@ -14,11 +14,11 @@ export const Checkbox = React.forwardRef<
 >(({ label, id, className, ...props }, ref) => {
 	const randomId = useId();
 	return (
-		<div className='flex w-min flex-row items-center space-x-2'>
+		<div className='flex flex-row items-start space-x-2'>
 			<CheckboxPrimitive.Root
 				ref={ref}
 				className={cx(
-					'group peer flex h-4 w-4 shrink-0 items-center justify-center rounded-[3px] border border-gray-400 bg-white disabled:cursor-not-allowed disabled:border-gray-400 disabled:bg-gray-100 data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:disabled:border-gray-400 data-[state=checked]:disabled:bg-gray-400',
+					'group peer flex h-4 w-4 shrink-0 items-center justify-center rounded-[3px] border border-gray-400 bg-white transition-colors disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:disabled:border-gray-300 data-[state=checked]:disabled:bg-gray-300',
 					className,
 				)}
 				id={id || randomId}

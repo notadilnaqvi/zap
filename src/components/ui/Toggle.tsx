@@ -1,17 +1,18 @@
 'use client';
 
 import * as TogglePrimitives from '@radix-ui/react-switch';
-import React from 'react';
+import React, { useId } from 'react';
 
 import { cx } from '~/utils';
 
 export const Toggle = React.forwardRef<
 	React.ElementRef<typeof TogglePrimitives.Root>,
 	React.ComponentPropsWithoutRef<typeof TogglePrimitives.Root> & {
-		size?: 'default' | 'large';
+		size?: 'small' | 'large';
 	}
 >((props, ref) => {
-	const { className, size = 'default', ...rest } = props;
+	const { className, id, size = 'small', ...rest } = props;
+	const randomId = useId();
 	return (
 		<TogglePrimitives.Root
 			className={cx(
@@ -19,6 +20,7 @@ export const Toggle = React.forwardRef<
 				size === 'large' ? 'h-6 w-10' : 'h-3.5 w-7',
 				className,
 			)}
+			id={id || randomId}
 			{...rest}
 			ref={ref}
 		>
