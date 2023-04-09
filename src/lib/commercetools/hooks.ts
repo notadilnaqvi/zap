@@ -51,8 +51,8 @@ export function useCreateCart() {
 					query: GET_CART,
 					data: {
 						me: {
-							activeCart: {
-								...data?.createMyCart,
+							cart: {
+								...data?.cart,
 							},
 						},
 					},
@@ -91,13 +91,13 @@ export function useUpdateCart() {
 	) {
 		const { actions } = props;
 
-		let id = cart?.me.activeCart?.id;
-		let version = cart?.me.activeCart?.version;
+		let id = cart?.me.cart?.id;
+		let version = cart?.me.cart?.version;
 
 		if (!id || !version) {
 			const { data: createCartData } = await createCart();
-			id = createCartData?.createMyCart?.id;
-			version = createCartData?.createMyCart?.version;
+			id = createCartData?.cart?.id;
+			version = createCartData?.cart?.version;
 		}
 
 		if (!id || !version) {

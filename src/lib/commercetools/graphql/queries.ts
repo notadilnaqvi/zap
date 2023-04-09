@@ -89,7 +89,7 @@ export const GET_PRODUCTS = gql`
 export const GET_CART = gql`
 	query getCart($locale: Locale!) {
 		me {
-			activeCart {
+			cart: activeCart {
 				id
 				version
 				totalLineItemQuantity

@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const CREATE_CART = gql`
 	mutation createCart($draft: MyCartDraft!, $locale: Locale!) {
-		createMyCart(draft: $draft) {
+		cart: createMyCart(draft: $draft) {
 			id
 			version
 			totalLineItemQuantity
@@ -36,7 +36,7 @@ export const UPDATE_CART = gql`
 		$id: String!
 		$locale: Locale!
 	) {
-		updateMyCart(actions: $actions, version: $version, id: $id) {
+		cart: updateMyCart(actions: $actions, version: $version, id: $id) {
 			id
 			version
 			totalLineItemQuantity

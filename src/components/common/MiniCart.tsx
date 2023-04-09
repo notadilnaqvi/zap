@@ -16,7 +16,7 @@ export function MiniCart() {
 	const isMiniCartOpen = useUi(state => state.isMiniCartOpen);
 	const { data: cart, loading: cartLoading } = useCart();
 
-	const isCartEmpty = !cart?.me?.activeCart?.totalLineItemQuantity;
+	const isCartEmpty = !cart?.me?.cart?.totalLineItemQuantity;
 
 	return (
 		<Transition
@@ -59,7 +59,7 @@ export function MiniCart() {
 							<div>
 								{!isCartEmpty && (
 									<p className='text-lg font-medium text-gray-900'>
-										Your cart: ({cart?.me.activeCart?.totalLineItemQuantity})
+										Your cart: ({cart?.me.cart?.totalLineItemQuantity})
 									</p>
 								)}
 							</div>
@@ -125,7 +125,7 @@ export function MiniCart() {
 									appear
 								>
 									<ul className='w-full space-y-3'>
-										{cart.me.activeCart?.lineItems.map(lineItem => {
+										{cart.me.cart?.lineItems.map(lineItem => {
 											return (
 												<li
 													className='flex flex-row justify-between rounded border p-2'
@@ -148,7 +148,7 @@ export function MiniCart() {
 									<p className='text-sm font-medium'>Your total</p>
 									<p className='text-sm font-medium'>
 										{formatPrice({
-											centAmount: cart.me.activeCart?.totalPrice.centAmount,
+											centAmount: cart.me.cart?.totalPrice.centAmount,
 										})}
 									</p>
 								</div>
