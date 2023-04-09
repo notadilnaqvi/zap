@@ -1,23 +1,27 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { COUNTRY, CURRENCY_CODE, LOCALE } from '~/utils/constants';
-import { CREATE_MY_CART, UPDATE_MY_CART } from './graphql/mutations';
-import { GET_MY_CART } from './graphql/queries';
+
 import {
-	CreateMyCartMutation,
-	CreateMyCartMutationVariables,
-	GetMyCartQuery,
-	GetMyCartQueryVariables,
-	UpdateMyCartMutation,
-	UpdateMyCartMutationVariables,
-} from './types';
+	CREATE_CART,
+	UPDATE_CART,
+} from '~/lib/commercetools/graphql/mutations';
+import { GET_CART } from '~/lib/commercetools/graphql/queries';
+import {
+	CreateCartMutation,
+	CreateCartMutationVariables,
+	GetCartQuery,
+	GetCartQueryVariables,
+	UpdateCartMutation,
+	UpdateCartMutationVariables,
+} from '~/lib/commercetools/types';
+import { COUNTRY, CURRENCY_CODE, LOCALE } from '~/utils/constants';
 
 export function useAddToCart() {
-	const [updateMyCart, { data, loading, error }] = useUpdateMyCart();
+	const [updateCart, { data, loading, error }] = useUpdateCart();
 
 	async function addToCart(props: { sku: string }) {
 		const { sku } = props;
 
-		await updateMyCart({
+		await updateCart({
 			actions: [{ addLineItem: { sku, quantity: 1 } }],
 		});
 	}
@@ -25,11 +29,11 @@ export function useAddToCart() {
 	return [addToCart, { data, loading, error }] as const;
 }
 
-export function useCreateMyCart() {
+export function useCreateCart() {
 	const [mutate, { data, loading, error }] = useMutation<
-		CreateMyCartMutation,
-		CreateMyCartMutationVariables
-	>(CREATE_MY_CART, {
+		CreateCartMutation,
+		CreateCartMutationVariables
+	>(CREATE_CART, {
 		variables: {
 			locale: LOCALE,
 			draft: {
@@ -40,11 +44,11 @@ export function useCreateMyCart() {
 		},
 	});
 
-	async function createMyCart() {
+	async function createCart() {
 		const result = await mutate({
 			update: (cache, { data }) => {
 				cache.writeQuery({
-					query: GET_MY_CART,
+					query: GET_CART,
 					data: {
 						me: {
 							activeCart: {
@@ -58,14 +62,14 @@ export function useCreateMyCart() {
 		return result;
 	}
 
-	return [createMyCart, { data, loading, error }] as const;
+	return [createCart, { data, loading, error }] as const;
 }
 
-export function useGetMyCart() {
+export function useCart() {
 	const { data, loading, error, refetch } = useQuery<
-		GetMyCartQuery,
-		GetMyCartQueryVariables
-	>(GET_MY_CART, {
+		GetCartQuery,
+		GetCartQueryVariables
+	>(GET_CART, {
 		variables: { locale: LOCALE },
 		fetchPolicy: 'network-only',
 		nextFetchPolicy: 'cache-first',
@@ -74,30 +78,30 @@ export function useGetMyCart() {
 	return { data, loading, error, refetch };
 }
 
-export function useUpdateMyCart() {
-	const { data: myCart, loading: myCartLoading } = useGetMyCart();
-	const [createMyCart, { loading: createMyCartLoading }] = useCreateMyCart();
-	const [mutate, { data, loading: updateMyCartLoading, error }] = useMutation<
-		UpdateMyCartMutation,
-		UpdateMyCartMutationVariables
-	>(UPDATE_MY_CART);
+export function useUpdateCart() {
+	const { data: cart, loading: cartLoading } = useCart();
+	const [createCart, { loading: createCartLoading }] = useCreateCart();
+	const [mutate, { data, loading: updateCartLoading, error }] = useMutation<
+		UpdateCartMutation,
+		UpdateCartMutationVariables
+	>(UPDATE_CART);
 
-	async function updateMyCart(
-		props: Pick<UpdateMyCartMutationVariables, 'actions'>,
+	async function updateCart(
+		props: Pick<UpdateCartMutationVariables, 'actions'>,
 	) {
 		const { actions } = props;
 
-		let id = myCart?.me.activeCart?.id;
-		let version = myCart?.me.activeCart?.version;
+		let id = cart?.me.activeCart?.id;
+		let version = cart?.me.activeCart?.version;
 
 		if (!id || !version) {
-			const { data: createMyCartData } = await createMyCart();
-			id = createMyCartData?.createMyCart?.id;
-			version = createMyCartData?.createMyCart?.version;
+			const { data: createCartData } = await createCart();
+			id = createCartData?.createMyCart?.id;
+			version = createCartData?.createMyCart?.version;
 		}
 
 		if (!id || !version) {
-			throw new Error('[updateMyCart]: No cart found to update');
+			throw new Error('[updateCart]: No cart found to update');
 		}
 
 		await mutate({
@@ -106,16 +110,16 @@ export function useUpdateMyCart() {
 	}
 
 	return [
-		updateMyCart,
+		updateCart,
 		{
 			data,
 			// Using the `loading` property from the `useMutation` hook is not enough
 			// because it not be `true` until we call the `mutate` function. Meaning
 			// that we can't use it to show a loading state while we're waiting for
-			// the cart to be fetched or `createMyCart` mutation to finish. Instead,
-			// we say that `updateMyCart` is loading if any of the three operations
-			// (useGetMyCart, useCreateMyCart, useMutation) are loading.
-			loading: myCartLoading || createMyCartLoading || updateMyCartLoading,
+			// the cart to be fetched or `createCart` mutation to finish. Instead,
+			// we say that `updateCart` is loading if any of the three operations
+			// (useCart, useCreateCart, useMutation) are loading.
+			loading: cartLoading || createCartLoading || updateCartLoading,
 			error,
 		},
 	] as const;

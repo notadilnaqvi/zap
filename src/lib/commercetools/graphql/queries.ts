@@ -86,8 +86,8 @@ export const GET_PRODUCTS = gql`
 	}
 `;
 
-export const GET_MY_CART = gql`
-	query getMyCart($locale: Locale!) {
+export const GET_CART = gql`
+	query getCart($locale: Locale!) {
 		me {
 			activeCart {
 				id

@@ -8,15 +8,15 @@ import { LoadingSpinner } from '~/components/common';
 import { XIcon } from '~/components/icons';
 import { ButtonLink } from '~/components/ui';
 import { useUi } from '~/hooks';
-import { useGetMyCart } from '~/lib/commercetools/hooks';
+import { useCart } from '~/lib/commercetools/hooks';
 import { formatPrice } from '~/utils';
 
 export function MiniCart() {
 	const closeMiniCart = useUi(state => state.closeMiniCart);
 	const isMiniCartOpen = useUi(state => state.isMiniCartOpen);
-	const { data: myCart, loading: myCartLoading } = useGetMyCart();
+	const { data: cart, loading: cartLoading } = useCart();
 
-	const isMyCartEmpty = !myCart?.me?.activeCart?.totalLineItemQuantity;
+	const isCartEmpty = !cart?.me?.activeCart?.totalLineItemQuantity;
 
 	return (
 		<Transition
@@ -57,9 +57,9 @@ export function MiniCart() {
 					<aside className='fixed inset-y-0 right-0 flex h-full w-[350px] flex-col bg-white sm:w-[300px]'>
 						<div className='flex h-min w-full flex-row items-center justify-between p-4'>
 							<div>
-								{!isMyCartEmpty && (
+								{!isCartEmpty && (
 									<p className='text-lg font-medium text-gray-900'>
-										Your cart: ({myCart?.me.activeCart?.totalLineItemQuantity})
+										Your cart: ({cart?.me.activeCart?.totalLineItemQuantity})
 									</p>
 								)}
 							</div>
@@ -73,7 +73,7 @@ export function MiniCart() {
 							</button>
 						</div>
 						<div className='hide-scrollbar flex h-full flex-col overflow-y-auto px-4 pb-4'>
-							{myCartLoading ? (
+							{cartLoading ? (
 								<Transition
 									enter='transition-opacity duration-300'
 									enterFrom='opacity-0'
@@ -87,7 +87,7 @@ export function MiniCart() {
 								>
 									<LoadingSpinner />
 								</Transition>
-							) : isMyCartEmpty ? (
+							) : isCartEmpty ? (
 								<Transition
 									enter='transition-opacity duration-300'
 									enterFrom='opacity-0'
@@ -125,7 +125,7 @@ export function MiniCart() {
 									appear
 								>
 									<ul className='w-full space-y-3'>
-										{myCart.me.activeCart?.lineItems.map(lineItem => {
+										{cart.me.activeCart?.lineItems.map(lineItem => {
 											return (
 												<li
 													className='flex flex-row justify-between rounded border p-2'
@@ -142,13 +142,13 @@ export function MiniCart() {
 								</Transition>
 							)}
 						</div>
-						{!isMyCartEmpty && (
+						{!isCartEmpty && (
 							<div className='flex w-full flex-col space-y-4 border-t bg-gray-50 p-4'>
 								<div className='flex flex-row justify-between'>
 									<p className='text-sm font-medium'>Your total</p>
 									<p className='text-sm font-medium'>
 										{formatPrice({
-											centAmount: myCart.me.activeCart?.totalPrice.centAmount,
+											centAmount: cart.me.activeCart?.totalPrice.centAmount,
 										})}
 									</p>
 								</div>

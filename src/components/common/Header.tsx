@@ -19,7 +19,7 @@ import {
 	ZapIcon,
 } from '~/components/icons';
 import { useUi } from '~/hooks';
-import { useGetMyCart } from '~/lib/commercetools/hooks';
+import { useCart } from '~/lib/commercetools/hooks';
 import { cx } from '~/utils';
 
 export function Header() {
@@ -31,9 +31,9 @@ export function Header() {
 	const closeFullscreenLoadingOverlay = useUi(
 		state => state.closeFullscreenLoadingOverlay,
 	);
-	const { data: myCart } = useGetMyCart();
+	const { data: cart } = useCart();
 
-	const isMyCartEmpty = !myCart?.me?.activeCart?.totalLineItemQuantity;
+	const isCartEmpty = !cart?.me?.activeCart?.totalLineItemQuantity;
 
 	function handleLogin() {
 		openFullscreenLoadingOverlay({ text: 'Logging in...' });
@@ -385,9 +385,9 @@ export function Header() {
 							className='relative rounded p-1 text-gray-700'
 							onClick={openMiniCart}
 						>
-							{!isMyCartEmpty && (
+							{!isCartEmpty && (
 								<span className='absolute -top-0.5 left-3.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-semibold text-white'>
-									{myCart?.me.activeCart?.totalLineItemQuantity}
+									{cart?.me.activeCart?.totalLineItemQuantity}
 								</span>
 							)}
 							<ShoppingCartIcon />
