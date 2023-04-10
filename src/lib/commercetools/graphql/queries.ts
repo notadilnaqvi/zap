@@ -103,6 +103,14 @@ export const GET_CART = gql`
 						centAmount
 						fractionDigits
 					}
+					productSlug(locale: $locale)
+					variant {
+						sku
+						images {
+							url
+							label
+						}
+					}
 				}
 				totalPrice {
 					currencyCode

@@ -12,7 +12,7 @@ import {
 	MailIcon,
 	MenuIcon,
 	SearchIcon,
-	ShoppingCartIcon,
+	ShoppingBagIcon,
 	TagIcon,
 	UserIcon,
 	XIcon,
@@ -54,7 +54,7 @@ export function Header() {
 								<Menu.Button
 									className='mr-2 p-1'
 									aria-pressed={open}
-									aria-label='Open sm menu'
+									aria-label='Open menu'
 								>
 									{open ? <XIcon /> : <MenuIcon />}
 								</Menu.Button>
@@ -360,7 +360,6 @@ export function Header() {
 					<li className='flex items-center sm:hidden'>
 						<button
 							onClick={handleLogin}
-							aria-label='Login'
 							className='rounded p-1 text-gray-700'
 							title='Login'
 						>
@@ -372,15 +371,13 @@ export function Header() {
 							href='/search'
 							className='rounded p-1 text-gray-700'
 							title='Search for products'
-							aria-label='Search for products'
 						>
 							<SearchIcon />
 						</Link>
 					</li>
 					<li className='flex items-center'>
 						<button
-							aria-label='Open mini-cart'
-							title='Open mini-cart'
+							title='Open bag'
 							className='relative rounded p-1 text-gray-700'
 							onClick={openMiniCart}
 						>
@@ -389,7 +386,7 @@ export function Header() {
 									{cart?.me.cart?.totalLineItemQuantity}
 								</span>
 							)}
-							<ShoppingCartIcon />
+							<ShoppingBagIcon />
 						</button>
 					</li>
 				</ul>

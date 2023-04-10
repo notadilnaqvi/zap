@@ -2,6 +2,7 @@
 
 import { ApolloProvider } from '@apollo/client';
 import { Inter } from 'next/font/google';
+import { usePathname } from 'next/navigation';
 import { PropsWithChildren, useEffect } from 'react';
 
 import {
@@ -12,7 +13,7 @@ import {
 	Header,
 	MiniCart,
 } from '~/components/common';
-import { useSyncWithPersistedUiState } from '~/hooks';
+import { useSyncWithPersistedUiState, useUi } from '~/hooks';
 import { apolloClient } from '~/lib/commercetools/graphql/client';
 import '~/styles/globals.css';
 import { cx } from '~/utils';
@@ -26,6 +27,10 @@ const interFont = Inter({
 export default function RootLayout(props: PropsWithChildren<{}>) {
 	const { children } = props;
 
+	const pathname = usePathname();
+	const closeAllModalsAndSidebars = useUi(
+		state => state.closeAllModalsAndSidebars,
+	);
 	const _syncWithPersistedUiState = useSyncWithPersistedUiState();
 
 	useEffect(() => {
@@ -36,6 +41,12 @@ export default function RootLayout(props: PropsWithChildren<{}>) {
 		// NOTE: Disabling temporarily
 		// syncWithPersistedUiState();
 	}, []);
+
+	// Close all modals and sidebars whenever the route changes
+	useEffect(() => {
+		closeAllModalsAndSidebars();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [pathname]);
 
 	return (
 		<html

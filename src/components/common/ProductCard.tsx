@@ -60,7 +60,7 @@ export function ProductCard(props: Props) {
 
 	return (
 		<div className='group flex w-full flex-col'>
-			<div className='relative aspect-[4/5] w-full rounded'>
+			<div className='relative aspect-[3/4] w-full rounded'>
 				<Image
 					className='rounded object-cover invert-[0.05]'
 					fill
@@ -108,12 +108,12 @@ export function ProductCard(props: Props) {
 				<div className='flex flex-row items-center'>
 					<Link
 						href={'/product/' + product?.slug}
-						className='mr-4 truncate text-xs font-medium leading-[18px] hover:underline '
+						className='mr-4 truncate text-xs font-medium leading-[18px] hover:underline'
 					>
 						{product?.name}
 					</Link>
 					<button
-						aria-label={
+						title={
 							isAddedToWishlist ? 'Remove from wishlist' : 'Add to wishlist'
 						}
 						className={cx(

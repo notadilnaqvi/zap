@@ -19,6 +19,14 @@ export const CREATE_CART = gql`
 					currencyCode
 					fractionDigits
 				}
+				productSlug(locale: $locale)
+				variant {
+					sku
+					images {
+						url
+						label
+					}
+				}
 			}
 			totalPrice {
 				centAmount
@@ -49,6 +57,14 @@ export const UPDATE_CART = gql`
 					centAmount
 					currencyCode
 					fractionDigits
+				}
+				productSlug(locale: $locale)
+				variant {
+					sku
+					images {
+						url
+						label
+					}
 				}
 			}
 			totalPrice {

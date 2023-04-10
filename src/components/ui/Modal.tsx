@@ -93,7 +93,7 @@ export const ModalTitle = (
 				{children}
 			</ModalPrimitive.Title>
 			<button
-				aria-label='Close modal'
+				title='Close modal'
 				onClick={onClose}
 				className='p-1'
 			>

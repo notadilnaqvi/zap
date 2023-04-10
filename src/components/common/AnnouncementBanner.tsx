@@ -36,7 +36,6 @@ export function AnnouncementBanner() {
 				<div className='absolute right-0 flex items-center'>
 					<button
 						className='rounded p-1'
-						aria-label='Close announcement banner'
 						title='Close announcement banner'
 						onClick={closeAnnouncementBanner}
 					>

@@ -20,7 +20,7 @@ export default function Loading() {
 								className='relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:-skew-x-12 before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent'
 								key={index}
 							>
-								<div className='aspect-[4/5] rounded bg-gray-200'></div>
+								<div className='aspect-[3/4] rounded bg-gray-200'></div>
 								<div className='flex flex-col py-[5px]'>
 									<div className='flex flex-row items-center'>
 										<div className='w-full'>
