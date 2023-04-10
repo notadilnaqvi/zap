@@ -7,6 +7,12 @@ import {
 	FALLBACK_IMAGE_BLUR_DATA_URL,
 } from '~/utils/constants';
 
+export const metadata = {
+	title: 'ZAP | Home',
+	description:
+		'ZAP is a fake e-commerce website built with Next.js and Commercetools',
+};
+
 export default async function HomePage() {
 	const { data } = await Commercetools.getProducts({ limit: 16 });
 

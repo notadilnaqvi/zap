@@ -288,7 +288,7 @@ export function Header() {
 															'rounded px-4 py-3 transition-colors duration-200 hover:bg-gray-100',
 															active && 'bg-gray-100',
 														)}
-														href='/search'
+														href='#'
 													>
 														<div className='flex flex-row items-center space-x-3'>
 															<div className='p-1'>
@@ -368,7 +368,7 @@ export function Header() {
 					</li>
 					<li className='flex items-center'>
 						<Link
-							href='/search'
+							href='#'
 							className='rounded p-1 text-gray-700'
 							title='Search for products'
 						>

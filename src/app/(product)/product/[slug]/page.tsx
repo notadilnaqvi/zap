@@ -82,3 +82,18 @@ export async function generateStaticParams() {
 
 	return params;
 }
+
+// TODO: Add error handling?
+export async function generateMetadata(props: ProductPageProps) {
+	const { params } = props;
+	const { slug } = params;
+
+	const { data: product } = await Commercetools.getProductBySlug({
+		slug,
+	});
+
+	return {
+		title: product?.name || 'ZAP | Product',
+		description: product?.description,
+	};
+}
