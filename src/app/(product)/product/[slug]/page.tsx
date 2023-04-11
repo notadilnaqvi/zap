@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
-import { PageGenerationTimeBanner } from '~/components/common';
 import { Commercetools } from '~/lib/commercetools';
 
 import type { NormalisedProduct } from '~/lib/commercetools/types';
@@ -33,13 +32,8 @@ export default async function ProductPage(props: ProductPageProps) {
 		return notFound();
 	}
 
-	const now = new Date().toISOString();
-
 	return (
 		<div className='w-full py-16'>
-			<div className='mb-4'>
-				<PageGenerationTimeBanner generatedAt={now} />
-			</div>
 			<h1 className='text-lg font-medium'>{product.name}</h1>
 			<div className='mt-8 grid grid-flow-row grid-cols-4 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
 				{product.images.map(image => {
