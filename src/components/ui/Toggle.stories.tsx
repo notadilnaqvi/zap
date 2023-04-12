@@ -100,24 +100,24 @@ export const TogglesWithLabel: StoryFn<typeof Toggle> = args => {
 					disabled
 					checked
 					{...args}
-					id='id-4'
+					id='id-3'
 				/>
-				<Label htmlFor='id-4'>Send me new offers</Label>
+				<Label htmlFor='id-3'>Send me new offers</Label>
 			</div>
 			<div className='flex flex-row-reverse items-center justify-between'>
 				<Toggle
 					{...args}
-					id='id-3'
+					id='id-4'
 				/>
-				<Label htmlFor='id-3'>Send SMS texts</Label>
+				<Label htmlFor='id-4'>Send SMS texts</Label>
 			</div>
 			<div className='flex flex-row-reverse items-center justify-between'>
 				<Toggle
 					disabled
 					{...args}
-					id='id-4'
+					id='id-5'
 				/>
-				<Label htmlFor='id-4'>Send me latest updates</Label>
+				<Label htmlFor='id-5'>Send me latest updates</Label>
 			</div>
 		</div>
 	);
@@ -130,10 +130,10 @@ export const LargeTogglesWithLabel: StoryFn<typeof Toggle> = args => {
 				<Toggle
 					{...args}
 					size='large'
-					id='id-1'
+					id='id-6'
 				/>
 				<Label
-					htmlFor='id-1'
+					htmlFor='id-6'
 					size='large'
 				>
 					Show notifications
@@ -143,10 +143,10 @@ export const LargeTogglesWithLabel: StoryFn<typeof Toggle> = args => {
 				<Toggle
 					{...args}
 					size='large'
-					id='id-2'
+					id='id-7'
 				/>
 				<Label
-					htmlFor='id-2'
+					htmlFor='id-7'
 					size='large'
 				>
 					Send emails
@@ -158,10 +158,10 @@ export const LargeTogglesWithLabel: StoryFn<typeof Toggle> = args => {
 					checked
 					{...args}
 					size='large'
-					id='id-4'
+					id='id-8'
 				/>
 				<Label
-					htmlFor='id-4'
+					htmlFor='id-8'
 					size='large'
 				>
 					Send me new offers
@@ -171,10 +171,10 @@ export const LargeTogglesWithLabel: StoryFn<typeof Toggle> = args => {
 				<Toggle
 					{...args}
 					size='large'
-					id='id-3'
+					id='id-9'
 				/>
 				<Label
-					htmlFor='id-3'
+					htmlFor='id-9'
 					size='large'
 				>
 					Send SMS texts
@@ -185,10 +185,10 @@ export const LargeTogglesWithLabel: StoryFn<typeof Toggle> = args => {
 					disabled
 					{...args}
 					size='large'
-					id='id-4'
+					id='id-10'
 				/>
 				<Label
-					htmlFor='id-4'
+					htmlFor='id-10'
 					size='large'
 				>
 					Send me latest updates
