@@ -34,9 +34,7 @@ export const CheckboxWithLabel: StoryFn<typeof Checkbox> = args => {
 		<Checkbox
 			label='Label'
 			{...args}
-		>
-			Button Link
-		</Checkbox>
+		/>
 	);
 };
 
@@ -45,9 +43,7 @@ export const DisabledCheckbox: StoryFn<typeof Checkbox> = args => {
 		<Checkbox
 			disabled
 			{...args}
-		>
-			Button Link
-		</Checkbox>
+		/>
 	);
 };
 
@@ -57,9 +53,7 @@ export const DisabledCheckboxWithLabel: StoryFn<typeof Checkbox> = args => {
 			label='Label'
 			disabled
 			{...args}
-		>
-			Button Link
-		</Checkbox>
+		/>
 	);
 };
 
@@ -72,9 +66,7 @@ export const DisabledCheckedCheckboxWithLabel: StoryFn<
 			disabled
 			defaultChecked
 			{...args}
-		>
-			Button Link
-		</Checkbox>
+		/>
 	);
 };
 
@@ -83,9 +75,7 @@ export const CheckboxWithVeryLongLabel: StoryFn<typeof Checkbox> = args => {
 		<Checkbox
 			label='This is a very long label that should wrap to the next line. The maximum width of a label is 65ch by default.'
 			{...args}
-		>
-			Button Link
-		</Checkbox>
+		/>
 	);
 };
 
