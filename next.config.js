@@ -4,7 +4,7 @@
 module.exports = {
 	reactStrictMode: true,
 	images: {
-		unoptimized: true, // TODO: Remove this in production
+		unoptimized: false,
 		domains: ['s3-eu-west-1.amazonaws.com', 'i.imgur.com', 'images.pexels.com'],
 	},
 	experimental: {
