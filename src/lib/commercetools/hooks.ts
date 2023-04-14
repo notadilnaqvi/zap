@@ -5,6 +5,7 @@ import {
 	UPDATE_CART,
 } from '~/lib/commercetools/graphql/mutations';
 import { GET_CART } from '~/lib/commercetools/graphql/queries';
+import { normaliseCart } from '~/lib/commercetools/normalisation';
 import {
 	CreateCartMutation,
 	CreateCartMutationVariables,
@@ -14,6 +15,11 @@ import {
 	UpdateCartMutationVariables,
 } from '~/lib/commercetools/types';
 import { COUNTRY, CURRENCY_CODE, LOCALE } from '~/utils/constants';
+
+type UpdateLineItemQuantityProps = {
+	lineItemId: string;
+	quantity: number;
+};
 
 export function useAddToCart() {
 	const [updateCart, { data, loading, error }] = useUpdateCart();
@@ -75,7 +81,7 @@ export function useCart() {
 		nextFetchPolicy: 'cache-first',
 	});
 
-	return { data, loading, error, refetch };
+	return { data: normaliseCart(data?.me?.cart), loading, error, refetch };
 }
 
 export function useUpdateCart() {
@@ -91,8 +97,8 @@ export function useUpdateCart() {
 	) {
 		const { actions } = props;
 
-		let id = cart?.me.cart?.id;
-		let version = cart?.me.cart?.version;
+		let id = cart?.id;
+		let version = cart?.version;
 
 		if (!id || !version) {
 			const { data: createCartData } = await createCart();
@@ -123,4 +129,18 @@ export function useUpdateCart() {
 			error,
 		},
 	] as const;
+}
+
+export function useUpdateLineItemQuantity() {
+	const [updateCart, { data, loading }] = useUpdateCart();
+
+	async function updateLineItemQuantity(props: UpdateLineItemQuantityProps) {
+		const { lineItemId, quantity } = props;
+
+		await updateCart({
+			actions: [{ changeLineItemQuantity: { lineItemId, quantity } }],
+		});
+	}
+
+	return [updateLineItemQuantity, { data, loading }] as const;
 }

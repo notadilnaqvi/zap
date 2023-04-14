@@ -50,7 +50,7 @@ export function ProductCard(props: Props) {
 			if (error?.graphQLErrors?.at(0)?.code === 'ConcurrentModification') {
 				showToast({ message: 'Whoa! Slow down my man', type: 'error' });
 			} else {
-				showToast({ message: 'Product not added to cart', type: 'error' });
+				showToast({ message: 'Product not added to bag', type: 'error' });
 			}
 		}
 		setAddToCartLoading(false);
@@ -84,7 +84,7 @@ export function ProductCard(props: Props) {
 								<div>
 									<LoadingSpinner size='small' />
 								</div>
-								<p className='py-2.5 text-[10px] font-medium uppercase'>
+								<p className='py-2.5 text-[10px] font-medium uppercase sm:py-4'>
 									Adding...
 								</p>
 							</div>
@@ -96,7 +96,7 @@ export function ProductCard(props: Props) {
 										width={10}
 									/>
 								</div>
-								<p className='py-2.5 text-[10px] font-medium uppercase'>
+								<p className='py-2.5 text-[10px] font-medium uppercase sm:py-4'>
 									Quick add
 								</p>
 							</>
@@ -146,15 +146,11 @@ export function ProductCard(props: Props) {
 					<div className='flex space-x-2'>
 						{isOnSale && (
 							<p className='text-xs font-light leading-5 text-gray-500 line-through'>
-								{formatPrice({
-									centAmount: product?.price,
-								})}
+								{formatPrice(product.price)}
 							</p>
 						)}
 						<p className='text-xs font-light leading-5 text-gray-900'>
-							{formatPrice({
-								centAmount: product?.price,
-							})}
+							{formatPrice(product.price)}
 						</p>
 					</div>
 				</div>

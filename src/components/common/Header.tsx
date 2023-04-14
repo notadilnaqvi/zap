@@ -33,7 +33,7 @@ export function Header() {
 	);
 	const { data: cart } = useCart();
 
-	const isCartEmpty = !cart?.me?.cart?.totalLineItemQuantity;
+	const isCartEmpty = !cart?.totalLineItemQuantity;
 
 	function handleLogin() {
 		openFullscreenLoadingOverlay({ text: 'Logging in...' });
@@ -383,7 +383,7 @@ export function Header() {
 						>
 							{!isCartEmpty && (
 								<span className='absolute -top-0.5 left-3.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-semibold text-white'>
-									{cart?.me.cart?.totalLineItemQuantity}
+									{cart?.totalLineItemQuantity}
 								</span>
 							)}
 							<ShoppingBagIcon />

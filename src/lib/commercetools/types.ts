@@ -17,14 +17,6 @@ export type CtTestData = z.infer<typeof ctTestDataSchema>;
 
 // Normalised product
 
-type PId = string;
-
-type PSku = string;
-
-type PSlug = string;
-
-type PName = string;
-
 type PDesigner = { key: string; label: string };
 
 type PImage = {
@@ -40,18 +32,40 @@ type PImage = {
 	blurDataUrl?: string;
 };
 
-type PDescription = string;
-
-type PPrice = number;
+export type PPrice = {
+	centAmount: number;
+	currencyCode: string;
+	fractionDigits: number;
+};
 
 export type NormalisedProduct = {
-	id: PId;
-	sku: PSku;
-	mainImage: PImage;
-	slug?: Maybe<PSlug>;
-	name?: Maybe<PName>;
-	images: [PImage, ...PImage[]];
-	description?: Maybe<PDescription>;
-	designer?: Maybe<PDesigner>;
+	id: string;
+	sku: string;
 	price: PPrice;
+	mainImage: PImage;
+	slug?: Maybe<string>;
+	name?: Maybe<string>;
+	description?: Maybe<string>;
+	designer?: Maybe<PDesigner>;
+	images: [PImage, ...PImage[]];
+};
+
+// Normalised cart
+
+export type LineItem = {
+	id: string;
+	sku: string;
+	name: string;
+	image: PImage;
+	quantity: number;
+	productSlug: string;
+	totalPrice: PPrice;
+};
+export type NormalisedCart = {
+	id: string;
+	version: number;
+	currency: string;
+	totalPrice: PPrice;
+	lineItems: LineItem[];
+	totalLineItemQuantity: number;
 };

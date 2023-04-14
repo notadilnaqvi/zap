@@ -1,17 +1,10 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
-import Image from 'next/image';
-import Link from 'next/link';
 import { Fragment } from 'react';
 
-import {
-	MinusIcon,
-	PlusIcon,
-	ShoppingBagIcon,
-	Trash2Icon,
-	XIcon,
-} from '~/components/icons';
+import { LineItem } from '~/components/common';
+import { ShoppingBagIcon, XIcon } from '~/components/icons';
 import { ButtonLink } from '~/components/ui';
 import { useUi } from '~/hooks';
 import { useCart } from '~/lib/commercetools/hooks';
@@ -22,8 +15,7 @@ export function MiniCart() {
 	const isMiniCartOpen = useUi(state => state.isMiniCartOpen);
 	const { data: cart, loading: cartLoading } = useCart();
 
-	const isCartEmpty = !cart?.me?.cart?.totalLineItemQuantity;
-
+	const isCartEmpty = !cart?.totalLineItemQuantity;
 	return (
 		<Transition
 			appear
@@ -61,12 +53,11 @@ export function MiniCart() {
 					leaveTo='translate-x-[350px] sm:translate-x-[350px]'
 				>
 					<aside className='fixed inset-y-0 right-0 flex h-full w-[350px] flex-col bg-white sm:w-[300px]'>
-						<div className='flex h-min w-full flex-row items-center justify-between border-b p-4'>
+						<div className='flex h-min w-full flex-row items-center justify-between border-b border-gray-200 p-4'>
 							<div>
 								<h4 className='text-lg font-medium text-gray-900'>
 									Your bag{' '}
-									{!isCartEmpty &&
-										'(' + cart?.me?.cart?.totalLineItemQuantity + ')'}
+									{!isCartEmpty && '(' + cart?.totalLineItemQuantity + ')'}
 								</h4>
 							</div>
 							<button
@@ -118,82 +109,23 @@ export function MiniCart() {
 								</div>
 							) : (
 								<ul className='w-full divide-y'>
-									{cart.me.cart?.lineItems.map(lineItem => {
+									{cart?.lineItems.map(lineItem => {
 										return (
-											<li
+											<LineItem
+												lineItem={lineItem}
 												key={lineItem.id}
-												className='group flex flex-row overflow-hidden p-4'
-											>
-												<Image
-													src={lineItem.variant?.images[0]?.url || ''}
-													alt={lineItem.variant?.images[0]?.label || ''}
-													width={90}
-													height={120}
-													className='rounded object-cover invert-[0.05]'
-												/>
-												<div className='flex w-full flex-col items-start justify-between pl-4 sm:pl-2'>
-													<div className='flex w-full flex-row items-start justify-between'>
-														<div className='flex flex-col'>
-															<Link
-																href={'/product/' + lineItem?.productSlug}
-																className='text-xs font-medium hover:underline focus-visible:underline'
-															>
-																{lineItem?.name}
-															</Link>
-															<p className='text-[11px] font-light leading-5 text-gray-700'>
-																DKNY
-															</p>
-														</div>
-														<button
-															className='ml-2 opacity-0 transition-opacity focus-visible:opacity-100 group-hover:opacity-100 sm:opacity-100'
-															title='Remove item'
-														>
-															<Trash2Icon className='h-4 w-4 text-error' />
-														</button>
-													</div>
-													<div className='flex w-full flex-row items-center justify-between'>
-														<div className='flex flex-row rounded border'>
-															<button
-																className='rounded-l-sm rounded-r-none p-2 sm:p-1.5'
-																title='Decrease quantity'
-															>
-																<div>
-																	<MinusIcon className='h-4 w-4' />
-																</div>
-															</button>
-															<p className='flex w-12 items-center justify-center border-x align-middle text-sm sm:w-8'>
-																{lineItem.quantity}
-															</p>
-															<button
-																className='rounded-l-none rounded-r-sm p-2 sm:p-1.5'
-																title='Increase quantity'
-															>
-																<div>
-																	<PlusIcon className='h-4 w-4' />
-																</div>
-															</button>
-														</div>
-														<p className='text-sm'>
-															{formatPrice({
-																centAmount: lineItem.totalPrice?.centAmount,
-															})}
-														</p>
-													</div>
-												</div>
-											</li>
+											/>
 										);
 									})}
 								</ul>
 							)}
 						</div>
 						{!isCartEmpty && (
-							<div className='flex w-full flex-col space-y-4 border-t bg-gray-50 p-4'>
+							<div className='flex w-full flex-col space-y-4 border-t border-gray-200 bg-gray-50 p-4'>
 								<div className='flex flex-row justify-between'>
 									<p className='text-sm font-medium'>Subtotal</p>
 									<p className='text-sm font-medium'>
-										{formatPrice({
-											centAmount: cart.me.cart?.totalPrice.centAmount,
-										})}
+										{formatPrice(cart?.totalPrice)}
 									</p>
 								</div>
 								<ButtonLink

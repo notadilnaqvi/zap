@@ -1,19 +1,17 @@
 import classNames, { ArgumentArray } from 'classnames';
 import { twMerge } from 'tailwind-merge';
+import { PPrice } from '~/lib/commercetools/types';
 
-import { CURRENCY_CODE, FRACTION_DIGITS, LOCALE } from '~/utils/constants';
+import { LOCALE } from '~/utils/constants';
 
-type FormatPriceProps = {
-	centAmount: number;
-};
-
-export function formatPrice({ centAmount }: FormatPriceProps) {
+export function formatPrice(price: PPrice) {
+	const { centAmount, currencyCode, fractionDigits } = price;
 	try {
 		const formatter = new Intl.NumberFormat(LOCALE, {
 			style: 'currency',
-			currency: CURRENCY_CODE,
+			currency: currencyCode,
 		});
-		return formatter.format(centAmount / 10 ** FRACTION_DIGITS);
+		return formatter.format(centAmount / 10 ** fractionDigits);
 	} catch (err) {
 		console.error('[Utils.formatPrice]', err);
 		return 'NaN';
