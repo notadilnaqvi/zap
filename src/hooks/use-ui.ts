@@ -2,6 +2,7 @@
 
 import { toast } from 'react-hot-toast';
 import { create } from 'zustand';
+import { SessionStorage } from '~/utils';
 
 type ShowToastProps = {
 	message: string;
@@ -30,6 +31,10 @@ interface UiState {
 	closeFullscreenLoadingOverlay: () => void;
 	// Toast
 	showToast: (props: ShowToastProps) => void;
+	// Sign-up modal
+	isSignUpModalOpen: boolean;
+	openSignUpModal: () => void;
+	closeSignUpModal: () => void;
 	// Close all modals and sidebars
 	closeAllModalsAndSidebars: () => void;
 }
@@ -67,6 +72,15 @@ export const useUi = create<UiState>(set => ({
 		} else if (type === 'success') {
 			toast.success(message);
 		}
+	},
+	// Sign-up modal
+	isSignUpModalOpen: false,
+	openSignUpModal: () => {
+		set({ isSignUpModalOpen: true });
+	},
+	closeSignUpModal: () => {
+		SessionStorage.set('ui/was-newsletter-sign-up-modal-closed', true);
+		set({ isSignUpModalOpen: false });
 	},
 	// Close all modals and sidebars
 	closeAllModalsAndSidebars: () => {

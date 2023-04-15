@@ -1,11 +1,18 @@
-import { CtTestData } from '~/lib/commercetools/types';
-import { ctTestDataSchema } from '~/lib/commercetools/validators';
+import { z } from 'zod';
+
+const wasNewsletterSignUpModalClosedSchema = z.boolean();
+
+type WasNewsletterSignUpModalClosed = z.infer<
+	typeof wasNewsletterSignUpModalClosedSchema
+>;
 
 type SessionStorage = {
-	'ct/test-data': CtTestData;
+	'ui/was-newsletter-sign-up-modal-closed': WasNewsletterSignUpModalClosed;
 };
 
-function get(key: 'ct/test-data'): Maybe<SessionStorage['ct/test-data']>;
+function get(
+	key: 'ui/was-newsletter-sign-up-modal-closed',
+): Maybe<SessionStorage['ui/was-newsletter-sign-up-modal-closed']>;
 function get(key: keyof SessionStorage) {
 	try {
 		if (typeof window === 'undefined') return null;
@@ -14,8 +21,10 @@ function get(key: keyof SessionStorage) {
 
 		if (!item) return null;
 
-		if (key === 'ct/test-data') {
-			const value = ctTestDataSchema.parse(JSON.parse(item));
+		if (key === 'ui/was-newsletter-sign-up-modal-closed') {
+			const value = wasNewsletterSignUpModalClosedSchema.parse(
+				JSON.parse(item),
+			);
 			return value;
 		}
 

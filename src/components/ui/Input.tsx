@@ -56,7 +56,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 					className='text-sm text-error'
 				>
 					{error ? (
-						<div className='inline-flex items-start py-2.5'>
+						<div className='inline-flex items-start pt-2.5'>
 							<span>
 								<InfoIcon
 									height={iconSizes[size]}

@@ -1,8 +1,9 @@
 import classNames, { ArgumentArray } from 'classnames';
 import { twMerge } from 'tailwind-merge';
-import { PPrice } from '~/lib/commercetools/types';
 
 import { LOCALE } from '~/utils/constants';
+
+import type { PPrice } from '~/lib/commercetools/types';
 
 export function formatPrice(price: PPrice) {
 	const { centAmount, currencyCode, fractionDigits } = price;

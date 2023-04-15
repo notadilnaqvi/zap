@@ -1,5 +1,4 @@
 export { AnnouncementBanner } from './AnnouncementBanner';
-export { CustomToaster } from './CustomToaster';
 export { Footer } from './Footer';
 export { FullscreenLoadingOverlay } from './FullscreenLoadingOverlay';
 export { Header } from './Header';
@@ -7,4 +6,6 @@ export { LineItem } from './LineItem';
 export { LoadingDots } from './LoadingDots';
 export { LoadingSpinner } from './LoadingSpinner';
 export { MiniCart } from './MiniCart';
+export { NewsLetterSignUpModal } from './NewsLetterSignUpModal';
 export { ProductCard } from './ProductCard';
+export { ToastManager } from './ToastManager';

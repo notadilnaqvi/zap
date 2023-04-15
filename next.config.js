@@ -5,7 +5,7 @@ module.exports = {
 	reactStrictMode: true,
 	images: {
 		unoptimized: false,
-		domains: ['s3-eu-west-1.amazonaws.com', 'i.imgur.com', 'images.pexels.com'],
+		domains: ['s3-eu-west-1.amazonaws.com'],
 	},
 	experimental: {
 		appDir: true,

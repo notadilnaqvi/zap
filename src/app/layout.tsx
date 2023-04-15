@@ -7,11 +7,12 @@ import { PropsWithChildren, useEffect } from 'react';
 
 import {
 	AnnouncementBanner,
-	CustomToaster,
 	Footer,
 	FullscreenLoadingOverlay,
 	Header,
 	MiniCart,
+	NewsLetterSignUpModal,
+	ToastManager,
 } from '~/components/common';
 import { useSyncWithPersistedUiState, useUi } from '~/hooks';
 import { apolloClient } from '~/lib/commercetools/graphql/client';
@@ -31,15 +32,15 @@ export default function RootLayout(props: PropsWithChildren<{}>) {
 	const closeAllModalsAndSidebars = useUi(
 		state => state.closeAllModalsAndSidebars,
 	);
-	const _syncWithPersistedUiState = useSyncWithPersistedUiState();
+	const syncWithPersistedUiState = useSyncWithPersistedUiState();
 
 	useEffect(() => {
 		// Spread the love
 		console.log('Made with 💖 by @notadilnaqvi');
 		console.log('Source code available at https://github.com/notadilnaqvi/zap');
 
-		// NOTE: Disabling temporarily
-		// syncWithPersistedUiState();
+		syncWithPersistedUiState();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	// Close all modals and sidebars whenever the route changes
@@ -67,9 +68,10 @@ export default function RootLayout(props: PropsWithChildren<{}>) {
 							</a>
 						</div>
 					</div>
-					<CustomToaster />
+					<ToastManager />
 					<FullscreenLoadingOverlay />
 					<MiniCart />
+					<NewsLetterSignUpModal />
 					<div className='flex min-h-screen flex-col items-center'>
 						<AnnouncementBanner />
 						<Header />

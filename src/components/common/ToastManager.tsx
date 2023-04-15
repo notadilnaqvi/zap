@@ -6,7 +6,7 @@ import { resolveValue as resolveToastValue, Toaster } from 'react-hot-toast';
 import { CheckCircleIcon, XCircleIcon } from '~/components/icons';
 import { cx } from '~/utils';
 
-export function CustomToaster() {
+export function ToastManager() {
 	return (
 		<Toaster
 			position='bottom-center'
@@ -22,7 +22,7 @@ export function CustomToaster() {
 							'bg-error': t.type === 'error',
 							'bg-primary': t.type === 'success',
 						},
-						'flex max-w-[256px] transform items-center space-x-2 rounded py-3 pl-3 pr-4',
+						'flex w-fit transform items-center space-x-2 rounded py-3 pl-3 pr-4',
 					)}
 					enter='transition-all duration-300'
 					enterFrom='translate-y-4 opacity-0'

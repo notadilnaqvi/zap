@@ -120,7 +120,7 @@ export function LineItem(props: LineItemProps) {
 				<div className='flex w-full flex-row items-center justify-between sm:flex-col-reverse sm:items-end'>
 					<div
 						className={cx(
-							'flex flex-row rounded border  border-gray-200 sm:mt-1 sm:w-full',
+							'flex flex-row rounded border border-gray-200 sm:mt-1 sm:w-full',
 							{
 								'bg-gray-50 text-gray-300': updateLineItemQuantityLoading,
 							},
