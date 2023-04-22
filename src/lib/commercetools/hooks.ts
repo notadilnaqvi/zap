@@ -21,6 +21,10 @@ type UpdateLineItemQuantityProps = {
 	quantity: number;
 };
 
+type RemoveLineItemProps = {
+	lineItemId: string;
+};
+
 export function useAddToCart() {
 	const [updateCart, { data, loading, error }] = useUpdateCart();
 
@@ -143,4 +147,18 @@ export function useUpdateLineItemQuantity() {
 	}
 
 	return [updateLineItemQuantity, { data, loading }] as const;
+}
+
+export function useRemoveLineItem() {
+	const [updateCart, { data, loading }] = useUpdateCart();
+
+	async function removeLineItem(props: RemoveLineItemProps) {
+		const { lineItemId } = props;
+
+		await updateCart({
+			actions: [{ removeLineItem: { lineItemId } }],
+		});
+	}
+
+	return [removeLineItem, { data, loading }] as const;
 }

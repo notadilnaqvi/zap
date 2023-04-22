@@ -5,7 +5,10 @@ import Link from 'next/link';
 import { LoadingSpinner } from '~/components/common/LoadingSpinner';
 import { MinusIcon, PlusIcon, Trash2Icon } from '~/components/icons';
 import { useUi } from '~/hooks';
-import { useUpdateLineItemQuantity } from '~/lib/commercetools/hooks';
+import {
+	useRemoveLineItem,
+	useUpdateLineItemQuantity,
+} from '~/lib/commercetools/hooks';
 import { NormalisedCart } from '~/lib/commercetools/types';
 
 import { cx, formatPrice } from '~/utils';
@@ -19,12 +22,18 @@ type HandleQuantityProps = {
 	currentQuantity: number;
 };
 
+type HandleRemoveLineItemProps = {
+	lineItemId: string;
+};
+
 export function LineItem(props: LineItemProps) {
 	const { lineItem } = props;
 
 	const showToast = useUi(state => state.showToast);
 	const [updateLineItemQuantity, { loading: updateLineItemQuantityLoading }] =
 		useUpdateLineItemQuantity();
+	const [removeLineItem, { loading: removeLineItemLoading }] =
+		useRemoveLineItem();
 
 	const src = lineItem.image.src;
 	const alt = lineItem.image.label;
@@ -64,24 +73,18 @@ export function LineItem(props: LineItemProps) {
 		}
 	}
 
-	async function handleRemoveLineItem(
-		props: Omit<HandleQuantityProps, 'currentQuantity'>,
-	) {
-		if (updateLineItemQuantityLoading) return;
+	async function handleRemoveLineItem(props: HandleRemoveLineItemProps) {
+		if (removeLineItemLoading) return;
 		const { lineItemId } = props;
 
-		// Setting quantity to 0 removes the line-item
-		const quantity = 0;
-
 		try {
-			await updateLineItemQuantity({
+			await removeLineItem({
 				lineItemId,
-				quantity,
 			});
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
-			console.warn('[handleIncreaseQuantity]:', err?.message);
-			showToast({ message: 'Quantity not updated', type: 'error' });
+			console.warn('[handleRemoveLineItem]:', err?.message);
+			showToast({ message: 'Line-item not removed', type: 'error' });
 		}
 	}
 
@@ -112,9 +115,13 @@ export function LineItem(props: LineItemProps) {
 						className='ml-2 transition-opacity aria-disabled:cursor-wait sm:opacity-100'
 						title='Remove item'
 						onClick={() => handleRemoveLineItem({ lineItemId: lineItem.id })}
-						aria-disabled={updateLineItemQuantityLoading}
+						aria-disabled={removeLineItemLoading}
 					>
-						<Trash2Icon className='h-4 w-4 text-error' />
+						{removeLineItemLoading ? (
+							<LoadingSpinner size='small' />
+						) : (
+							<Trash2Icon className='h-4 w-4 text-error' />
+						)}
 					</button>
 				</div>
 				<div className='flex w-full flex-row items-center justify-between sm:flex-col-reverse sm:items-end'>

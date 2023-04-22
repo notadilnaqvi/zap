@@ -62,7 +62,7 @@ export function MiniCart() {
 							</div>
 							<button
 								title='Close bag'
-								className='rounded p-1 '
+								className='rounded p-1'
 								onClick={closeMiniCart}
 							>
 								<XIcon />
