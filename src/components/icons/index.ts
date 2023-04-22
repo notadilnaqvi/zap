@@ -1,6 +1,9 @@
 export { ArrowRightIcon } from './ArrowRightIcon';
 export { AwardIcon } from './AwardIcon';
 export { CheckCircleIcon } from './CheckCircleIcon';
+export { CheckIcon } from './CheckIcon';
+export { ChevronDownIcon } from './ChevronDownIcon';
+export { ChevronUpIcon } from './ChevronUpIcon';
 export { FilterIcon } from './FilterIcon';
 export { GiftIcon } from './GiftIcon';
 export { HeartIcon } from './HeartIcon';

@@ -47,10 +47,32 @@ module.exports = {
 			animation: {
 				blink: 'blink 1.4s infinite both',
 				shimmer: 'shimmer 1.4s infinite',
+				'fade-down': 'fade-down 0.2s ease-in-out',
+				'fade-up': 'fade-up 0.2s ease-in-out',
 			},
 			keyframes: {
 				shimmer: {
 					'100%': { transform: 'translateX(100%)' },
+				},
+				'fade-down': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(0px)',
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(8px)',
+					},
+				},
+				'fade-up': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(0px)',
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(-8px)',
+					},
 				},
 				blink: {
 					'0%': {
