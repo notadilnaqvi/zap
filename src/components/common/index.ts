@@ -1,4 +1,5 @@
 export { AnnouncementBanner } from './AnnouncementBanner';
+export { DefaultLayout } from './DefaultLayout';
 export { Footer } from './Footer';
 export { FullscreenLoadingOverlay } from './FullscreenLoadingOverlay';
 export { Header } from './Header';

@@ -24,24 +24,9 @@ import { cx } from '~/utils';
 
 export function Header() {
 	const openMiniCart = useUi(state => state.openMiniCart);
-	const showToast = useUi(state => state.showToast);
-	const openFullscreenLoadingOverlay = useUi(
-		state => state.openFullscreenLoadingOverlay,
-	);
-	const closeFullscreenLoadingOverlay = useUi(
-		state => state.closeFullscreenLoadingOverlay,
-	);
 	const { data: cart } = useCart();
 
 	const isCartEmpty = !cart?.totalLineItemQuantity;
-
-	function handleLogin() {
-		openFullscreenLoadingOverlay({ text: 'Logging in...' });
-		setTimeout(() => {
-			closeFullscreenLoadingOverlay();
-			showToast({ message: 'Welcome back Adil!', type: 'success' });
-		}, 2500);
-	}
 
 	return (
 		<div className='sticky top-0 z-[2] flex h-16 w-full items-center justify-center border-b border-gray-200 bg-white/70 px-4 backdrop-blur-md transition duration-300'>
@@ -358,13 +343,13 @@ export function Header() {
 				{/* Desktop nav links */}
 				<ul className='flex flex-row space-x-4 md:space-x-2'>
 					<li className='flex items-center sm:hidden'>
-						<button
-							onClick={handleLogin}
+						<Link
+							href='/login'
 							className='rounded p-1 text-gray-700'
 							title='Login'
 						>
 							<UserIcon />
-						</button>
+						</Link>
 					</li>
 					<li className='flex items-center'>
 						<Link

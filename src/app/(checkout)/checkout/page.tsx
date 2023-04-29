@@ -1,3 +1,8 @@
-export default function Checkout() {
-	return <h1>Checkout</h1>;
+export const metadata = {
+	title: 'Checkout',
+	description: 'Checkout',
+};
+
+export default function SignUpPage() {
+	return <h1>checkout</h1>;
 }

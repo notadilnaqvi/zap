@@ -1,3 +1,5 @@
+'use client';
+
 import { Dialog as ModalPrimitive, Transition } from '@headlessui/react';
 import { Fragment, PropsWithChildren } from 'react';
 import { XIcon } from '~/components/icons';

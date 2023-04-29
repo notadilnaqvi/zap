@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useId } from 'react';
 
 import { InfoIcon } from '~/components/icons';
@@ -51,7 +53,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 		} = props;
 		return (
 			<div className='flex flex-col-reverse items-start justify-end'>
-				<p
+				<div
 					role='alert'
 					className='text-sm text-error'
 				>
@@ -64,14 +66,17 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 									strokeWidth={2}
 								/>
 							</span>
-							<span
-								className={cx('ml-2 font-bold', errorsTextSizeClassNames[size])}
+							<p
+								className={cx(
+									'ml-2 font-normal',
+									errorsTextSizeClassNames[size],
+								)}
 							>
-								Error: <span className='font-normal'>{error}</span>
-							</span>
+								{error}
+							</p>
 						</div>
 					) : null}
-				</p>
+				</div>
 				<input
 					className={cx(
 						baseClassNames,

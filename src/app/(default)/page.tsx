@@ -8,7 +8,7 @@ import {
 } from '~/utils/constants';
 
 export const metadata = {
-	title: 'ZAP | Home',
+	title: 'Home',
 	description:
 		'ZAP is a fake e-commerce website built with Next.js and Commercetools',
 };
@@ -37,7 +37,23 @@ export default async function HomePage() {
 	});
 
 	return (
-		<div className='w-full py-16'>
+		<div className='my-16 w-full'>
+			{/* <div className='mb-64 mt-48 flex w-full flex-col items-center justify-center space-y-8 md:space-y-6 sm:my-32'>
+				<h1 className='bg-gradient-to-t from-gray-900 to-gray-700 bg-clip-text text-center text-6xl font-extrabold leading-none tracking-tighter text-transparent md:text-5xl'>
+					<Balancer>The premier retailer of fake apparel</Balancer>
+				</h1>
+				<p className='text-center text-2xl md:text-xl'>
+					<Balancer>
+						Find the perfect outfit for your next imaginary event
+					</Balancer>
+				</p>
+				<ButtonLink
+					href='#'
+					size='large'
+				>
+					Shop now
+				</ButtonLink>
+			</div> */}
 			<div className='grid grid-flow-row grid-cols-4 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
 				{products?.map((product, index) => {
 					return (

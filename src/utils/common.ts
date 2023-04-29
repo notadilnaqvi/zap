@@ -32,3 +32,7 @@ export function extractCustomAttribute<T>({
 }) {
 	return attributes?.find?.(attr => attr?.name === extract)?.value ?? null;
 }
+
+export async function sleep(ms: number) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}

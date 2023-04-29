@@ -33,3 +33,8 @@ export const DEFAULT_ICON_PROPS: React.SVGProps<SVGSVGElement> = {
 	xmlns: 'http://www.w3.org/2000/svg',
 	'aria-hidden': true,
 };
+
+/**
+ * Reference: https://www.w3resource.com/javascript/form/email-validation.php
+ */
+export const VALID_EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/;

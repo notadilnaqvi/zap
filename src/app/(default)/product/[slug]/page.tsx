@@ -4,14 +4,13 @@ import { notFound } from 'next/navigation';
 import { Commercetools } from '~/lib/commercetools';
 
 import type { NormalisedProduct } from '~/lib/commercetools/types';
+import { sleep } from '~/utils';
 
 type ProductPageProps = {
 	params: {
 		slug: string;
 	};
 };
-
-export const revalidate = 300; // Revalidate every 5 minutes
 
 export default async function ProductPage(props: ProductPageProps) {
 	const { params } = props;
@@ -21,6 +20,9 @@ export default async function ProductPage(props: ProductPageProps) {
 
 	try {
 		const { data, error } = await Commercetools.getProductBySlug({ slug });
+
+		// Simulate slow response to test loading state
+		await sleep(5000);
 
 		if (error) throw new Error(error.message, error);
 
@@ -86,8 +88,15 @@ export async function generateMetadata(props: ProductPageProps) {
 		slug,
 	});
 
+	if (!product) {
+		return {
+			title: 'Product not found',
+			description: 'This product was not found',
+		};
+	}
+
 	return {
-		title: product?.name || 'ZAP | Product',
+		title: product?.name,
 		description: product?.description,
 	};
 }
