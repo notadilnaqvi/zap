@@ -1,6 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react';
 
-import { ButtonColor, ButtonSize, ButtonVariant } from '~/components/ui/Button';
+import { ButtonColor, ButtonVariant } from '~/components/ui/Button';
 import { ButtonLink } from '~/components/ui/ButtonLink';
 
 const meta: Meta<typeof ButtonLink> = {
@@ -12,9 +12,6 @@ const meta: Meta<typeof ButtonLink> = {
 		href: '#',
 	},
 	argTypes: {
-		size: {
-			table: { defaultValue: { summary: 'medium' } },
-		},
 		color: {
 			table: { defaultValue: { summary: 'primary' } },
 		},
@@ -150,14 +147,11 @@ export const GhostButtonLink: StoryFn<typeof ButtonLink> = args => {
 	);
 };
 
-export const SmallButtonLinkWithWarningColor: StoryFn<
-	typeof ButtonLink
-> = args => {
+export const ButtonLinkWithWarningColor: StoryFn<typeof ButtonLink> = args => {
 	return (
 		<ButtonLink
 			className='w-min'
 			color='warning'
-			size='small'
 			{...args}
 		>
 			Button Link
@@ -180,7 +174,7 @@ export const OutlinedButtonLinkWithErrorColor: StoryFn<
 	);
 };
 
-export const LargeGhostButtonLinkWithErrorColor: StoryFn<
+export const GhostButtonLinkWithErrorColor: StoryFn<
 	typeof ButtonLink
 > = args => {
 	return (
@@ -188,7 +182,6 @@ export const LargeGhostButtonLinkWithErrorColor: StoryFn<
 			className='w-min'
 			color='error'
 			variant='ghost'
-			size='large'
 			{...args}
 		>
 			Button Link
@@ -196,35 +189,29 @@ export const LargeGhostButtonLinkWithErrorColor: StoryFn<
 	);
 };
 
-const sizeVariations: ButtonSize[] = ['small', 'medium', 'large'];
-
 const colorVariations: ButtonColor[] = ['primary', 'error', 'warning'];
 
 const variantVariations: ButtonVariant[] = ['filled', 'outlined', 'ghost'];
 
-const allVariations = sizeVariations
-	.map(size => {
-		return colorVariations.map(color => {
-			return variantVariations.map(variant => {
-				return {
-					variant,
-					color,
-					size,
-				};
-			});
+const allVariations = colorVariations
+	.map(color => {
+		return variantVariations.map(variant => {
+			return {
+				variant,
+				color,
+			};
 		});
 	})
-	.flat(2);
+	.flat(1);
 
 export const Showcase: StoryFn<typeof ButtonLink> = args => {
 	return (
 		<div className='grid grid-cols-3 gap-4 sm:grid-cols-1'>
 			{allVariations.map(variation => {
-				const { color, size, variant } = variation;
+				const { color, variant } = variation;
 				return (
 					<ButtonLink
 						key={JSON.stringify(variation)}
-						size={size}
 						color={color}
 						variant={variant}
 						{...args}

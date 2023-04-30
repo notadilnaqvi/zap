@@ -9,10 +9,6 @@ const meta: Meta<typeof Toggle> = {
 			table: { defaultValue: { summary: 'false' } },
 			control: { type: 'boolean' },
 		},
-		size: {
-			table: { defaultValue: { summary: 'small' } },
-		},
-
 		// Extraneous prop. Don't need to show it in Storybook controls.
 		asChild: {
 			table: {
@@ -51,26 +47,6 @@ export const DisabledToggle: StoryFn<typeof Toggle> = args => {
 export const DisabledCheckedToggle: StoryFn<typeof Toggle> = args => {
 	return (
 		<Toggle
-			defaultChecked
-			disabled
-			{...args}
-		/>
-	);
-};
-
-export const LargeToggle: StoryFn<typeof Toggle> = args => {
-	return (
-		<Toggle
-			size='large'
-			{...args}
-		/>
-	);
-};
-
-export const LargeDisabledCheckedToggle: StoryFn<typeof Toggle> = args => {
-	return (
-		<Toggle
-			size='large'
 			defaultChecked
 			disabled
 			{...args}
@@ -123,80 +99,6 @@ export const TogglesWithLabel: StoryFn<typeof Toggle> = args => {
 	);
 };
 
-export const LargeTogglesWithLabel: StoryFn<typeof Toggle> = args => {
-	return (
-		<div className='flex w-96 flex-col space-y-4'>
-			<div className='flex flex-row-reverse items-center justify-between'>
-				<Toggle
-					{...args}
-					size='large'
-					id='id-6'
-				/>
-				<Label
-					htmlFor='id-6'
-					size='large'
-				>
-					Show notifications
-				</Label>
-			</div>
-			<div className='flex flex-row-reverse items-center justify-between'>
-				<Toggle
-					{...args}
-					size='large'
-					id='id-7'
-				/>
-				<Label
-					htmlFor='id-7'
-					size='large'
-				>
-					Send emails
-				</Label>
-			</div>
-			<div className='flex flex-row-reverse items-center justify-between'>
-				<Toggle
-					disabled
-					checked
-					{...args}
-					size='large'
-					id='id-8'
-				/>
-				<Label
-					htmlFor='id-8'
-					size='large'
-				>
-					Send me new offers
-				</Label>
-			</div>
-			<div className='flex flex-row-reverse items-center justify-between'>
-				<Toggle
-					{...args}
-					size='large'
-					id='id-9'
-				/>
-				<Label
-					htmlFor='id-9'
-					size='large'
-				>
-					Send SMS texts
-				</Label>
-			</div>
-			<div className='flex flex-row-reverse items-center justify-between'>
-				<Toggle
-					disabled
-					{...args}
-					size='large'
-					id='id-10'
-				/>
-				<Label
-					htmlFor='id-10'
-					size='large'
-				>
-					Send me latest updates
-				</Label>
-			</div>
-		</div>
-	);
-};
 export const Showcase: StoryFn<typeof Toggle> = args => {
 	return (
 		<div className='flex flex-col space-y-3'>
@@ -212,26 +114,6 @@ export const Showcase: StoryFn<typeof Toggle> = args => {
 			<Toggle
 				disabled
 				defaultChecked
-				{...args}
-			/>
-			<Toggle
-				size='large'
-				{...args}
-			/>
-			<Toggle
-				defaultChecked
-				size='large'
-				{...args}
-			/>
-			<Toggle
-				disabled
-				size='large'
-				{...args}
-			/>
-			<Toggle
-				disabled
-				defaultChecked
-				size='large'
 				{...args}
 			/>
 		</div>
