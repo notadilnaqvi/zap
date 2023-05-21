@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 import { Commercetools } from '~/lib/commercetools';
 
 import type { NormalisedProduct } from '~/lib/commercetools/types';
-import { sleep } from '~/utils';
 
 type ProductPageProps = {
 	params: {
@@ -20,9 +19,6 @@ export default async function ProductPage(props: ProductPageProps) {
 
 	try {
 		const { data, error } = await Commercetools.getProductBySlug({ slug });
-
-		// Simulate slow response to test loading state
-		await sleep(5000);
 
 		if (error) throw new Error(error.message, error);
 
