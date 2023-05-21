@@ -2,7 +2,6 @@
 
 import React, { useId } from 'react';
 
-import { InfoIcon } from '~/components/icons';
 import { Label } from '~/components/ui';
 import { cx } from '~/utils';
 
@@ -26,16 +25,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 			<div className='flex flex-col-reverse items-start justify-end'>
 				<div
 					role='alert'
-					className='text-sm text-error'
+					className='mt-1.5'
 				>
-					{error ? (
-						<div className='inline-flex items-start pt-2.5'>
-							<span>
-								<InfoIcon className='h-4 w-4 stroke-2' />
-							</span>
-							<p className='ml-2 text-sm font-normal'>{error}</p>
-						</div>
-					) : null}
+					{error ? <p className='text-sm text-error'>{error}</p> : null}
 				</div>
 				<input
 					className={cx(baseClassNames, !!error && errorClassNames, className)}
@@ -43,7 +35,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 					id={id || randomId}
 					{...rest}
 				/>
-				{!!label && (
+				{label ? (
 					<Label
 						error={!!error}
 						htmlFor={id || randomId}
@@ -51,7 +43,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 					>
 						{label}
 					</Label>
-				)}
+				) : null}
 			</div>
 		);
 	},

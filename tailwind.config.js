@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* @ts-check */
+
 /** @type {import('tailwindcss').Config} */
 
 const plugin = require('tailwindcss/plugin');
@@ -11,6 +14,8 @@ module.exports = {
 		'./src/app/**/*.{js,ts,jsx,tsx}',
 	],
 	theme: {
+		// If screens are added or removed, make sure to update the `deviceSizes`
+		// in `next.config.js` as well
 		screens: {
 			xl: { max: '1440px' },
 			lg: { max: '1024px' },

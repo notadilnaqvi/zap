@@ -52,7 +52,7 @@ const errorLink = onError(({ graphQLErrors }) => {
 			// @ts-ignore (GraphQLError type doesn't match the actual error object)
 			if (graphQLError?.code === 'invalid_token') {
 				LocalStorage.remove('ct/token-info');
-				window?.location?.reload?.();
+				window.location.reload();
 			}
 		});
 	}

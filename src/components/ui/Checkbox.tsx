@@ -43,7 +43,7 @@ export const Checkbox = React.forwardRef<
 					</svg>
 				</CheckboxPrimitive.Indicator>
 			</CheckboxPrimitive.Root>
-			{!!label && <Label htmlFor={id || randomId}>{label}</Label>}
+			{label ? <Label htmlFor={id || randomId}>{label}</Label> : null}
 		</div>
 	);
 });

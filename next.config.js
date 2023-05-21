@@ -1,4 +1,5 @@
-// @ts-check
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* @ts-check */
 
 /** @type {import('next').NextConfig} */
 module.exports = {
@@ -6,9 +7,8 @@ module.exports = {
 	images: {
 		unoptimized: false,
 		domains: ['s3-eu-west-1.amazonaws.com'],
-	},
-	experimental: {
-		appDir: true,
+		// Should ideally match `screens` in `tailwind.config.js`
+		deviceSizes: [480, 768, 1024, 1440],
 	},
 };
 

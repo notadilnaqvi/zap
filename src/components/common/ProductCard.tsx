@@ -9,7 +9,7 @@ import { HeartIcon, PlusIcon } from '~/components/icons';
 import { useToggle, useUi } from '~/hooks';
 import { useAddToCart } from '~/lib/commercetools/hooks';
 import { NormalisedProduct } from '~/lib/commercetools/types';
-import { cx, formatPrice } from '~/utils';
+import { commercetoolsImageLoader, cx, formatPrice } from '~/utils';
 
 type Props = {
 	product: NormalisedProduct;
@@ -69,6 +69,8 @@ export function ProductCard(props: Props) {
 					src={product.mainImage.src}
 					alt={product.mainImage.label}
 					priority={prioritiseImage}
+					loader={commercetoolsImageLoader}
+					sizes='(max-width: 480px) 448px, (max-width: 768px) 360px, (max-width: 1024px) 320px, (max-width: 1440px) 288px, 288px'
 				/>
 				<div className='absolute bottom-0 w-full p-1.5'>
 					<button

@@ -44,7 +44,7 @@ export const Select = React.forwardRef<
 				<SelectPrimitive.Portal>
 					<SelectPrimitive.Content
 						className={cx(
-							'relative z-50 max-h-64 overflow-hidden rounded border border-gray-200 bg-white text-gray-900 shadow-[0px_8px_30px_rgba(0,0,0,0.12)] data-[side=bottom]:translate-y-2 data-[side=top]:-translate-y-2 data-[side=bottom]:animate-fade-down data-[side=top]:animate-fade-up',
+							'relative z-50 max-h-64 overflow-hidden rounded border border-gray-200 bg-white text-gray-900 data-[side=bottom]:translate-y-2 data-[side=top]:-translate-y-2 data-[side=bottom]:animate-fade-down data-[side=top]:animate-fade-up data-[side=bottom]:shadow-[0px_8px_30px_rgba(0,0,0,0.12)] data-[side=top]:shadow-[0px_-8px_30px_rgba(0,0,0,0.12)]',
 							className,
 						)}
 						position='popper'
@@ -68,14 +68,14 @@ export const Select = React.forwardRef<
 					</SelectPrimitive.Content>
 				</SelectPrimitive.Portal>
 			</SelectPrimitive.Root>
-			{!!label && (
+			{label ? (
 				<Label
 					htmlFor={id}
 					className='mb-1.5'
 				>
 					{label}
 				</Label>
-			)}
+			) : null}
 		</div>
 	);
 });
@@ -87,7 +87,7 @@ export const SelectOption = React.forwardRef<
 	<SelectPrimitive.Item
 		ref={ref}
 		className={cx(
-			'flex w-full cursor-pointer select-none items-center break-all rounded px-3 py-2 text-sm outline-none focus-visible:bg-gray-200 data-[disabled]:pointer-events-none data-[disabled]:text-gray-400 sm:py-3',
+			'flex w-full cursor-pointer select-none items-center break-all rounded px-3 py-2 text-sm outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[disabled]:text-gray-400 sm:py-3',
 			className,
 		)}
 		{...props}

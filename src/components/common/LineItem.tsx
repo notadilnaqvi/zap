@@ -11,7 +11,7 @@ import {
 } from '~/lib/commercetools/hooks';
 import { NormalisedCart } from '~/lib/commercetools/types';
 
-import { cx, formatPrice } from '~/utils';
+import { commercetoolsImageLoader, cx, formatPrice } from '~/utils';
 
 type LineItemProps = {
 	lineItem: NormalisedCart['lineItems'][number];
@@ -90,14 +90,14 @@ export function LineItem(props: LineItemProps) {
 
 	return (
 		<li className='group flex flex-row overflow-hidden p-4'>
-			<div className='relative h-[120px] w-[90px] shrink-0'>
-				<Image
-					src={src}
-					alt={alt}
-					fill
-					className='rounded object-cover invert-[0.05]'
-				/>
-			</div>
+			<Image
+				src={src}
+				alt={alt}
+				loader={commercetoolsImageLoader}
+				height={120}
+				width={90}
+				className='shrink-0 rounded object-cover invert-[0.05]'
+			/>
 			<div className='flex w-full flex-col items-start justify-between pl-4 sm:pl-2'>
 				<div className='flex w-full flex-row items-start justify-between'>
 					<div className='flex flex-col'>
