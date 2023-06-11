@@ -45,11 +45,11 @@ export const Modal = (props: ModalProps) => {
 					<Transition.Child
 						as={Fragment}
 						enter='ease duration-300'
-						enterFrom=' -translate-y-8 sm:translate-y-64 opacity-0'
-						enterTo='translate-y-0 opacity-100'
+						enterFrom='motion-safe:-translate-y-8 motion-safe:sm:translate-y-64 opacity-0'
+						enterTo='motion-safe:translate-y-0 opacity-100'
 						leave='ease duration-300'
-						leaveFrom='translate-y-0 opacity-100'
-						leaveTo='-translate-y-8 sm:translate-y-full opacity-0'
+						leaveFrom='motion-safe:translate-y-0 opacity-100'
+						leaveTo='motion-safe:-translate-y-8 motion-safe:sm:translate-y-full opacity-0'
 					>
 						<ModalPrimitive.Panel
 							className={cx(

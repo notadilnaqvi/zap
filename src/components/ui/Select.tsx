@@ -34,7 +34,7 @@ export const Select = React.forwardRef<
 					</div>
 					<SelectPrimitive.Icon
 						asChild
-						className='text-gray-600 transition-transform group-data-[state=open]:rotate-180 group-data-[disabled]:text-gray-400'
+						className='text-gray-600 transition-transform group-data-[disabled]:text-gray-400 motion-safe:group-data-[state=open]:rotate-180'
 					>
 						<div>
 							<ChevronDownIcon className='h-4.5 w-4.5' />
@@ -44,7 +44,7 @@ export const Select = React.forwardRef<
 				<SelectPrimitive.Portal>
 					<SelectPrimitive.Content
 						className={cx(
-							'relative z-50 max-h-64 overflow-hidden rounded border border-gray-200 bg-white text-gray-900 data-[side=bottom]:translate-y-2 data-[side=top]:-translate-y-2 data-[side=bottom]:animate-fade-down data-[side=top]:animate-fade-up data-[side=bottom]:shadow-[0px_8px_30px_rgba(0,0,0,0.12)] data-[side=top]:shadow-[0px_-8px_30px_rgba(0,0,0,0.12)]',
+							'relative z-50 max-h-64 overflow-hidden rounded border border-gray-200 bg-white text-gray-900 data-[side=bottom]:translate-y-2 data-[side=top]:-translate-y-2 data-[side=bottom]:shadow-[0px_8px_30px_rgba(0,0,0,0.12)] data-[side=top]:shadow-[0px_-8px_30px_rgba(0,0,0,0.12)] motion-safe:data-[side=bottom]:animate-fade-down motion-safe:data-[side=top]:animate-fade-up motion-reduce:animate-fade',
 							className,
 						)}
 						position='popper'

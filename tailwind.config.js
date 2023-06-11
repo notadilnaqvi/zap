@@ -55,6 +55,7 @@ module.exports = {
 				shimmer: 'shimmer 1.4s infinite',
 				'fade-down': 'fade-down 0.2s ease-in-out',
 				'fade-up': 'fade-up 0.2s ease-in-out',
+				'fade': 'fade 0.2s ease-in-out',
 			},
 			keyframes: {
 				shimmer: {
@@ -78,6 +79,14 @@ module.exports = {
 					'100%': {
 						opacity: '1',
 						transform: 'translateY(-8px)',
+					},
+				},
+				'fade': {
+					'0%': {
+						opacity: '0',
+					},
+					'100%': {
+						opacity: '1',
 					},
 				},
 				blink: {

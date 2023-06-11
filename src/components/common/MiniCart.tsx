@@ -46,11 +46,11 @@ export function MiniCart() {
 				<Transition.Child
 					as={Fragment}
 					enter='ease duration-300'
-					enterFrom='translate-x-[350px] sm:translate-x-[350px]'
-					enterTo='translate-x-0'
+					enterFrom='motion-safe:translate-x-[350px] motion-safe:sm:translate-x-[300px] motion-reduce:opacity-0'
+					enterTo='motion-safe:translate-x-0 motion-reduce:opacity-1'
 					leave='ease duration-300'
-					leaveFrom='translate-x-0'
-					leaveTo='translate-x-[350px] sm:translate-x-[350px]'
+					leaveFrom='motion-safe:translate-x-0 motion-reduce:opacity-1'
+					leaveTo='motion-safe:translate-x-[350px] motion-safe:sm:translate-x-[300px] motion-reduce:opacity-0'
 				>
 					<aside className='fixed inset-y-0 right-0 flex h-full w-[350px] flex-col bg-white sm:w-[300px]'>
 						<div className='flex h-min w-full flex-row items-center justify-between border-b border-gray-200 p-4'>

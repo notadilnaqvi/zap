@@ -25,11 +25,11 @@ export function ToastManager() {
 						'flex w-fit transform items-center space-x-2 rounded py-3 pl-3 pr-4',
 					)}
 					enter='transition-all duration-300'
-					enterFrom='translate-y-4 opacity-0'
-					enterTo='translate-y-0 opacity-100'
+					enterFrom='motion-safe:translate-y-4 opacity-0'
+					enterTo='motion-safe:translate-y-0 opacity-100'
 					leave='transition-all duration-300'
-					leaveFrom='opacity-100 translate-y-0'
-					leaveTo='opacity-0 -translate-y-1'
+					leaveFrom='opacity-100 motion-safe:translate-y-0'
+					leaveTo='opacity-0 motion-safe:-translate-y-1'
 					{...t.ariaProps}
 				>
 					<div className='text-white'>

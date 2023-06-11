@@ -12,7 +12,8 @@ button {
 	@apply rounded focus:outline-none focus-visible:outline-primary;
 }
 
-/* Hide scrollbar */
+/* Hides scrollbar. Avoid hiding scrollbars whenever possible as it's bad for
+   UX and accessibility. Use sparingly. */
 .hide-scrollbar::-webkit-scrollbar {
 	display: none;
 }
