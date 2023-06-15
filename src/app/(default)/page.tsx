@@ -1,7 +1,7 @@
 import { getPlaiceholder as generateBase64EncodedDataUrl } from 'plaiceholder';
 
 import { ProductCard } from '~/components/common';
-import { Commercetools } from '~/lib/commercetools';
+import { getProducts } from '~/lib/commercetools';
 import {
 	FALLBACK_IMAGE,
 	FALLBACK_IMAGE_BLUR_DATA_URL,
@@ -14,7 +14,7 @@ export const metadata = {
 };
 
 export default async function HomePage() {
-	const { data } = await Commercetools.getProducts({ limit: 16 });
+	const { data } = await getProducts({ limit: 64 });
 
 	// NOTE: `getBlurDataUrl` won't ever reject so we can safely use `Promise.all`
 	const blurDataUrls = await Promise.all(

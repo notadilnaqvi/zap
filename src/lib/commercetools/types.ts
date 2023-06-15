@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
 import {
+	authTokenSchema,
 	ctTestDataSchema,
-	ctTokenInfoSchema,
 } from '~/lib/commercetools/validators';
 
 // Generated types
@@ -11,7 +11,7 @@ export * from '~/lib/commercetools/graphql/__generated__/graphql';
 
 // Valitated data types
 
-export type CtTokenInfo = z.infer<typeof ctTokenInfoSchema>;
+export type AuthToken = z.infer<typeof authTokenSchema>;
 
 export type CtTestData = z.infer<typeof ctTestDataSchema>;
 

@@ -1,15 +1,15 @@
-import { CtTestData, CtTokenInfo } from '~/lib/commercetools/types';
+import { AuthToken, CtTestData } from '~/lib/commercetools/types';
 import {
+	authTokenSchema,
 	ctTestDataSchema,
-	ctTokenInfoSchema,
 } from '~/lib/commercetools/validators';
 
 type LocalStorage = {
-	'ct/token-info': CtTokenInfo;
+	'ct/auth-token': AuthToken;
 	'ct/test-data': CtTestData;
 };
 
-function get(key: 'ct/token-info'): Maybe<LocalStorage['ct/token-info']>;
+function get(key: 'ct/auth-token'): Maybe<LocalStorage['ct/auth-token']>;
 function get(key: 'ct/test-data'): Maybe<LocalStorage['ct/test-data']>;
 function get(key: keyof LocalStorage) {
 	try {
@@ -19,8 +19,8 @@ function get(key: keyof LocalStorage) {
 
 		if (!item) return null;
 
-		if (key === 'ct/token-info') {
-			const value = ctTokenInfoSchema.parse(JSON.parse(item));
+		if (key === 'ct/auth-token') {
+			const value = authTokenSchema.parse(JSON.parse(item));
 			return value;
 		}
 

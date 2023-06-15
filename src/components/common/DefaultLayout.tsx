@@ -11,9 +11,10 @@ import {
 	Header,
 	MiniCart,
 	NewsLetterSignUpModal,
+	SkipToContentLink,
+	TailwindBreakpointIndicator,
 	ToastManager,
 } from '~/components/common';
-import { TailwindIndicator } from '~/components/common/TailwindIndicator';
 import { useSyncWithPersistedUiState, useUi } from '~/hooks';
 import { apolloClient } from '~/lib/commercetools/graphql/client';
 
@@ -43,19 +44,9 @@ export function DefaultLayout(props: PropsWithChildren<{}>) {
 
 	return (
 		<>
-			<TailwindIndicator />
+			<TailwindBreakpointIndicator /> {/* Used for Tailwind debugging */}
 			<ApolloProvider client={apolloClient}>
-				{/* Skip-to-content link */}
-				<div className='flex w-full justify-center px-4'>
-					<div className='relative w-full max-w-[1200px]'>
-						<a
-							href='#content'
-							className='absolute z-50 mt-4 -translate-y-16 bg-white px-2.5 py-1.5 text-sm text-primary underline ring-2 ring-white focus-visible:translate-y-0'
-						>
-							Skip to content
-						</a>
-					</div>
-				</div>
+				<SkipToContentLink />
 				<ToastManager />
 				<FullscreenLoadingOverlay />
 				<MiniCart />

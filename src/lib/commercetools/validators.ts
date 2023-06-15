@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const ctTokenInfoSchema = z.object({
+export const authTokenSchema = z.object({
 	scope: z.string(),
 	expires_in: z.number(),
 	expires_at: z.number(),

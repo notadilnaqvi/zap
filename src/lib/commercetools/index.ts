@@ -1,14 +1,14 @@
 import SdkAuth, { TokenProvider } from '@commercetools/sdk-auth';
 
-import { apolloClient } from '~/lib/commercetools/graphql/client';
 import {
 	GET_PRODUCTS,
 	GET_PRODUCT_SLUGS,
 } from '~/lib/commercetools/graphql/queries';
+import { apolloServerSideClient } from '~/lib/commercetools/graphql/server-side-client';
 import { normaliseProduct } from '~/lib/commercetools/normalisation';
 
 import type {
-	CtTokenInfo,
+	AuthToken,
 	CustomerSignMeInDraft,
 	GetProductSlugsQuery,
 	GetProductSlugsQueryVariables,
@@ -50,35 +50,44 @@ const sdkAuth = new SdkAuth({
 	scopes: process.env.NEXT_PUBLIC_CTP_SCOPES.split(' '),
 });
 
-async function generateAnonymousTokenInfo(): Promise<CtTokenInfo> {
+export async function generateAnonymousAuthToken(): Promise<AuthToken> {
+	console.log('generateAnonymousAuthToken got called...');
 	const tokenFlow = await sdkAuth.anonymousFlow();
 	const tokenProvider = new TokenProvider({ sdkAuth }, tokenFlow);
-	const tokenInfo = await tokenProvider.getTokenInfo();
-	return tokenInfo;
+	const authToken = await tokenProvider.getTokenInfo();
+	return authToken;
 }
 
-async function generateCustomerTokenInfo(
+export async function generateCustomerAuthToken(
 	props: Pick<CustomerSignMeInDraft, 'email' | 'password'>,
-): Promise<CtTokenInfo> {
+): Promise<AuthToken> {
 	const { email, password } = props;
 	const tokenFlow = await sdkAuth.customerPasswordFlow({
 		username: email,
 		password,
 	});
 	const tokenProvider = new TokenProvider({ sdkAuth }, tokenFlow);
-	const tokenInfo = await tokenProvider.getTokenInfo();
-	return tokenInfo;
+	const authToken = await tokenProvider.getTokenInfo();
+	return authToken;
 }
 
-async function refreshTokenInfo(
-	expiredTokenInfo: CtTokenInfo,
-): Promise<CtTokenInfo> {
-	const tokenProvider = new TokenProvider({ sdkAuth }, expiredTokenInfo);
-	const tokenInfo = await tokenProvider.getTokenInfo();
-	return tokenInfo;
+export async function refreshAuthToken(
+	expiredAuthToken: AuthToken,
+): Promise<AuthToken> {
+	const tokenProvider = new TokenProvider({ sdkAuth }, expiredAuthToken);
+	const authToken = await tokenProvider.getTokenInfo();
+	return authToken;
 }
 
-async function getProducts(props: GerProductsProps) {
+export async function generateClientAuthToken(): Promise<AuthToken> {
+	console.log('generateClientAuthToken got called...');
+	const tokenFlow = await sdkAuth.clientCredentialsFlow();
+	const tokenProvider = new TokenProvider({ sdkAuth }, tokenFlow);
+	const authToken = await tokenProvider.getTokenInfo();
+	return authToken;
+}
+
+export async function getProducts(props: GerProductsProps) {
 	let { limit } = props;
 
 	// Restrict limit to be within 1-500
@@ -87,7 +96,7 @@ async function getProducts(props: GerProductsProps) {
 		COMMERCETOOLS_MAX_LIMIT,
 	);
 
-	const { data, loading, error } = await apolloClient.query<
+	const { data, loading, error } = await apolloServerSideClient.query<
 		GetProductsQuery,
 		GetProductsQueryVariables
 	>({
@@ -128,8 +137,8 @@ async function getProducts(props: GerProductsProps) {
 	return { data: { products }, loading, error };
 }
 
-async function getProductBySlug({ slug }: { slug: string }) {
-	const { data, loading, error } = await apolloClient.query<
+export async function getProductBySlug({ slug }: { slug: string }) {
+	const { data, loading, error } = await apolloServerSideClient.query<
 		GetProductsQuery,
 		GetProductsQueryVariables
 	>({
@@ -164,13 +173,13 @@ async function getProductBySlug({ slug }: { slug: string }) {
 	return { data: normalisedProduct, loading, error };
 }
 
-async function getProductSlugs(props: GerProductSlugsProps) {
+export async function getProductSlugs(props: GerProductSlugsProps) {
 	let { limit } = props;
 
 	// Restrict limit to be within 1-500
 	limit = Math.min(Math.max(limit, 1), COMMERCETOOLS_MAX_LIMIT);
 
-	const { data, loading, error } = await apolloClient.query<
+	const { data, loading, error } = await apolloServerSideClient.query<
 		GetProductSlugsQuery,
 		GetProductSlugsQueryVariables
 	>({
@@ -211,12 +220,3 @@ async function getProductSlugs(props: GerProductSlugsProps) {
 
 	return { data: { slugs }, loading, error };
 }
-
-export const Commercetools = {
-	generateAnonymousTokenInfo,
-	generateCustomerTokenInfo,
-	refreshTokenInfo,
-	getProductSlugs,
-	getProducts,
-	getProductBySlug,
-};

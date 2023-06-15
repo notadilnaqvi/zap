@@ -1,4 +1,9 @@
-export function TailwindIndicator() {
+/**
+ * This is a helper component to be used during development. It shows the
+ * current screen breakpoint in the bottom right part of the screen. This
+ * component only shows up in development and is not visible in production.
+ */
+export function TailwindBreakpointIndicator() {
 	if (process.env.NODE_ENV === 'production') return null;
 
 	return (

@@ -14,7 +14,7 @@ export function formatPrice(price: PPrice) {
 		});
 		return formatter.format(centAmount / 10 ** fractionDigits);
 	} catch (err) {
-		console.error('[Utils.formatPrice]', err);
+		console.error('[formatPrice]', err);
 		return 'NaN';
 	}
 }

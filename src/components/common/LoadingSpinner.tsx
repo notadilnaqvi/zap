@@ -2,21 +2,34 @@
 
 import { cx } from '~/utils';
 
-interface Props {
+export type LoadingSpinnerProps = {
 	size?: 'large' | 'small';
-}
+	color?: 'light' | 'muted' | 'dark' | 'primary' | 'warning' | 'error';
+};
 
-export function LoadingSpinner({ size = 'large' }: Props) {
+export function LoadingSpinner(props: LoadingSpinnerProps) {
+	const { size = 'large', color = 'dark' } = props;
+
 	return (
 		<div className={cx('block', size === 'large' ? 'h-6 w-6' : 'h-4 w-4')}>
 			<div className='relative left-1/2 top-1/2 h-full w-full'>
 				{/* One span for each line thingy in the loader */}
 				{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(index => {
 					return (
-						<span key={index}>
+						<span
+							key={index}
+							className={cx({
+								'bg-white': color === 'light',
+								'bg-neutral-400': color === 'muted',
+								'bg-black': color === 'dark',
+								'bg-primary': color === 'primary',
+								'bg-warning': color === 'warning',
+								'bg-error': color === 'error',
+							})}
+						>
 							<style jsx>{`
 								span {
-									background-color: #111827;
+									background-color: current;
 									position: absolute;
 									top: -5%;
 									width: 25%;

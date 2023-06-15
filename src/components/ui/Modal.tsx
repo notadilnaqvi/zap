@@ -78,7 +78,10 @@ export const ModalContent = (
 // TODO: Remove `onClose` since it's already passed down from `Modal`
 // No easy way to do this currently
 export const ModalTitle = (
-	props: PropsWithChildren<{ onClose: () => void; className?: string }>,
+	props: PropsWithChildren<{
+		onClose: ModalProps['onClose'];
+		className?: string;
+	}>,
 ) => {
 	const { children, className, onClose } = props;
 	return (

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
-import { Commercetools } from '~/lib/commercetools';
+import { getProductBySlug, getProductSlugs } from '~/lib/commercetools';
 
 import type { NormalisedProduct } from '~/lib/commercetools/types';
 
@@ -18,7 +18,7 @@ export default async function ProductPage(props: ProductPageProps) {
 	let product: NormalisedProduct;
 
 	try {
-		const { data, error } = await Commercetools.getProductBySlug({ slug });
+		const { data, error } = await getProductBySlug({ slug });
 
 		if (error) throw new Error(error.message, error);
 
@@ -60,7 +60,7 @@ export default async function ProductPage(props: ProductPageProps) {
 }
 
 export async function generateStaticParams() {
-	const { data, error } = await Commercetools.getProductSlugs({ limit: 16 });
+	const { data, error } = await getProductSlugs({ limit: 16 });
 
 	if (error) {
 		throw new Error(
@@ -80,7 +80,7 @@ export async function generateMetadata(props: ProductPageProps) {
 	const { params } = props;
 	const { slug } = params;
 
-	const { data: product } = await Commercetools.getProductBySlug({
+	const { data: product } = await getProductBySlug({
 		slug,
 	});
 

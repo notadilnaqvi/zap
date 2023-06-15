@@ -13,7 +13,7 @@ export function NewsLetterSignUpModal() {
 
 	function handleSignUpFormSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		const form = event.currentTarget as HTMLFormElement;
+		const form = event.currentTarget;
 		const firstName = (form.elements.namedItem('firstName') as HTMLInputElement)
 			.value;
 		const email = (form.elements.namedItem('email') as HTMLInputElement).value;

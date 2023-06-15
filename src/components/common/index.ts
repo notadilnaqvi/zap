@@ -9,4 +9,6 @@ export { LoadingSpinner } from './LoadingSpinner';
 export { MiniCart } from './MiniCart';
 export { NewsLetterSignUpModal } from './NewsLetterSignUpModal';
 export { ProductCard } from './ProductCard';
+export { SkipToContentLink } from './SkipToContentLink';
+export { TailwindBreakpointIndicator } from './TailwindBreakpointIndicator';
 export { ToastManager } from './ToastManager';
