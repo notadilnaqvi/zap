@@ -1,6 +1,8 @@
 'use client';
 
 import React from 'react';
+import { LoadingSpinner } from '~/components/common';
+import { LoadingSpinnerProps } from '~/components/common/LoadingSpinner';
 import { cx } from '~/utils';
 
 export type ButtonColor = 'primary' | 'error' | 'warning';
@@ -9,6 +11,7 @@ export type ButtonVariant = 'filled' | 'outlined' | 'ghost';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	disabled?: boolean;
+	loading?: boolean;
 	color?: ButtonColor;
 	variant?: ButtonVariant;
 }
@@ -54,6 +57,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 			color = 'primary',
 			variant = 'filled',
 			type = 'button',
+			loading,
+			disabled,
 			children,
 			className,
 			...rest
@@ -63,14 +68,36 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 				className={cx(
 					baseClassNames,
 					variantAndColorClassNames[variant][color],
+					{ 'cursor-wait': loading },
 					className,
 				)}
 				type={type}
 				ref={ref}
+				disabled={disabled}
 				{...rest}
 			>
-				<div className='w-full'>{children}</div>
+				<div className='flex w-full flex-row items-center justify-center'>
+					{loading && (
+						<div className='mr-2'>
+							<LoadingSpinner
+								size='small'
+								color={getLoadingSpinnerColor({ variant, disabled, color })}
+							/>
+						</div>
+					)}
+					{children}
+				</div>
 			</button>
 		);
 	},
 );
+
+function getLoadingSpinnerColor(
+	props: Pick<ButtonProps, 'variant' | 'disabled' | 'color'>,
+): LoadingSpinnerProps['color'] {
+	const { variant, disabled, color } = props;
+	if (disabled) return 'muted';
+	if (variant === 'filled') return 'light';
+	if (variant === 'outlined' || variant === 'ghost') return color;
+	return 'light';
+}

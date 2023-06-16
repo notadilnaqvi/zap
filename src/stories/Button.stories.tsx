@@ -10,6 +10,9 @@ const meta: Meta<typeof Button> = {
 		disabled: {
 			table: { defaultValue: { summary: 'false' } },
 		},
+		loading: {
+			table: { defaultValue: { summary: 'false' } },
+		},
 		color: {
 			table: { defaultValue: { summary: 'primary' } },
 		},
@@ -28,10 +31,33 @@ export const DefaultButton: StoryFn<typeof Button> = args => {
 	return <Button {...args}>Button</Button>;
 };
 
+export const ButtonLoading: StoryFn<typeof Button> = args => {
+	return (
+		<Button
+			loading={true}
+			{...args}
+		>
+			Button
+		</Button>
+	);
+};
+
 export const FullWidthButton: StoryFn<typeof Button> = args => {
 	return (
 		<Button
 			className='w-full'
+			{...args}
+		>
+			Button
+		</Button>
+	);
+};
+
+export const FullWidthButtonLoading: StoryFn<typeof Button> = args => {
+	return (
+		<Button
+			className='w-full'
+			loading={true}
 			{...args}
 		>
 			Button
@@ -133,33 +159,39 @@ const disabledVariations: boolean[] = [false, true];
 
 const colorVariations: ButtonColor[] = ['primary', 'error', 'warning'];
 
+const loadingVariations: boolean[] = [false, true];
+
 const variantVariations: ButtonVariant[] = ['filled', 'outlined', 'ghost'];
 
 const allVariations = disabledVariations
 	.map(disabled => {
-		return colorVariations.map(color => {
-			return variantVariations.map(variant => {
-				return {
-					variant,
-					color,
-					disabled,
-				};
+		return loadingVariations.map(loading => {
+			return colorVariations.map(color => {
+				return variantVariations.map(variant => {
+					return {
+						variant,
+						color,
+						disabled,
+						loading,
+					};
+				});
 			});
 		});
 	})
-	.flat(2);
+	.flat(3);
 
 export const Showcase: StoryFn<typeof Button> = args => {
 	return (
 		<div className='grid grid-cols-3 gap-4'>
 			{allVariations.map(variation => {
-				const { color, disabled, variant } = variation;
+				const { color, disabled, variant, loading } = variation;
 				return (
 					<Button
 						key={JSON.stringify(variation)}
 						color={color}
 						variant={variant}
 						disabled={disabled}
+						loading={loading}
 						{...args}
 					>
 						Button
