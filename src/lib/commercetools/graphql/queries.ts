@@ -121,3 +121,18 @@ export const GET_CART = gql`
 		}
 	}
 `;
+
+export const GET_CUSTOMER = gql`
+	query getCustomer {
+		me {
+			customer {
+				id
+				version
+				firstName
+				lastName
+				email
+				createdAt
+			}
+		}
+	}
+`;

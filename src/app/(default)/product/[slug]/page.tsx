@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 import { getProductBySlug, getProductSlugs } from '~/lib/commercetools';
-
 import type { NormalisedProduct } from '~/lib/commercetools/types';
 
 type ProductPageProps = {
@@ -31,36 +30,38 @@ export default async function ProductPage(props: ProductPageProps) {
 	}
 
 	return (
-		<div className='w-full py-16'>
-			<h1 className='text-lg font-medium'>{product.name}</h1>
-			<div className='mt-8 grid grid-flow-row grid-cols-4 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
-				{product.images.map(image => {
-					return (
-						<div
-							className='relative aspect-[4/5] w-full'
-							key={image.src}
-						>
-							<Image
-								src={image.src}
-								alt={image.label}
-								className='rounded object-cover invert-[0.05]'
-								fill
-							/>
-						</div>
-					);
-				})}
-			</div>
-			<div className='mt-4 overflow-x-scroll rounded bg-gray-100 p-4 text-sm'>
-				<pre>
-					<code>{JSON.stringify(product, null, 2)}</code>
-				</pre>
+		<div className='flex w-full justify-center px-4'>
+			<div className='w-full max-w-page py-16'>
+				<h1 className='text-lg font-medium'>{product.name}</h1>
+				<section className='mt-8 grid grid-flow-row grid-cols-4 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
+					{product.images.map(image => {
+						return (
+							<div
+								className='relative aspect-[4/5] w-full'
+								key={image.src}
+							>
+								<Image
+									src={image.src}
+									alt={image.label}
+									className='rounded object-cover invert-[0.05]'
+									fill
+								/>
+							</div>
+						);
+					})}
+				</section>
+				<section className='mt-4 overflow-x-scroll rounded bg-gray-100 p-4 text-sm'>
+					<pre>
+						<code>{JSON.stringify(product, null, 2)}</code>
+					</pre>
+				</section>
 			</div>
 		</div>
 	);
 }
 
 export async function generateStaticParams() {
-	const { data, error } = await getProductSlugs({ limit: 256 });
+	const { data, error } = await getProductSlugs({ limit: 16 });
 
 	if (error) {
 		throw new Error(
@@ -80,19 +81,16 @@ export async function generateMetadata(props: ProductPageProps) {
 	const { params } = props;
 	const { slug } = params;
 
-	const { data: product } = await getProductBySlug({
+	const { data: product, error } = await getProductBySlug({
 		slug,
 	});
 
-	if (!product) {
-		return {
-			title: 'Product not found',
-			description: 'This product was not found',
-		};
+	if (!product || error) {
+		return {};
 	}
 
 	return {
-		title: product?.name,
-		description: product?.description,
+		title: product.name,
+		description: product.description,
 	};
 }

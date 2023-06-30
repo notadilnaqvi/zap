@@ -5,7 +5,7 @@
 export function SkipToContentLink() {
 	return (
 		<div className='flex w-full justify-center px-4'>
-			<div className='relative w-full max-w-[1200px]'>
+			<div className='relative w-full max-w-page'>
 				<a
 					href='#content'
 					className='absolute z-50 mt-4 -translate-y-16 bg-white px-2.5 py-1.5 text-sm text-primary underline ring-2 ring-white focus-visible:translate-y-0'

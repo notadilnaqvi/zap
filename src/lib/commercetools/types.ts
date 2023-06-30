@@ -61,6 +61,7 @@ export type LineItem = {
 	productSlug: string;
 	totalPrice: PPrice;
 };
+
 export type NormalisedCart = {
 	id: string;
 	version: number;
@@ -68,4 +69,14 @@ export type NormalisedCart = {
 	totalPrice: PPrice;
 	lineItems: LineItem[];
 	totalLineItemQuantity: number;
+};
+
+// Normalised customre
+
+export type NormalisedCustomer = {
+	firstName: string;
+	lastName: string;
+	id: string;
+	email: string;
+	version: number;
 };

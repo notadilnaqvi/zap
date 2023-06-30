@@ -104,6 +104,10 @@ module.exports = {
 			spacing: {
 				4.5: '18px',
 			},
+			maxWidth: {
+				// Max width for page content, header, footer, etc.
+				'page': '1200px',
+			}
 		},
 	},
 	plugins: [

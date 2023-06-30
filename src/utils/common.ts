@@ -3,6 +3,7 @@ import { twMerge } from 'tailwind-merge';
 
 import { LOCALE } from '~/utils/constants';
 
+import { type ApolloError } from '@apollo/client';
 import type { PPrice } from '~/lib/commercetools/types';
 
 export function formatPrice(price: PPrice) {
@@ -14,7 +15,7 @@ export function formatPrice(price: PPrice) {
 		});
 		return formatter.format(centAmount / 10 ** fractionDigits);
 	} catch (err) {
-		console.error('[formatPrice]', err);
+		console.error('[formatPrice]:', err);
 		return 'NaN';
 	}
 }
@@ -35,4 +36,21 @@ export function extractCustomAttribute<T>({
 
 export async function sleep(ms: number) {
 	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export function parseJson<T>(str: string | null | undefined) {
+	if (!str) return null;
+	try {
+		return JSON.parse(str) as T;
+	} catch (err) {
+		console.warn('[parseJson]:', err);
+		return null;
+	}
+}
+
+export function extractApolloErrorCode(error?: Maybe<ApolloError>) {
+	if (!error) return null;
+	const errorCode = error?.graphQLErrors?.[0]?.extensions?.['code'];
+	if (!errorCode) return null;
+	return errorCode as string;
 }

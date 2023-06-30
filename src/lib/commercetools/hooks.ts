@@ -1,20 +1,38 @@
-import { useMutation, useQuery } from '@apollo/client';
+import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 
+import { generateCustomerAuthToken } from '~/lib/commercetools';
 import {
 	CREATE_CART,
+	CUSTOMER_LOGIN,
+	CUSTOMER_SIGN_UP,
 	UPDATE_CART,
 } from '~/lib/commercetools/graphql/mutations';
-import { GET_CART } from '~/lib/commercetools/graphql/queries';
-import { normaliseCart } from '~/lib/commercetools/normalisation';
+import { GET_CART, GET_CUSTOMER } from '~/lib/commercetools/graphql/queries';
 import {
+	normaliseCart,
+	normaliseCustomer,
+} from '~/lib/commercetools/normalisation';
+import {
+	AnonymousCartSignInMode,
 	CreateCartMutation,
 	CreateCartMutationVariables,
+	CustomerLoginMutation,
+	CustomerLoginMutationVariables,
+	CustomerSignUpMutation,
+	CustomerSignUpMutationVariables,
 	GetCartQuery,
 	GetCartQueryVariables,
+	GetCustomerQuery,
 	UpdateCartMutation,
 	UpdateCartMutationVariables,
 } from '~/lib/commercetools/types';
-import { COUNTRY, CURRENCY_CODE, LOCALE } from '~/utils/constants';
+import { Cookie } from '~/utils';
+import {
+	AUTH_TOKEN_EXPIRY_DAYS,
+	COUNTRY,
+	CURRENCY_CODE,
+	LOCALE,
+} from '~/utils/constants';
 
 type UpdateLineItemQuantityProps = {
 	lineItemId: string;
@@ -23,6 +41,18 @@ type UpdateLineItemQuantityProps = {
 
 type RemoveLineItemProps = {
 	lineItemId: string;
+};
+
+type SignUpProps = {
+	email: string;
+	password: string;
+	firstName: string;
+	lastName: string;
+};
+
+type LoginProps = {
+	email: string;
+	password: string;
 };
 
 export function useAddToCart() {
@@ -79,11 +109,7 @@ export function useCart() {
 	const { data, loading, error, refetch } = useQuery<
 		GetCartQuery,
 		GetCartQueryVariables
-	>(GET_CART, {
-		variables: { locale: LOCALE },
-		fetchPolicy: 'network-only',
-		nextFetchPolicy: 'cache-first',
-	});
+	>(GET_CART, { variables: { locale: LOCALE } });
 
 	return { data: normaliseCart(data?.me?.cart), loading, error, refetch };
 }
@@ -161,4 +187,107 @@ export function useRemoveLineItem() {
 	}
 
 	return [removeLineItem, { data, loading }] as const;
+}
+
+export function useCustomer() {
+	const authToken = Cookie.get('zap_auth_token');
+	const {
+		data,
+		loading,
+		error: apolloError,
+	} = useQuery<GetCustomerQuery>(GET_CUSTOMER, {
+		skip: !authToken?.is_logged_in, // Don't run this query if the user isn't logged in
+	});
+	const error = apolloError;
+	return {
+		data: normaliseCustomer({ customer: data?.me.customer }),
+		loading,
+		error,
+	};
+}
+
+export function useLogin() {
+	const [mutate, { data, loading, error }] = useMutation<
+		CustomerLoginMutation,
+		CustomerLoginMutationVariables
+	>(CUSTOMER_LOGIN);
+
+	async function login(props: LoginProps) {
+		const { email, password } = props;
+
+		await mutate({
+			variables: {
+				draft: {
+					email,
+					password,
+					activeCartSignInMode:
+						AnonymousCartSignInMode.UseAsNewActiveCustomerCart,
+				},
+			},
+		});
+
+		if (error) throw new Error(error.message);
+
+		const authToken = await generateCustomerAuthToken({
+			email,
+			password,
+		});
+
+		Cookie.set('zap_auth_token', authToken, {
+			expires: AUTH_TOKEN_EXPIRY_DAYS,
+		});
+	}
+
+	return [
+		login,
+		{
+			data: normaliseCustomer({ customer: data?.customerSignMeIn.customer }),
+			loading,
+			error,
+		},
+	] as const;
+}
+
+export function useSignUp() {
+	const [mutate, { data, loading, error }] = useMutation<
+		CustomerSignUpMutation,
+		CustomerSignUpMutationVariables
+	>(CUSTOMER_SIGN_UP);
+
+	async function signUp(props: SignUpProps) {
+		const { email, firstName, lastName, password } = props;
+
+		await mutate({
+			variables: { draft: { email, firstName, lastName, password } },
+		});
+
+		if (error) throw new Error(error.message);
+
+		const authToken = await generateCustomerAuthToken({
+			email,
+			password,
+		});
+
+		Cookie.set('zap_auth_token', authToken, {
+			expires: AUTH_TOKEN_EXPIRY_DAYS,
+		});
+	}
+
+	return [
+		signUp,
+		{
+			data: normaliseCustomer({ customer: data?.customerSignMeUp.customer }),
+			loading,
+			error,
+		},
+	] as const;
+}
+
+export function useLogout() {
+	const apolloClient = useApolloClient();
+	async function logout() {
+		Cookie.remove('zap_auth_token');
+		await apolloClient.resetStore();
+	}
+	return [logout] as const;
 }

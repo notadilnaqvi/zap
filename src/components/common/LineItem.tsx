@@ -89,7 +89,7 @@ export function LineItem(props: LineItemProps) {
 	}
 
 	return (
-		<li className='group flex flex-row overflow-hidden p-4'>
+		<div className='group flex flex-row overflow-hidden p-4'>
 			<Image
 				src={src}
 				alt={alt}
@@ -174,6 +174,6 @@ export function LineItem(props: LineItemProps) {
 					<p className='text-sm'>{formatPrice(lineItem.totalPrice)}</p>
 				</div>
 			</div>
-		</li>
+		</div>
 	);
 }

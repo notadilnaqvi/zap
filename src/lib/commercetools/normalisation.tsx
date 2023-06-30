@@ -1,8 +1,12 @@
 import type {
 	CreateCartMutation,
+	CustomerLoginMutation,
+	CustomerSignUpMutation,
 	GetCartQuery,
+	GetCustomerQuery,
 	GetProductsQuery,
 	NormalisedCart,
+	NormalisedCustomer,
 	NormalisedProduct,
 	UpdateCartMutation,
 } from '~/lib/commercetools/types';
@@ -17,6 +21,13 @@ type NormaliseProductProps = {
 type NormaliseProductImagesProps = {
 	images: GetProductsQuery['productProjectionSearch']['results'][number]['masterVariant']['images'];
 	fallbackLabel: string;
+};
+
+type NormaliseCustomerProps = {
+	customer:
+		| Maybe<GetCustomerQuery['me']['customer']>
+		| Maybe<CustomerLoginMutation['customerSignMeIn']['customer']>
+		| Maybe<CustomerSignUpMutation['customerSignMeUp']['customer']>;
 };
 
 export function normaliseProduct(
@@ -151,5 +162,19 @@ export function normaliseCart(
 				(lineItem): lineItem is NormalisedCart['lineItems'][number] =>
 					!!lineItem,
 			),
+	};
+}
+
+export function normaliseCustomer(
+	props: NormaliseCustomerProps,
+): Maybe<NormalisedCustomer> {
+	const { customer } = props;
+	if (!customer) return null;
+	return {
+		id: customer.id,
+		version: customer.version,
+		firstName: customer?.firstName ?? 'FIRST_NAME',
+		lastName: customer?.lastName ?? 'LAST_NAME',
+		email: customer.email,
 	};
 }

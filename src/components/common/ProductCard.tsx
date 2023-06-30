@@ -47,11 +47,7 @@ export function ProductCard(props: Props) {
 			openMiniCart();
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
-			if (error?.graphQLErrors?.at(0)?.code === 'ConcurrentModification') {
-				showToast({ message: 'Whoa! Slow down my man', type: 'error' });
-			} else {
-				showToast({ message: 'Product not added to bag', type: 'error' });
-			}
+			showToast({ message: 'Product not added to bag', type: 'error' });
 		}
 		setAddToCartLoading(false);
 	}
@@ -130,7 +126,7 @@ export function ProductCard(props: Props) {
 								<LoadingSpinner size='small' />
 							</div>
 						) : (
-							<div className='p-[1px]'>
+							<div className='p-px'>
 								<HeartIcon
 									height={12}
 									width={12}

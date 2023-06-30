@@ -13,7 +13,7 @@ const interFont = Inter({
 export const metadata = {
 	title: {
 		default: 'ZAP',
-		template: '%s | ZAP',
+		template: 'ZAP - %s',
 	},
 };
 

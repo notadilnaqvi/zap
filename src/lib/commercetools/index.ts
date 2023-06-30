@@ -51,7 +51,6 @@ const sdkAuth = new SdkAuth({
 });
 
 export async function generateAnonymousAuthToken(): Promise<AuthToken> {
-	console.log('generateAnonymousAuthToken got called...');
 	const tokenFlow = await sdkAuth.anonymousFlow();
 	const tokenProvider = new TokenProvider({ sdkAuth }, tokenFlow);
 	const authToken = await tokenProvider.getTokenInfo();
@@ -68,6 +67,9 @@ export async function generateCustomerAuthToken(
 	});
 	const tokenProvider = new TokenProvider({ sdkAuth }, tokenFlow);
 	const authToken = await tokenProvider.getTokenInfo();
+	// `is_logged_in` is a custom field not returned by `getTokenInfo()`. We
+	// add it manually to track the login status of the user
+	authToken.is_logged_in = true;
 	return authToken;
 }
 
@@ -76,11 +78,14 @@ export async function refreshAuthToken(
 ): Promise<AuthToken> {
 	const tokenProvider = new TokenProvider({ sdkAuth }, expiredAuthToken);
 	const authToken = await tokenProvider.getTokenInfo();
+	// `is_logged_in` is a custom field not returned by `getTokenInfo()`. We
+	// add it back manually and make sure that the login status of the user
+	// is prevserved
+	authToken.is_logged_in = expiredAuthToken.is_logged_in;
 	return authToken;
 }
 
 export async function generateClientAuthToken(): Promise<AuthToken> {
-	console.log('generateClientAuthToken got called...');
 	const tokenFlow = await sdkAuth.clientCredentialsFlow();
 	const tokenProvider = new TokenProvider({ sdkAuth }, tokenFlow);
 	const authToken = await tokenProvider.getTokenInfo();

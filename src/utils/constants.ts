@@ -38,3 +38,5 @@ export const DEFAULT_ICON_PROPS: React.SVGProps<SVGSVGElement> = {
  * Reference: https://www.w3resource.com/javascript/form/email-validation.php
  */
 export const VALID_EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/;
+
+export const AUTH_TOKEN_EXPIRY_DAYS = 7;

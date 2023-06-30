@@ -1,14 +1,14 @@
-import Cookies from 'js-cookie';
-import { CtTestData } from '~/lib/commercetools/types';
-import { ctTestDataSchema } from '~/lib/commercetools/validators';
-
 import type { CookieAttributes } from 'js-cookie';
+import Cookies from 'js-cookie';
+
+import type { AuthToken } from '~/lib/commercetools/types';
+import { authTokenSchema } from '~/lib/commercetools/validators';
 
 type Cookie = {
-	'ct/test-data': CtTestData;
+	zap_auth_token: AuthToken;
 };
 
-function get(key: 'ct/test-data'): Maybe<Cookie['ct/test-data']>;
+function get(key: 'zap_auth_token'): Maybe<Cookie['zap_auth_token']>;
 function get(key: keyof Cookie) {
 	try {
 		if (typeof window === 'undefined') return null;
@@ -17,8 +17,8 @@ function get(key: keyof Cookie) {
 
 		if (!item) return null;
 
-		if (key === 'ct/test-data') {
-			const value = ctTestDataSchema.parse(JSON.parse(item));
+		if (key === 'zap_auth_token') {
+			const value = authTokenSchema.parse(JSON.parse(item));
 			return value;
 		}
 

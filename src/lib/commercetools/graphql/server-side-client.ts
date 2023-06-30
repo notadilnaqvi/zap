@@ -2,27 +2,18 @@ import { ApolloClient, from, HttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 
-import { generateClientAuthToken, refreshAuthToken } from '~/lib/commercetools';
+import { generateClientAuthToken } from '~/lib/commercetools';
 
 import type { AuthToken } from '~/lib/commercetools/types';
 
 let authToken: Maybe<AuthToken> = null;
 
 const authLink = setContext(async (_request, _previousContext) => {
-	if (authToken) {
-		const now = new Date();
+	const now = new Date();
+	const isExpired = authToken && authToken.expires_at < now.getTime();
 
-		const shouldRefresh = authToken?.expires_at < now.getTime();
-
-		if (shouldRefresh) {
-			try {
-				authToken = await refreshAuthToken(authToken);
-			} catch (err) {
-				console.warn('[authLink]: Failed to refresh the expired token', err);
-				authToken = await generateClientAuthToken();
-			}
-		}
-	} else {
+	// If there's no token or it's expired, generate a new one
+	if (!authToken || isExpired) {
 		authToken = await generateClientAuthToken();
 	}
 

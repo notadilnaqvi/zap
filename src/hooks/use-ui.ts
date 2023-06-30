@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast';
 import { create } from 'zustand';
 import { SessionStorage } from '~/utils';
 
-type ShowToastProps = {
+export type ShowToastProps = {
 	message: string;
 	type: 'success' | 'error'; // TODO: Add a warning type
 };

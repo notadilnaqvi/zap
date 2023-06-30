@@ -8,7 +8,11 @@ export const metadata = {
 export default function NotFound() {
 	return (
 		<DefaultLayout>
-			<h1>Not found (root)</h1>
+			<div className='flex justify-center px-4 py-16'>
+				<section className='w-full max-w-page'>
+					<h1 className='text-lg font-medium'>Page not found</h1>
+				</section>
+			</div>
 		</DefaultLayout>
 	);
 }

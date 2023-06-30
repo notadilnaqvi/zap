@@ -15,7 +15,7 @@ export function AnnouncementBanner() {
 
 	return (
 		<div className='flex w-full items-center justify-center border-b border-gray-200 bg-gray-100 px-4 py-2'>
-			<div className='relative flex w-full max-w-[1200px] items-center justify-center'>
+			<div className='relative flex w-full max-w-page items-center justify-center'>
 				<div className='flex flex-row items-end space-x-2'>
 					<Link
 						href='#'

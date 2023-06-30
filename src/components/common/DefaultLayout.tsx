@@ -44,19 +44,19 @@ export function DefaultLayout(props: PropsWithChildren<{}>) {
 
 	return (
 		<>
-			<TailwindBreakpointIndicator /> {/* Used for Tailwind debugging */}
+			<TailwindBreakpointIndicator />
+			<SkipToContentLink />
+			<ToastManager />
+			<FullscreenLoadingOverlay />
 			<ApolloProvider client={apolloClient}>
-				<SkipToContentLink />
-				<ToastManager />
-				<FullscreenLoadingOverlay />
 				<MiniCart />
 				<NewsLetterSignUpModal />
 				<div className='flex min-h-screen flex-col items-center'>
 					<AnnouncementBanner />
 					<Header />
-					<div className='flex w-full flex-1 flex-col items-center px-4'>
+					<div className='flex w-full flex-1 flex-col items-center'>
 						<main
-							className='w-full max-w-[1200px]'
+							className='w-full'
 							id='content'
 						>
 							{children}

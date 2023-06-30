@@ -1,0 +1,1 @@
+export { AccountPageView } from './AccountPageView';

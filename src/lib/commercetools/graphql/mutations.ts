@@ -75,3 +75,33 @@ export const UPDATE_CART = gql`
 		}
 	}
 `;
+
+export const CUSTOMER_SIGN_UP = gql`
+	mutation customerSignUp($draft: CustomerSignMeUpDraft!) {
+		customerSignMeUp(draft: $draft) {
+			customer {
+				id
+				version
+				firstName
+				lastName
+				email
+				createdAt
+			}
+		}
+	}
+`;
+
+export const CUSTOMER_LOGIN = gql`
+	mutation customerLogin($draft: CustomerSignMeInDraft!) {
+		customerSignMeIn(draft: $draft) {
+			customer {
+				id
+				version
+				firstName
+				lastName
+				email
+				createdAt
+			}
+		}
+	}
+`;

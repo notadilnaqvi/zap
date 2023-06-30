@@ -19,18 +19,19 @@ import {
 	ZapIcon,
 } from '~/components/icons';
 import { useUi } from '~/hooks';
-import { useCart } from '~/lib/commercetools/hooks';
+import { useCart, useCustomer } from '~/lib/commercetools/hooks';
 import { cx } from '~/utils';
 
 export function Header() {
-	const openMiniCart = useUi(state => state.openMiniCart);
 	const { data: cart } = useCart();
+	const { data: customer } = useCustomer();
+	const openMiniCart = useUi(state => state.openMiniCart);
 
 	const isCartEmpty = !cart?.totalLineItemQuantity;
 
 	return (
 		<div className='sticky top-0 z-[2] flex h-16 w-full items-center justify-center border-b border-gray-200 bg-white/70 px-4 backdrop-blur-md transition duration-300'>
-			<nav className='relative flex w-full max-w-[1200px] items-center justify-between'>
+			<nav className='relative flex w-full max-w-page items-center justify-between'>
 				{/* Hamburger menu button */}
 				<div className='hidden items-center sm:flex'>
 					<Menu>
@@ -344,9 +345,9 @@ export function Header() {
 				<ul className='flex flex-row space-x-4 md:space-x-2'>
 					<li className='flex items-center sm:hidden'>
 						<Link
-							href='/login'
+							href={customer ? '/account' : 'login'}
 							className='rounded p-1 text-gray-700'
-							title='Login'
+							title={customer ? 'Account' : 'Login'}
 						>
 							<UserIcon />
 						</Link>

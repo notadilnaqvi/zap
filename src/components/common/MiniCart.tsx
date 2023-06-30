@@ -11,9 +11,9 @@ import { useCart } from '~/lib/commercetools/hooks';
 import { formatPrice } from '~/utils';
 
 export function MiniCart() {
+	const { data: cart, loading: cartLoading } = useCart();
 	const closeMiniCart = useUi(state => state.closeMiniCart);
 	const isMiniCartOpen = useUi(state => state.isMiniCartOpen);
-	const { data: cart, loading: cartLoading } = useCart();
 
 	const isCartEmpty = !cart?.totalLineItemQuantity;
 	return (
@@ -111,10 +111,9 @@ export function MiniCart() {
 								<ul className='w-full divide-y'>
 									{cart?.lineItems.map(lineItem => {
 										return (
-											<LineItem
-												lineItem={lineItem}
-												key={lineItem.id}
-											/>
+											<li key={lineItem.id}>
+												<LineItem lineItem={lineItem} />
+											</li>
 										);
 									})}
 								</ul>
