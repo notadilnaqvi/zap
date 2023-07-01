@@ -1,8 +1,8 @@
 import { getPlaiceholder as generateBase64EncodedDataUrl } from 'plaiceholder';
-// import TextBalancer from 'react-wrap-balancer';
+import TextBalancer from 'react-wrap-balancer';
 
 import { ProductCard } from '~/components/common';
-// import { ButtonLink } from '~/components/ui';
+import { ButtonLink } from '~/components/ui';
 import { getProducts } from '~/lib/commercetools';
 import {
 	FALLBACK_IMAGE,
@@ -41,17 +41,17 @@ export default async function HomePage() {
 	return (
 		<div className='flex w-full justify-center px-4'>
 			<div className='my-16 w-full max-w-page'>
-				{/* <div className='mb-64 mt-48 flex w-full flex-col items-center justify-center space-y-8 md:space-y-6 sm:my-32'>
-				<h1 className='bg-gradient-to-t from-gray-900 to-gray-700 bg-clip-text text-center text-6xl font-extrabold leading-none tracking-tighter text-transparent md:text-5xl'>
-					<TextBalancer>The premier retailer of fake apparel</TextBalancer>
-				</h1>
-				<p className='text-center text-2xl md:text-xl'>
-					<TextBalancer>
-						Find the perfect outfit for your next imaginary event
-					</TextBalancer>
-				</p>
-				<ButtonLink href='#'>Shop now</ButtonLink>
-			</div> */}
+				<div className='mb-64 mt-48 flex w-full flex-col items-center justify-center space-y-8 md:space-y-6 sm:my-32'>
+					<h1 className='bg-gradient-to-t from-gray-900 to-gray-700 bg-clip-text text-center text-6xl font-extrabold leading-none tracking-tighter text-transparent md:text-5xl'>
+						<TextBalancer>The premier retailer of fake apparel</TextBalancer>
+					</h1>
+					<p className='text-center text-2xl md:text-xl'>
+						<TextBalancer>
+							Find the perfect outfit for your next imaginary event
+						</TextBalancer>
+					</p>
+					<ButtonLink href='#'>Shop now</ButtonLink>
+				</div>
 				<div className='grid grid-flow-row grid-cols-4 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
 					{products?.map((product, index) => {
 						return (
