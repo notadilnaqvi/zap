@@ -1,21 +1,25 @@
 'use client';
 
 import { ApolloError } from '@apollo/client';
+import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
+import { z } from 'zod';
 
 import { Button, Checkbox, Input } from '~/components/ui';
 import { useUi, type ShowToastProps } from '~/hooks';
 import { useLogin } from '~/lib/commercetools/hooks';
 import { extractApolloErrorCode } from '~/utils';
-import { VALID_EMAIL_REGEX } from '~/utils/constants';
 
-type LoginFormInputs = {
-	email: string;
-	password: string;
-};
+const loginFormSchema = z.object({
+	email: z.string().email('Please enter a valid email'),
+	password: z.string().min(1, 'Please enter your password'),
+	rememberMe: z.boolean().optional(),
+});
+
+type LoginForm = z.infer<typeof loginFormSchema>;
 
 export function LoginForm() {
 	const router = useRouter();
@@ -26,9 +30,11 @@ export function LoginForm() {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<LoginFormInputs>();
+	} = useForm<LoginForm>({
+		resolver: zodResolver(loginFormSchema),
+	});
 
-	const onSubmit: SubmitHandler<LoginFormInputs> = async data => {
+	const onSubmit: SubmitHandler<LoginForm> = async data => {
 		const { email, password } = data;
 		setIsLoginLoading(true);
 		let message = 'Logged in successfully';
@@ -51,6 +57,7 @@ export function LoginForm() {
 			setIsLoginLoading(false);
 		}
 	};
+
 	return (
 		<form
 			className='flex flex-col space-y-4 rounded border p-6 shadow-[0px_4px_6px_rgba(0,0,0,0.04)]'
@@ -60,22 +67,19 @@ export function LoginForm() {
 			<Input
 				error={errors.email?.message}
 				label='Email'
-				{...register('email', {
-					required: 'Email is missing',
-					pattern: {
-						value: VALID_EMAIL_REGEX,
-						message: 'Email is not valid',
-					},
-				})}
+				{...register('email')}
 			/>
 			<Input
 				label='Password'
 				type='password'
-				{...register('password', { required: 'Password is missing' })}
+				{...register('password')}
 				error={errors.password?.message}
 			/>
 			<div className='flex flex-row items-center justify-between'>
-				<Checkbox label='Remember me' />
+				<Checkbox
+					label='Remember me'
+					{...register('rememberMe')}
+				/>
 				<Link
 					href='#'
 					className='text-sm text-primary-light underline hover:text-primary'

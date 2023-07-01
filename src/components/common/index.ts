@@ -7,7 +7,7 @@ export { LineItem } from './LineItem';
 export { LoadingDots } from './LoadingDots';
 export { LoadingSpinner } from './LoadingSpinner';
 export { MiniCart } from './MiniCart';
-export { NewsLetterSignUpModal } from './NewsLetterSignUpModal';
+export { NewsletterSignUpModal } from './NewsletterSignUpModal';
 export { ProductCard } from './ProductCard';
 export { SkipToContentLink } from './SkipToContentLink';
 export { TailwindBreakpointIndicator } from './TailwindBreakpointIndicator';

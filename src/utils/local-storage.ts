@@ -1,5 +1,5 @@
 import type { CtTestData } from '~/lib/commercetools/types';
-import { ctTestDataSchema } from '~/lib/commercetools/validators';
+import { ctTestDataSchema } from '~/utils';
 
 type LocalStorage = {
 	'ct/test-data': CtTestData;

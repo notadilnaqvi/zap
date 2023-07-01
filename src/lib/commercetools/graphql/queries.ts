@@ -132,6 +132,12 @@ export const GET_CUSTOMER = gql`
 				lastName
 				email
 				createdAt
+				custom {
+					customFieldsRaw {
+						name
+						value
+					}
+				}
 			}
 		}
 	}

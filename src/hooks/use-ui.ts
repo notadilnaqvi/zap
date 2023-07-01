@@ -32,9 +32,9 @@ interface UiState {
 	// Toast
 	showToast: (props: ShowToastProps) => void;
 	// Sign-up modal
-	isSignUpModalOpen: boolean;
-	openSignUpModal: () => void;
-	closeSignUpModal: () => void;
+	isNewsletterSignUpModalOpen: boolean;
+	openNewsletterSignUpModal: () => void;
+	closeNewsletterSignUpModal: () => void;
 	// Close all modals and sidebars
 	closeAllModalsAndSidebars: () => void;
 }
@@ -74,13 +74,13 @@ export const useUi = create<UiState>(set => ({
 		}
 	},
 	// Sign-up modal
-	isSignUpModalOpen: false,
-	openSignUpModal: () => {
-		set({ isSignUpModalOpen: true });
+	isNewsletterSignUpModalOpen: false,
+	openNewsletterSignUpModal: () => {
+		set({ isNewsletterSignUpModalOpen: true });
 	},
-	closeSignUpModal: () => {
+	closeNewsletterSignUpModal: () => {
 		SessionStorage.set('ui/was-newsletter-sign-up-modal-closed', true);
-		set({ isSignUpModalOpen: false });
+		set({ isNewsletterSignUpModalOpen: false });
 	},
 	// Close all modals and sidebars
 	closeAllModalsAndSidebars: () => {

@@ -5,11 +5,14 @@ import type {
 	GetCartQuery,
 	GetCustomerQuery,
 	GetProductsQuery,
+	NewsletterSubscriptionStatus,
 	NormalisedCart,
 	NormalisedCustomer,
 	NormalisedProduct,
+	PDesigner,
 	UpdateCartMutation,
 } from '~/lib/commercetools/types';
+import { extractCustomAttribute } from '~/utils';
 import { FALLBACK_IMAGE } from '~/utils/constants';
 
 type NormaliseProductProps = {
@@ -79,7 +82,7 @@ export function normaliseProduct(
 			fallbackLabel: name,
 		}),
 		description: product.description,
-		designer: extractCustomAttribute<{ key: string; label: string }>({
+		designer: extractCustomAttribute<PDesigner>({
 			attributes: product.masterVariant.attributesRaw,
 			extract: 'designer',
 		}),
@@ -110,16 +113,6 @@ function normaliseProductImages(props: NormaliseProductImagesProps) {
 	}
 
 	return normalisedImages;
-}
-
-function extractCustomAttribute<T>({
-	attributes,
-	extract,
-}: {
-	attributes: GetProductsQuery['productProjectionSearch']['results'][number]['masterVariant']['attributesRaw'];
-	extract: string;
-}): Maybe<T> {
-	return attributes?.find?.(attr => attr?.name === extract)?.value ?? null;
 }
 
 export function normaliseCart(
@@ -176,5 +169,10 @@ export function normaliseCustomer(
 		firstName: customer?.firstName ?? 'FIRST_NAME',
 		lastName: customer?.lastName ?? 'LAST_NAME',
 		email: customer.email,
+		isSubscribedToNewsletter:
+			extractCustomAttribute<NewsletterSubscriptionStatus>({
+				attributes: customer.custom?.customFieldsRaw,
+				extract: 'news-letter-subscription-status',
+			}) === 'subscribed',
 	};
 }

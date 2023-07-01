@@ -10,7 +10,7 @@ import {
 	FullscreenLoadingOverlay,
 	Header,
 	MiniCart,
-	NewsLetterSignUpModal,
+	NewsletterSignUpModal,
 	SkipToContentLink,
 	TailwindBreakpointIndicator,
 	ToastManager,
@@ -50,7 +50,7 @@ export function DefaultLayout(props: PropsWithChildren<{}>) {
 			<FullscreenLoadingOverlay />
 			<ApolloProvider client={apolloClient}>
 				<MiniCart />
-				<NewsLetterSignUpModal />
+				<NewsletterSignUpModal />
 				<div className='flex min-h-screen flex-col items-center'>
 					<AnnouncementBanner />
 					<Header />

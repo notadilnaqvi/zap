@@ -4,7 +4,12 @@ import { twMerge } from 'tailwind-merge';
 import { LOCALE } from '~/utils/constants';
 
 import { type ApolloError } from '@apollo/client';
-import type { PPrice } from '~/lib/commercetools/types';
+import type { PPrice, RawProductAttribute } from '~/lib/commercetools/types';
+
+type ExtractCustomAttributeProps = {
+	attributes?: Maybe<Pick<RawProductAttribute, 'name' | 'value'>[]>;
+	extract: string;
+};
 
 export function formatPrice(price: PPrice) {
 	const { centAmount, currencyCode, fractionDigits } = price;
@@ -24,13 +29,10 @@ export function cx(...inputs: ArgumentArray) {
 	return twMerge(classNames(inputs));
 }
 
-export function extractCustomAttribute<T>({
-	attributes,
-	extract,
-}: {
-	attributes: { name: string; value: T }[];
-	extract: string;
-}) {
+export function extractCustomAttribute<T>(
+	props: ExtractCustomAttributeProps,
+): Maybe<T> {
+	const { extract, attributes } = props;
 	return attributes?.find?.(attr => attr?.name === extract)?.value ?? null;
 }
 

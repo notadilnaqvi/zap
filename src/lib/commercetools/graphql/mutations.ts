@@ -86,6 +86,12 @@ export const CUSTOMER_SIGN_UP = gql`
 				lastName
 				email
 				createdAt
+				custom {
+					customFieldsRaw {
+						name
+						value
+					}
+				}
 			}
 		}
 	}
@@ -101,6 +107,12 @@ export const CUSTOMER_LOGIN = gql`
 				lastName
 				email
 				createdAt
+				custom {
+					customFieldsRaw {
+						name
+						value
+					}
+				}
 			}
 		}
 	}

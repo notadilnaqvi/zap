@@ -16,7 +16,7 @@ export const metadata = {
 };
 
 export default async function HomePage() {
-	const { data } = await getProducts({ limit: 64 });
+	const { data } = await getProducts({ limit: 256 });
 
 	// NOTE: `getBlurDataUrl` won't ever reject so we can safely use `Promise.all`
 	const blurDataUrls = await Promise.all(

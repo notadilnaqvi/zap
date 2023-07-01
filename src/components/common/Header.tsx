@@ -2,7 +2,7 @@
 
 import { Menu, Transition } from '@headlessui/react';
 import Link, { LinkProps } from 'next/link';
-import { forwardRef, Fragment, HTMLProps } from 'react';
+import { forwardRef, Fragment, HTMLProps, useEffect } from 'react';
 
 import {
 	AwardIcon,
@@ -20,12 +20,35 @@ import {
 } from '~/components/icons';
 import { useUi } from '~/hooks';
 import { useCart, useCustomer } from '~/lib/commercetools/hooks';
-import { cx } from '~/utils';
+import { cx, SessionStorage } from '~/utils';
 
 export function Header() {
+	const openNewsletterSignUpModal = useUi(
+		state => state.openNewsletterSignUpModal,
+	);
 	const { data: cart } = useCart();
-	const { data: customer } = useCustomer();
+	const { data: customer, loading: customerLoading } = useCustomer();
 	const openMiniCart = useUi(state => state.openMiniCart);
+
+	// Show newsletter sign-up modal if,
+	//   - the customer is not already subscribed ot the newsletter
+	//   - the modal was not closed previously
+	useEffect(() => {
+		const wasSignUpModalClosed = SessionStorage.get(
+			'ui/was-newsletter-sign-up-modal-closed',
+		);
+		if (
+			!customer?.isSubscribedToNewsletter &&
+			!customerLoading &&
+			!wasSignUpModalClosed
+		) {
+			openNewsletterSignUpModal();
+		}
+	}, [
+		customer?.isSubscribedToNewsletter,
+		customerLoading,
+		openNewsletterSignUpModal,
+	]);
 
 	const isCartEmpty = !cart?.totalLineItemQuantity;
 
@@ -345,7 +368,7 @@ export function Header() {
 				<ul className='flex flex-row space-x-4 md:space-x-2'>
 					<li className='flex items-center sm:hidden'>
 						<Link
-							href={customer ? '/account' : 'login'}
+							href={customer ? '/account' : '/login'}
 							className='rounded p-1 text-gray-700'
 							title={customer ? 'Account' : 'Login'}
 						>

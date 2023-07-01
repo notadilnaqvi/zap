@@ -1,9 +1,6 @@
 import { z } from 'zod';
 
-import {
-	authTokenSchema,
-	ctTestDataSchema,
-} from '~/lib/commercetools/validators';
+import { authTokenSchema, ctTestDataSchema } from '~/utils';
 
 // Generated types
 
@@ -17,9 +14,9 @@ export type CtTestData = z.infer<typeof ctTestDataSchema>;
 
 // Normalised product
 
-type PDesigner = { key: string; label: string };
+export type PDesigner = { key: string; label: string };
 
-type PImage = {
+export type PImage = {
 	src: string;
 	label: string;
 	/**
@@ -71,7 +68,9 @@ export type NormalisedCart = {
 	totalLineItemQuantity: number;
 };
 
-// Normalised customre
+// Normalised customer
+
+export type NewsletterSubscriptionStatus = 'subscribed' | 'unsubscribed';
 
 export type NormalisedCustomer = {
 	firstName: string;
@@ -79,4 +78,5 @@ export type NormalisedCustomer = {
 	id: string;
 	email: string;
 	version: number;
+	isSubscribedToNewsletter: boolean;
 };

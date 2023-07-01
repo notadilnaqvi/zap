@@ -2,7 +2,7 @@ import type { CookieAttributes } from 'js-cookie';
 import Cookies from 'js-cookie';
 
 import type { AuthToken } from '~/lib/commercetools/types';
-import { authTokenSchema } from '~/lib/commercetools/validators';
+import { authTokenSchema } from '~/utils';
 
 type Cookie = {
 	zap_auth_token: AuthToken;
