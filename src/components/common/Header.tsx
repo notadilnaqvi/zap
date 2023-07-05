@@ -2,7 +2,7 @@
 
 import { Menu, Transition } from '@headlessui/react';
 import Link, { LinkProps } from 'next/link';
-import { forwardRef, Fragment, HTMLProps } from 'react';
+import { forwardRef, Fragment, HTMLProps, useEffect } from 'react';
 
 import {
 	AwardIcon,
@@ -20,33 +20,36 @@ import {
 } from '~/components/icons';
 import { useUi } from '~/hooks';
 import { useCart, useCustomer } from '~/lib/commercetools/hooks';
-import { cx } from '~/utils';
+import { cx, SessionStorage } from '~/utils';
 
 export function Header() {
 	const { data: cart } = useCart();
-	const { data: customer } = useCustomer();
 	const openMiniCart = useUi(state => state.openMiniCart);
+	const { data: customer, loading: customerLoading } = useCustomer();
+	const openNewsletterSignUpModal = useUi(
+		state => state.openNewsletterSignUpModal,
+	);
 
 	// TODO: Disabling for now. This modal fucks with LCP
 	// Show newsletter sign-up modal if,
 	//   - the customer is not already subscribed ot the newsletter
 	//   - the modal was not closed previously
-	// useEffect(() => {
-	// 	const wasSignUpModalClosed = SessionStorage.get(
-	// 		'ui/was-newsletter-sign-up-modal-closed',
-	// 	);
-	// 	if (
-	// 		!customer?.isSubscribedToNewsletter &&
-	// 		!customerLoading &&
-	// 		!wasSignUpModalClosed
-	// 	) {
-	// 		openNewsletterSignUpModal();
-	// 	}
-	// }, [
-	// 	customer?.isSubscribedToNewsletter,
-	// 	customerLoading,
-	// 	openNewsletterSignUpModal,
-	// ]);
+	useEffect(() => {
+		const wasSignUpModalClosed = SessionStorage.get(
+			'ui/was-newsletter-sign-up-modal-closed',
+		);
+		if (
+			!customer?.isSubscribedToNewsletter &&
+			!customerLoading &&
+			!wasSignUpModalClosed
+		) {
+			openNewsletterSignUpModal();
+		}
+	}, [
+		customer?.isSubscribedToNewsletter,
+		customerLoading,
+		openNewsletterSignUpModal,
+	]);
 
 	const isCartEmpty = !cart?.totalLineItemQuantity;
 
