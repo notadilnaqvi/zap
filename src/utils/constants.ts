@@ -35,3 +35,7 @@ export const DEFAULT_ICON_PROPS: React.SVGProps<SVGSVGElement> = {
 };
 
 export const AUTH_TOKEN_EXPIRY_DAYS = 7;
+
+export const BASE_URL = process.env.NEXT_PUBLIC_VERCEL_URL
+	? 'https://' + process.env.NEXT_PUBLIC_VERCEL_URL
+	: 'http://localhost:3000';

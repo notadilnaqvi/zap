@@ -7,6 +7,7 @@ declare global {
 			NEXT_PUBLIC_CTP_AUTH_URL: string;
 			NEXT_PUBLIC_CTP_API_URL: string;
 			NEXT_PUBLIC_CTP_SCOPES: string;
+			NEXT_PUBLIC_VERCEL_URL?: string;
 		}
 	}
 }
