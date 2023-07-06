@@ -191,14 +191,9 @@ export function useRemoveLineItem() {
 
 export function useCustomer() {
 	const authToken = Cookie.get('zap_auth_token');
-	const {
-		data,
-		loading,
-		error: apolloError,
-	} = useQuery<GetCustomerQuery>(GET_CUSTOMER, {
+	const { data, loading, error } = useQuery<GetCustomerQuery>(GET_CUSTOMER, {
 		skip: !authToken?.is_logged_in, // Don't run this query if the user isn't logged in
 	});
-	const error = apolloError;
 	return {
 		data: normaliseCustomer({ customer: data?.me.customer }),
 		loading,
