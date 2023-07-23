@@ -19,11 +19,9 @@ const loginFormSchema = z.object({
 			required_error: 'Please enter your email',
 		})
 		.email('Please enter a valid email'),
-	password: z
-		.string({
-			required_error: 'Please enter your password',
-		})
-		.min(8, 'Your password must have at least 8 characters'),
+	password: z.string({
+		required_error: 'Please enter your password',
+	}),
 	rememberMe: z.boolean().optional(),
 });
 
