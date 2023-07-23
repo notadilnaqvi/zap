@@ -8,19 +8,21 @@ import { cx } from '~/utils';
 
 export const Radio = React.forwardRef<
 	React.ElementRef<typeof RadioGroupPrimitive.Root>,
-	React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>
+	React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root> & {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		onChange?: (...args: any) => any;
+	}
 >((props, ref) => {
-	const { className, ...rest } = props;
+	const { onChange, className, ...rest } = props;
 	return (
 		<RadioGroupPrimitive.Root
 			className={cx('flex w-fit flex-col space-y-2', className)}
+			onValueChange={onChange}
 			{...rest}
 			ref={ref}
 		/>
 	);
 });
-
-Radio.displayName = RadioGroupPrimitive.Root.displayName;
 
 export const RadioItem = React.forwardRef<
 	React.ElementRef<typeof RadioGroupPrimitive.Item>,
@@ -47,5 +49,3 @@ export const RadioItem = React.forwardRef<
 		</div>
 	);
 });
-
-RadioItem.displayName = RadioGroupPrimitive.Item.displayName;

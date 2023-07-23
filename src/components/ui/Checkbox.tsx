@@ -10,19 +10,24 @@ export const Checkbox = React.forwardRef<
 	React.ElementRef<typeof CheckboxPrimitive.Root>,
 	React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> & {
 		label?: string;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		onChange?: (...args: any) => any;
 	}
->(({ label, id, className, ...props }, ref) => {
+>(({ label, id, onChange, value, className, ...rest }, ref) => {
 	const randomId = useId();
 	return (
 		<div className='flex flex-row items-start space-x-2'>
 			<CheckboxPrimitive.Root
 				ref={ref}
+				defaultChecked={!!value}
+				onCheckedChange={onChange}
 				className={cx(
-					'group peer flex h-4 w-4 shrink-0 items-center justify-center rounded-[3px] border border-gray-400 bg-white transition-colors disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:disabled:border-gray-300 data-[state=checked]:disabled:bg-gray-300',
+					'group peer flex h-4 w-4 shrink-0 items-center justify-center rounded-[3px] border border-gray-400 bg-white disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:disabled:border-gray-300 data-[state=checked]:disabled:bg-gray-300',
 					className,
 				)}
 				id={id || randomId}
-				{...props}
+				value={value}
+				{...rest}
 			>
 				<CheckboxPrimitive.Indicator
 					className={cx('flex items-center justify-center text-white')}

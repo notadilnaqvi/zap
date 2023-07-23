@@ -21,7 +21,14 @@ export default async function HomePage() {
 	// NOTE: `getBlurDataUrl` won't ever reject so we can safely use `Promise.all`
 	const blurDataUrls = await Promise.all(
 		data.products.map(async product => {
-			const blurDataUrl = await getBlurDataUrl(product.mainImage?.src);
+			// The current project has 4 sizes of images: zoom, medium, small, and
+			// thumbnail. But only the large images are used in CT products for
+			// obvious reasons. Since we want the data URL to be very light and small,
+			// we use the small version of the image to generate the data URL by
+			// replacing `_zoom` with `_thumbnail` in the image source.
+			const blurDataUrl = await getBlurDataUrl(
+				product.mainImage?.src.replace('_zoom', '_thumbnail'),
+			);
 			return {
 				id: product.id,
 				blurDataUrl,
@@ -74,14 +81,12 @@ async function getBlurDataUrl(src: string) {
 		// Don't need to generate a data URL for the fallback image
 		if (src === FALLBACK_IMAGE) return FALLBACK_IMAGE_BLUR_DATA_URL;
 
-		// The current project has 4 sizes of images: zoom, medium, small, and
-		// thumbnail. But only the large images are used in CT products for
-		// obvious reasons. Since we want the data URL to be very light and small,
-		// we use the small version of the image to generate the data URL by
-		// replacing `_zoom` with `_thumbnail` in the image source.
-		const { base64 } = await generateBase64EncodedDataUrl(
-			src.replace('_zoom', '_thumbnail'),
-		);
+		const response = await fetch(src);
+		const arrayBuffer = await response.arrayBuffer();
+		const buffer = Buffer.from(arrayBuffer);
+
+		const { base64 } = await generateBase64EncodedDataUrl(buffer);
+
 		return base64;
 	} catch (error: unknown) {
 		console.warn('[getBlurDataUrl]:', error);

@@ -5,17 +5,25 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { Button, Checkbox, Input } from '~/components/ui';
+import { Button, Checkbox, Form, FormField, Input } from '~/components/ui';
 import { useUi, type ShowToastProps } from '~/hooks';
 import { useLogin } from '~/lib/commercetools/hooks';
 import { extractApolloErrorCode } from '~/utils';
 
 const loginFormSchema = z.object({
-	email: z.string().email('Please enter a valid email'),
-	password: z.string().min(1, 'Please enter your password'),
+	email: z
+		.string({
+			required_error: 'Please enter your email',
+		})
+		.email('Please enter a valid email'),
+	password: z
+		.string({
+			required_error: 'Please enter your password',
+		})
+		.min(8, 'Your password must have at least 8 characters'),
 	rememberMe: z.boolean().optional(),
 });
 
@@ -26,15 +34,14 @@ export function LoginForm() {
 	const [login] = useLogin();
 	const showToast = useUi(state => state.showToast);
 	const [isLoginLoading, setIsLoginLoading] = useState(false);
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<LoginForm>({
+	const loginForm = useForm<LoginForm>({
 		resolver: zodResolver(loginFormSchema),
+		defaultValues: {
+			rememberMe: true,
+		},
 	});
 
-	const onSubmit: SubmitHandler<LoginForm> = async data => {
+	async function onSubmit(data: LoginForm) {
 		const { email, password } = data;
 		setIsLoginLoading(true);
 		let message = 'Logged in successfully';
@@ -56,30 +63,28 @@ export function LoginForm() {
 			showToast({ message, type });
 			setIsLoginLoading(false);
 		}
-	};
+	}
 
 	return (
-		<form
+		<Form
 			className='flex flex-col space-y-4 rounded border p-6 shadow-[0px_4px_6px_rgba(0,0,0,0.04)]'
-			onSubmit={handleSubmit(onSubmit)}
+			onSubmit={onSubmit}
+			form={loginForm}
 		>
 			<h1 className='text-2xl font-semibold'>Login to your account</h1>
-			<Input
-				error={errors.email?.message}
-				label='Email'
-				{...register('email')}
-			/>
-			<Input
-				label='Password'
-				type='password'
-				{...register('password')}
-				error={errors.password?.message}
-			/>
-			<div className='flex flex-row items-center justify-between'>
-				<Checkbox
-					label='Remember me'
-					{...register('rememberMe')}
+			<FormField name='email'>
+				<Input label='Email' />
+			</FormField>
+			<FormField name='password'>
+				<Input
+					label='Password'
+					type='password'
 				/>
+			</FormField>
+			<div className='flex flex-row items-center justify-between'>
+				<FormField name='rememberMe'>
+					<Checkbox label='Remember me' />
+				</FormField>
 				<Link
 					href='#'
 					className='text-sm text-primary-light underline hover:text-primary'
@@ -95,6 +100,6 @@ export function LoginForm() {
 			>
 				Login
 			</Button>
-		</form>
+		</Form>
 	);
 }

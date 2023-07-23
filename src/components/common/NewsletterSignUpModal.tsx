@@ -2,18 +2,33 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import TextBalancer from 'react-wrap-balancer';
 
 import { z } from 'zod';
 import { ZapIcon } from '~/components/icons';
-import { Button, Input, Modal, ModalContent } from '~/components/ui';
+import {
+	Button,
+	Form,
+	FormField,
+	Input,
+	Modal,
+	ModalContent,
+} from '~/components/ui';
 import { ShowToastProps, useUi } from '~/hooks';
 import { sleep } from '~/utils';
 
 export const newsletterSignUpFormSchema = z.object({
-	firstName: z.string().min(1, 'Please enter a valid first name'),
-	email: z.string().email('Please enter a valid email'),
+	firstName: z
+		.string({
+			required_error: 'Please enter your first name',
+		})
+		.min(2, 'Please enter at least 2 characters'),
+	email: z
+		.string({
+			required_error: 'Please enter your email',
+		})
+		.email('Please enter a valid email'),
 });
 
 type NewsletterSignUpForm = z.infer<typeof newsletterSignUpFormSchema>;
@@ -27,15 +42,11 @@ export function NewsletterSignUpModal() {
 	const isNewsletterSignUpModalOpen = useUi(
 		state => state.isNewsletterSignUpModalOpen,
 	);
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<NewsletterSignUpForm>({
+	const newsletterSignUpForm = useForm<NewsletterSignUpForm>({
 		resolver: zodResolver(newsletterSignUpFormSchema),
 	});
 
-	const onSubmit: SubmitHandler<NewsletterSignUpForm> = async data => {
+	async function onSubmit(data: NewsletterSignUpForm) {
 		const { email, firstName } = data;
 
 		setIsSignUpLoading(true);
@@ -54,7 +65,7 @@ export function NewsletterSignUpModal() {
 			showToast({ message, type });
 			setIsSignUpLoading(false);
 		}
-	};
+	}
 
 	return (
 		<Modal
@@ -75,20 +86,17 @@ export function NewsletterSignUpModal() {
 								Sign up for our newsletter to get the latest offers
 							</TextBalancer>
 						</h4>
-						<form
+						<Form
 							className='space-y-6 sm:space-y-4'
-							onSubmit={handleSubmit(onSubmit)}
+							onSubmit={onSubmit}
+							form={newsletterSignUpForm}
 						>
-							<Input
-								error={errors.firstName?.message}
-								label='First name'
-								{...register('firstName')}
-							/>
-							<Input
-								error={errors.email?.message}
-								label='Email'
-								{...register('email')}
-							/>
+							<FormField name='firstName'>
+								<Input label='First name' />
+							</FormField>
+							<FormField name='email'>
+								<Input label='Email' />
+							</FormField>
 							<div className='flex flex-row space-x-3'>
 								<Button
 									onClick={closeNewsletterSignUpModal}
@@ -105,7 +113,7 @@ export function NewsletterSignUpModal() {
 									Sign up
 								</Button>
 							</div>
-						</form>
+						</Form>
 					</div>
 				</div>
 			</ModalContent>

@@ -10,31 +10,54 @@ import { cx } from '~/utils';
 export const Select = React.forwardRef<
 	React.ElementRef<typeof SelectPrimitive.Trigger>,
 	React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root> & {
+		error?: string;
 		label?: string;
 		className?: string;
 		placeholder?: string;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		onChange?: (...args: any) => any;
 	}
->(({ children, placeholder, label, className, ...props }, ref) => {
+>((props, ref) => {
+	const { children, placeholder, error, label, onChange, className, ...rest } =
+		props;
 	const id = useId();
 
 	return (
 		<div className='flex flex-col-reverse items-start justify-end'>
-			<SelectPrimitive.Root {...props}>
+			<div
+				role='alert'
+				className='mt-1.5'
+			>
+				{error ? <p className='text-sm text-error'>{error}</p> : null}
+			</div>
+			<SelectPrimitive.Root
+				{...rest}
+				onValueChange={onChange}
+			>
 				<SelectPrimitive.Trigger
 					id={id}
 					ref={ref}
 					className={cx(
 						'group peer flex w-full items-center justify-between rounded border border-gray-400 bg-white px-3 py-2 text-base text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400 data-[placeholder]:text-gray-400',
+						error &&
+							'border-error text-error focus:border-error focus:ring-error disabled:border-error disabled:text-error/40',
 						className,
 					)}
-					{...props}
 				>
-					<div className='my-auto	h-6 truncate whitespace-nowrap text-inherit'>
+					<div
+						className={cx(
+							'my-auto	h-6 truncate whitespace-nowrap text-inherit',
+							error && 'text-error',
+						)}
+					>
 						<SelectPrimitive.Value placeholder={placeholder} />
 					</div>
 					<SelectPrimitive.Icon
 						asChild
-						className='text-gray-600 transition-transform group-data-[disabled]:text-gray-400 motion-safe:group-data-[state=open]:rotate-180'
+						className={cx(
+							'text-gray-600 transition-transform group-data-[disabled]:text-gray-400 motion-safe:group-data-[state=open]:rotate-180',
+							error && 'text-error',
+						)}
 					>
 						<div>
 							<ChevronDownIcon className='h-4.5 w-4.5' />
@@ -48,7 +71,6 @@ export const Select = React.forwardRef<
 							className,
 						)}
 						position='popper'
-						{...props}
 					>
 						<SelectPrimitive.ScrollUpButton className='absolute inset-x-0 top-0 z-10 flex h-8 items-start justify-center bg-gradient-to-b from-white via-white/95 to-transparent pt-1'>
 							<div>
@@ -56,7 +78,7 @@ export const Select = React.forwardRef<
 							</div>
 						</SelectPrimitive.ScrollUpButton>
 
-						<SelectPrimitive.Viewport className='h-full max-h-full w-full min-w-[calc(var(--radix-select-trigger-width)-1px)] max-w-[calc(var(--radix-select-trigger-width)-1px)] p-3'>
+						<SelectPrimitive.Viewport className='h-full max-h-full w-full min-w-[calc(var(--radix-select-trigger-width)-2px)] max-w-[calc(var(--radix-select-trigger-width)-2px)] p-3'>
 							{children}
 						</SelectPrimitive.Viewport>
 
@@ -70,6 +92,7 @@ export const Select = React.forwardRef<
 			</SelectPrimitive.Root>
 			{label ? (
 				<Label
+					error={!!error}
 					htmlFor={id}
 					className='mb-1.5'
 				>
