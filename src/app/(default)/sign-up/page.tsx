@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function SignUpPage() {
 	return (
-		<div className='flex w-full flex-row gap-x-4 py-16'>
+		<div className='w-full px-4 py-16'>
 			<section className='mx-auto flex w-full max-w-md flex-col space-y-8 sm:max-w-none'>
 				<SignUpForm />
 				<AlreadyHaveAnAccount />

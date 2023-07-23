@@ -23,8 +23,8 @@ export default function LoginPage() {
 	}
 
 	return (
-		<div className='flex flex-row justify-center gap-x-4 py-16'>
-			<section className='flex w-full max-w-md flex-col space-y-8 sm:max-w-none'>
+		<div className='w-full px-4 py-16'>
+			<section className='mx-auto flex w-full max-w-md flex-col space-y-8 sm:max-w-none'>
 				<LoginForm />
 				<DontHaveAnAccount />
 			</section>
