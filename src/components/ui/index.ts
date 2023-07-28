@@ -1,5 +1,7 @@
 export { Button } from './Button';
 export { ButtonLink } from './ButtonLink';
+export { CallToActionButton } from './CallToActionButton';
+export { CallToActionButtonLink } from './CallToActionButtonLink';
 export { Checkbox } from './Checkbox';
 export { Form, FormField } from './Form';
 export { Input } from './Input';

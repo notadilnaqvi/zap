@@ -83,7 +83,7 @@ export function NewsletterSignUpModal() {
 					<div className='space-y-6 p-10 md:p-8 sm:p-5'>
 						<h4 className='text-2xl font-semibold'>
 							<TextBalancer>
-								Sign up for our newsletter to get the latest offers
+								Sign up for our newsletter to get the latest updates
 							</TextBalancer>
 						</h4>
 						<Form
