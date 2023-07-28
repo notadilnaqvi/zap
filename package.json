@@ -4,12 +4,13 @@
 	"scripts": {
 		"dev": "next dev",
 		"lint": "next lint",
-		"build": "next build",
+		"build": "yarn codegen:graphql && next build",
 		"start": "next start",
 		"storybook": "storybook dev -p 6006",
 		"build:storybook": "storybook build --loglevel silent --output-dir public/_storybook/",
 		"codegen:graphql": "npx graphql-codegen --config graphql-codegen.config.ts",
-		"prepare": "husky install"
+		"prepare": "husky install",
+		"predev": "yarn codegen:graphql"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.7.3",
