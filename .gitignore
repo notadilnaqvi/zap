@@ -34,3 +34,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# codegen
+__generated__/
+
+# storybook build
+public/_storybook/
