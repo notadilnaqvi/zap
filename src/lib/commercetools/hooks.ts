@@ -14,16 +14,6 @@ import {
 } from '~/lib/commercetools/normalisation';
 import {
 	AnonymousCartSignInMode,
-	CreateCartMutation,
-	CreateCartMutationVariables,
-	CustomerLoginMutation,
-	CustomerLoginMutationVariables,
-	CustomerSignUpMutation,
-	CustomerSignUpMutationVariables,
-	GetCartQuery,
-	GetCartQueryVariables,
-	GetCustomerQuery,
-	UpdateCartMutation,
 	UpdateCartMutationVariables,
 } from '~/lib/commercetools/types';
 import { Cookie } from '~/utils';
@@ -70,10 +60,7 @@ export function useAddToCart() {
 }
 
 export function useCreateCart() {
-	const [mutate, { data, loading, error }] = useMutation<
-		CreateCartMutation,
-		CreateCartMutationVariables
-	>(CREATE_CART, {
+	const [mutate, { data, loading, error }] = useMutation(CREATE_CART, {
 		variables: {
 			locale: LOCALE,
 			draft: {
@@ -91,9 +78,7 @@ export function useCreateCart() {
 					query: GET_CART,
 					data: {
 						me: {
-							cart: {
-								...data?.cart,
-							},
+							cart: data?.cart,
 						},
 					},
 				});
@@ -106,21 +91,23 @@ export function useCreateCart() {
 }
 
 export function useCart() {
-	const { data, loading, error, refetch } = useQuery<
-		GetCartQuery,
-		GetCartQueryVariables
-	>(GET_CART, { variables: { locale: LOCALE } });
+	const { data, loading, error, refetch } = useQuery(GET_CART, {
+		variables: { locale: LOCALE },
+	});
 
-	return { data: normaliseCart(data?.me?.cart), loading, error, refetch };
+	return {
+		data: normaliseCart(data?.me.cart),
+		loading,
+		error,
+		refetch,
+	};
 }
 
 export function useUpdateCart() {
 	const { data: cart, loading: cartLoading } = useCart();
 	const [createCart, { loading: createCartLoading }] = useCreateCart();
-	const [mutate, { data, loading: updateCartLoading, error }] = useMutation<
-		UpdateCartMutation,
-		UpdateCartMutationVariables
-	>(UPDATE_CART);
+	const [mutate, { data, loading: updateCartLoading, error }] =
+		useMutation(UPDATE_CART);
 
 	async function updateCart(
 		props: Pick<UpdateCartMutationVariables, 'actions'>,
@@ -191,21 +178,18 @@ export function useRemoveLineItem() {
 
 export function useCustomer() {
 	const authToken = Cookie.get('zap_auth_token');
-	const { data, loading, error } = useQuery<GetCustomerQuery>(GET_CUSTOMER, {
+	const { data, loading, error } = useQuery(GET_CUSTOMER, {
 		skip: !authToken?.is_logged_in, // Don't run this query if the user isn't logged in
 	});
 	return {
-		data: normaliseCustomer({ customer: data?.me.customer }),
+		data: normaliseCustomer(data?.me.customer),
 		loading,
 		error,
 	};
 }
 
 export function useLogin() {
-	const [mutate, { data, loading, error }] = useMutation<
-		CustomerLoginMutation,
-		CustomerLoginMutationVariables
-	>(CUSTOMER_LOGIN);
+	const [mutate, { data, loading, error }] = useMutation(CUSTOMER_LOGIN);
 
 	async function login(props: LoginProps) {
 		const { email, password } = props;
@@ -236,7 +220,7 @@ export function useLogin() {
 	return [
 		login,
 		{
-			data: normaliseCustomer({ customer: data?.customerSignMeIn.customer }),
+			data: normaliseCustomer(data?.customerSignMeIn.customer),
 			loading,
 			error,
 		},
@@ -244,10 +228,7 @@ export function useLogin() {
 }
 
 export function useSignUp() {
-	const [mutate, { data, loading, error }] = useMutation<
-		CustomerSignUpMutation,
-		CustomerSignUpMutationVariables
-	>(CUSTOMER_SIGN_UP);
+	const [mutate, { data, loading, error }] = useMutation(CUSTOMER_SIGN_UP);
 
 	async function signUp(props: SignUpProps) {
 		const { email, firstName, lastName, password } = props;
@@ -271,7 +252,7 @@ export function useSignUp() {
 	return [
 		signUp,
 		{
-			data: normaliseCustomer({ customer: data?.customerSignMeUp.customer }),
+			data: normaliseCustomer(data?.customerSignMeUp.customer),
 			loading,
 			error,
 		},

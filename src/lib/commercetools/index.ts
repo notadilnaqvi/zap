@@ -136,8 +136,11 @@ export async function getProducts(props: GerProductsProps) {
 		},
 	});
 	const products = data.productProjectionSearch.results
-		.map(result => normaliseProduct({ product: result }))
-		.filter((product): product is NormalisedProduct => !!product);
+		.map(result => normaliseProduct(result))
+		.filter(
+			(normalisedProduct): normalisedProduct is NormalisedProduct =>
+				!!normalisedProduct,
+		);
 
 	return { data: { products }, loading, error };
 }
@@ -172,9 +175,9 @@ export async function getProductBySlug({ slug }: { slug: string }) {
 		},
 	});
 
-	const normalisedProduct = normaliseProduct({
-		product: data.productProjectionSearch?.results?.at?.(0),
-	});
+	const normalisedProduct = normaliseProduct(
+		data.productProjectionSearch?.results?.[0],
+	);
 	return { data: normalisedProduct, loading, error };
 }
 

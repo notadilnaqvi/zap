@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { getTypedDocumentNode } from '~/lib/commercetools/graphql/__generated__';
 
-export const GET_PRODUCT_SLUGS = gql`
+export const GET_PRODUCT_SLUGS = getTypedDocumentNode(/* GraphQL */ `
 	query getProductSlugs(
 		$locale: Locale!
 		$limit: Int! = 5
@@ -24,9 +24,9 @@ export const GET_PRODUCT_SLUGS = gql`
 			}
 		}
 	}
-`;
+`);
 
-export const GET_PRODUCTS = gql`
+export const GET_PRODUCTS = getTypedDocumentNode(/* GraphQL */ `
 	query getProducts(
 		$locale: Locale!
 		$limit: Int!
@@ -47,46 +47,13 @@ export const GET_PRODUCTS = gql`
 		) {
 			total
 			results {
-				id
-				name(locale: $locale)
-				slug(locale: $locale)
-				description(locale: $locale)
-				masterVariant {
-					variantId: id
-					sku
-					images {
-						url
-						label
-					}
-					attributesRaw {
-						name
-						value
-					}
-					scopedPrice {
-						value {
-							currencyCode
-							centAmount
-							fractionDigits
-						}
-						discounted {
-							discount {
-								name(locale: $locale)
-							}
-							value {
-								currencyCode
-								centAmount
-								fractionDigits
-							}
-						}
-						country
-					}
-				}
+				...ProductProjectionFragment
 			}
 		}
 	}
-`;
+`);
 
-export const GET_CART = gql`
+export const GET_CART = getTypedDocumentNode(/* GraphQL */ `
 	query getCart($locale: Locale!) {
 		me {
 			cart: activeCart {
@@ -120,9 +87,9 @@ export const GET_CART = gql`
 			}
 		}
 	}
-`;
+`);
 
-export const GET_CUSTOMER = gql`
+export const GET_CUSTOMER = getTypedDocumentNode(/* GraphQL */ `
 	query getCustomer {
 		me {
 			customer {
@@ -141,4 +108,4 @@ export const GET_CUSTOMER = gql`
 			}
 		}
 	}
-`;
+`);

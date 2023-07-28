@@ -1,43 +1,14 @@
-import { gql } from '@apollo/client';
+import { getTypedDocumentNode } from '~/lib/commercetools/graphql/__generated__';
 
-export const CREATE_CART = gql`
+export const CREATE_CART = getTypedDocumentNode(/* GraphQL */ `
 	mutation createCart($draft: MyCartDraft!, $locale: Locale!) {
 		cart: createMyCart(draft: $draft) {
-			id
-			version
-			totalLineItemQuantity
-			shippingAddress {
-				country
-			}
-			lineItems {
-				productId
-				id
-				name(locale: $locale)
-				quantity
-				totalPrice {
-					centAmount
-					currencyCode
-					fractionDigits
-				}
-				productSlug(locale: $locale)
-				variant {
-					sku
-					images {
-						url
-						label
-					}
-				}
-			}
-			totalPrice {
-				centAmount
-				currencyCode
-				fractionDigits
-			}
+			...CartFragment
 		}
 	}
-`;
+`);
 
-export const UPDATE_CART = gql`
+export const UPDATE_CART = getTypedDocumentNode(/* GraphQL */ `
 	mutation updateCart(
 		$actions: [MyCartUpdateAction!]!
 		$version: Long!
@@ -45,75 +16,27 @@ export const UPDATE_CART = gql`
 		$locale: Locale!
 	) {
 		cart: updateMyCart(actions: $actions, version: $version, id: $id) {
-			id
-			version
-			totalLineItemQuantity
-			lineItems {
-				productId
-				id
-				name(locale: $locale)
-				quantity
-				totalPrice {
-					centAmount
-					currencyCode
-					fractionDigits
-				}
-				productSlug(locale: $locale)
-				variant {
-					sku
-					images {
-						url
-						label
-					}
-				}
-			}
-			totalPrice {
-				centAmount
-				currencyCode
-				fractionDigits
-			}
+			...CartFragment
 		}
 	}
-`;
+`);
 
-export const CUSTOMER_SIGN_UP = gql`
+export const CUSTOMER_SIGN_UP = getTypedDocumentNode(/* GraphQL */ `
 	mutation customerSignUp($draft: CustomerSignMeUpDraft!) {
 		customerSignMeUp(draft: $draft) {
 			customer {
-				id
-				version
-				firstName
-				lastName
-				email
-				createdAt
-				custom {
-					customFieldsRaw {
-						name
-						value
-					}
-				}
+				...CustomerFragment
 			}
 		}
 	}
-`;
+`);
 
-export const CUSTOMER_LOGIN = gql`
+export const CUSTOMER_LOGIN = getTypedDocumentNode(/* GraphQL */ `
 	mutation customerLogin($draft: CustomerSignMeInDraft!) {
 		customerSignMeIn(draft: $draft) {
 			customer {
-				id
-				version
-				firstName
-				lastName
-				email
-				createdAt
-				custom {
-					customFieldsRaw {
-						name
-						value
-					}
-				}
+				...CustomerFragment
 			}
 		}
 	}
-`;
+`);

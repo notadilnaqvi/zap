@@ -5,11 +5,17 @@ const config: CodegenConfig = {
 	documents: [
 		'src/lib/commercetools/graphql/queries.ts',
 		'src/lib/commercetools/graphql/mutations.ts',
+		'src/lib/commercetools/graphql/fragments.ts',
 	],
 	generates: {
 		'src/lib/commercetools/graphql/__generated__/': {
 			preset: 'client',
 			plugins: [],
+			overwrite: true,
+			presetConfig: {
+				fragmentMasking: false,
+				gqlTagName: 'getTypedDocumentNode',
+			},
 		},
 	},
 };

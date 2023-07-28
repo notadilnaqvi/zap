@@ -1,43 +1,19 @@
 import type {
-	CreateCartMutation,
-	CustomerLoginMutation,
-	CustomerSignUpMutation,
-	GetCartQuery,
-	GetCustomerQuery,
-	GetProductsQuery,
+	CartFragmentFragment,
+	CustomerFragmentFragment,
 	NewsletterSubscriptionStatus,
 	NormalisedCart,
 	NormalisedCustomer,
 	NormalisedProduct,
 	PDesigner,
-	UpdateCartMutation,
+	ProductProjectionFragmentFragment,
 } from '~/lib/commercetools/types';
 import { extractCustomAttribute } from '~/utils';
 import { FALLBACK_IMAGE } from '~/utils/constants';
 
-type NormaliseProductProps = {
-	product?: Maybe<
-		GetProductsQuery['productProjectionSearch']['results'][number]
-	>;
-};
-
-type NormaliseProductImagesProps = {
-	images: GetProductsQuery['productProjectionSearch']['results'][number]['masterVariant']['images'];
-	fallbackLabel: string;
-};
-
-type NormaliseCustomerProps = {
-	customer:
-		| Maybe<GetCustomerQuery['me']['customer']>
-		| Maybe<CustomerLoginMutation['customerSignMeIn']['customer']>
-		| Maybe<CustomerSignUpMutation['customerSignMeUp']['customer']>;
-};
-
 export function normaliseProduct(
-	props: NormaliseProductProps,
+	product?: Maybe<ProductProjectionFragmentFragment>,
 ): Maybe<NormalisedProduct> {
-	const { product } = props;
-
 	if (!product) return null;
 
 	const name = product.name;
@@ -70,17 +46,18 @@ export function normaliseProduct(
 		return null;
 	}
 
+	const fallbackLabel = name;
+
+	const images = normaliseProductImages(
+		product.masterVariant.images,
+		fallbackLabel,
+	);
+
 	return {
 		id: product.id,
 		sku: sku,
-		mainImage: normaliseProductImages({
-			images: product.masterVariant.images,
-			fallbackLabel: name,
-		})[0],
-		images: normaliseProductImages({
-			images: product.masterVariant.images,
-			fallbackLabel: name,
-		}),
+		mainImage: images[0],
+		images: images,
 		description: product.description,
 		designer: extractCustomAttribute<PDesigner>({
 			attributes: product.masterVariant.attributesRaw,
@@ -92,8 +69,10 @@ export function normaliseProduct(
 	};
 }
 
-function normaliseProductImages(props: NormaliseProductImagesProps) {
-	const { images, fallbackLabel } = props;
+function normaliseProductImages(
+	images: ProductProjectionFragmentFragment['masterVariant']['images'],
+	fallbackLabel: string,
+) {
 	// TODO: Add comments explaining the following...
 	const normalisedImages: NormalisedProduct['images'] = [
 		{
@@ -116,12 +95,10 @@ function normaliseProductImages(props: NormaliseProductImagesProps) {
 }
 
 export function normaliseCart(
-	cart:
-		| Maybe<GetCartQuery['me']['cart']>
-		| Maybe<CreateCartMutation['cart']>
-		| Maybe<UpdateCartMutation['cart']>,
+	cart?: Maybe<CartFragmentFragment>,
 ): Maybe<NormalisedCart> {
 	if (!cart) return null;
+
 	return {
 		id: cart.id,
 		version: cart.version,
@@ -159,10 +136,10 @@ export function normaliseCart(
 }
 
 export function normaliseCustomer(
-	props: NormaliseCustomerProps,
+	customer?: Maybe<CustomerFragmentFragment>,
 ): Maybe<NormalisedCustomer> {
-	const { customer } = props;
 	if (!customer) return null;
+
 	return {
 		id: customer.id,
 		version: customer.version,
