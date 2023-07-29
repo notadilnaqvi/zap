@@ -62,7 +62,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 				</div>
 				<div className='relative w-full'>
 					<input
-						className={cx(baseClassNames, !!error && errorClassNames)}
+						className={cx(
+							baseClassNames,
+							!!error && errorClassNames,
+							originalType === 'password' && 'pr-12',
+						)}
 						ref={ref}
 						id={id || randomId}
 						defaultValue={defaultValue}
