@@ -68,8 +68,6 @@ export default async function HomePage() {
 							<ProductCard
 								product={product}
 								key={product.id}
-								// Prioritise images for the first 10 products which will be above the fold
-								prioritiseImage={index < 10}
 							/>
 						);
 					})}

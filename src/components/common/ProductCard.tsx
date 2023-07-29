@@ -13,7 +13,6 @@ import { commercetoolsImageLoader, cx, formatPrice } from '~/utils';
 
 type Props = {
 	product: NormalisedProduct;
-	prioritiseImage?: boolean;
 };
 
 type HandleAddToCartProps = {
@@ -21,7 +20,7 @@ type HandleAddToCartProps = {
 };
 
 export function ProductCard(props: Props) {
-	const { product, prioritiseImage } = props;
+	const { product } = props;
 
 	const [addToCart] = useAddToCart();
 	const [loading, setLoading] = useState(false);
@@ -64,7 +63,6 @@ export function ProductCard(props: Props) {
 					blurDataURL={product.mainImage.blurDataUrl}
 					src={product.mainImage.src}
 					alt={product.mainImage.label}
-					priority={prioritiseImage}
 					loader={commercetoolsImageLoader}
 					sizes='(max-width: 480px) 448px, (max-width: 768px) 360px, (max-width: 1024px) 320px, (max-width: 1440px) 288px, 288px'
 				/>
