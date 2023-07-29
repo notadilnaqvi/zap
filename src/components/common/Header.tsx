@@ -21,6 +21,7 @@ import {
 import { useUi } from '~/hooks';
 import { useCart, useCustomer } from '~/lib/commercetools/hooks';
 import { cx, SessionStorage } from '~/utils';
+import { NEWSLETTER_SIGN_UP_MODAL_DELAY } from '~/utils/constants';
 
 export function Header() {
 	const { data: cart } = useCart();
@@ -30,7 +31,6 @@ export function Header() {
 		state => state.openNewsletterSignUpModal,
 	);
 
-	// TODO: Disabling for now. This modal fucks with LCP
 	// Show newsletter sign-up modal if,
 	//   - the customer is not already subscribed ot the newsletter
 	//   - the modal was not closed previously
@@ -43,7 +43,11 @@ export function Header() {
 			!customerLoading &&
 			!wasSignUpModalClosed
 		) {
-			openNewsletterSignUpModal();
+			// Don't show the modal as soon as the user lands on the page. Wait for a
+			// few seconds instead. Makes up for a better user experience.
+			setTimeout(() => {
+				openNewsletterSignUpModal();
+			}, NEWSLETTER_SIGN_UP_MODAL_DELAY);
 		}
 	}, [
 		customer?.isSubscribedToNewsletter,

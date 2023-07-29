@@ -1,5 +1,3 @@
-'use client';
-
 import { toast } from 'react-hot-toast';
 import { create } from 'zustand';
 import { SessionStorage } from '~/utils';
