@@ -72,6 +72,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 					/>
 					{originalType === 'password' ? (
 						<button
+							type='button'
 							aria-label='Show password'
 							aria-controls={id || randomId}
 							onClick={toggleShowPassword}
