@@ -63,7 +63,7 @@ export default async function HomePage() {
 					</CallToActionButtonLink>
 				</div>
 				<div className='grid grid-flow-row grid-cols-4 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
-					{products?.map((product, index) => {
+					{products?.map(product => {
 						return (
 							<ProductCard
 								product={product}

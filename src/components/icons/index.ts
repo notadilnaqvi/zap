@@ -5,6 +5,8 @@ export { CheckIcon } from './CheckIcon';
 export { ChevronDownIcon } from './ChevronDownIcon';
 export { ChevronRightIcon } from './ChevronRightIcon';
 export { ChevronUpIcon } from './ChevronUpIcon';
+export { EyeIcon } from './EyeIcon';
+export { EyeOffIcon } from './EyeOffIcon';
 export { FilterIcon } from './FilterIcon';
 export { GiftIcon } from './GiftIcon';
 export { HeartIcon } from './HeartIcon';

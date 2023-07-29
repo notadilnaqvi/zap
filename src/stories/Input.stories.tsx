@@ -111,6 +111,8 @@ const labelVariations: (string | undefined)[] = [undefined, 'Label'];
 
 const errorVariations: (string | undefined)[] = [undefined, 'Error message'];
 
+const typeVariations: ('text' | 'password')[] = ['text', 'password'];
+
 const defaultValueVariations: (string | undefined)[] = [
 	undefined,
 	'Default value',
@@ -121,24 +123,28 @@ const allVariations = disabledVariations
 		return labelVariations.map(label => {
 			return defaultValueVariations.map(defaultValue => {
 				return errorVariations.map(error => {
-					return {
-						label,
-						error,
-						disabled,
-						defaultValue,
-						placeholder: 'Placeholder',
-					};
+					return typeVariations.map(type => {
+						return {
+							type,
+							label: type === 'password' && label ? 'Password' : label,
+							error,
+							disabled,
+							defaultValue,
+							placeholder: type === 'password' ? 'Password' : 'Placeholder',
+						};
+					});
 				});
 			});
 		});
 	})
-	.flat(3);
+	.flat(4);
 
 export const Showcase: StoryFn<typeof Input> = args => {
 	return (
 		<div className='grid grid-cols-2 gap-4 sm:grid-cols-1'>
 			{allVariations.map(variation => {
-				const { defaultValue, disabled, error, label, placeholder } = variation;
+				const { defaultValue, disabled, error, label, placeholder, type } =
+					variation;
 				return (
 					<Input
 						key={JSON.stringify(variation)}
@@ -147,6 +153,7 @@ export const Showcase: StoryFn<typeof Input> = args => {
 						disabled={disabled}
 						defaultValue={defaultValue}
 						placeholder={placeholder}
+						type={type}
 						{...args}
 					/>
 				);
