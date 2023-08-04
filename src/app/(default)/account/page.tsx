@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 import { AccountPageView } from '~/components/account';
-import { AuthToken } from '~/lib/commercetools/types';
+import type { AuthToken } from '~/lib/commercetools/types';
 import { parseJson } from '~/utils';
 
 export const metadata = {
