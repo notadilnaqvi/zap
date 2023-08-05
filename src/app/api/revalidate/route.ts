@@ -1,9 +1,9 @@
 import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
 	const secret = request.nextUrl.searchParams.get('secret');
-	const slug = request.nextUrl.searchParams.get('tag');
+	const slug = request.nextUrl.searchParams.get('slug');
 
 	if (secret !== process.env.REVALIDATE_SECRET) {
 		return NextResponse.json(
