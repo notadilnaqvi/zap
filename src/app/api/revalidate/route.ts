@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
 	const secret = request.nextUrl.searchParams.get('secret');
-	const slug = request.nextUrl.searchParams.get('slug');
+	const path = request.nextUrl.searchParams.get('path');
 
 	if (secret !== process.env.REVALIDATE_SECRET) {
 		return NextResponse.json(
@@ -12,14 +12,18 @@ export async function GET(request: NextRequest) {
 		);
 	}
 
-	if (!slug) {
+	if (!path) {
 		return NextResponse.json(
-			{ message: 'Missing `slug` search param' },
+			{ message: 'Missing `path` search param' },
 			{ status: 400 },
 		);
 	}
 
-	revalidatePath('/product/' + slug);
+	revalidatePath(path);
 
-	return NextResponse.json({ revalidated: true, now: Date.now() });
+	return NextResponse.json({
+		revalidated: true,
+		revalidatePath: path,
+		revalidatedAt: Date.now(),
+	});
 }
