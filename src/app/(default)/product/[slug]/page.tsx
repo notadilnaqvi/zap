@@ -61,7 +61,7 @@ export default async function ProductPage(props: ProductPageProps) {
 }
 
 export async function generateStaticParams() {
-	const { data, error } = await getProductSlugs({ limit: 16 });
+	const { data, error } = await getProductSlugs({ limit: 64 });
 
 	if (error) {
 		throw new Error(

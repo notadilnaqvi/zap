@@ -16,7 +16,7 @@ export const metadata = {
 };
 
 export default async function HomePage() {
-	const { data } = await getProducts({ limit: 8 });
+	const { data } = await getProducts({ limit: 64 });
 
 	// NOTE: `getBlurDataUrl` won't ever reject so we can safely use `Promise.all`
 	const blurDataUrls = await Promise.all(
@@ -46,7 +46,7 @@ export default async function HomePage() {
 	});
 
 	return (
-		<div className='flex w-full justify-center px-4'>
+		<div className='mb-24 flex w-full justify-center px-4'>
 			<div className='w-full max-w-page'>
 				<div className='flex min-h-[calc(100vh-92px)] w-full flex-col items-center justify-center space-y-8 md:space-y-6'>
 					<h1 className='bg-gradient-to-t from-gray-900 to-gray-700 bg-clip-text text-center text-6xl font-extrabold leading-none tracking-tighter text-transparent md:text-5xl sm:to-gray-800'>
