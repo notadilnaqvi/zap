@@ -11,7 +11,7 @@ import {
 } from '~/lib/commercetools/hooks';
 import { NormalisedCart } from '~/lib/commercetools/types';
 
-import { commercetoolsImageLoader, cx, formatPrice } from '~/utils';
+import { cx, formatPrice } from '~/utils';
 
 type LineItemProps = {
 	lineItem: NormalisedCart['lineItems'][number];
@@ -93,7 +93,6 @@ export function LineItem(props: LineItemProps) {
 			<Image
 				src={src}
 				alt={alt}
-				loader={commercetoolsImageLoader}
 				height={120}
 				width={90}
 				className='shrink-0 rounded object-cover invert-[0.05]'
