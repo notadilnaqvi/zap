@@ -94,7 +94,7 @@ export function Header() {
 														)}
 														href='/'
 													>
-														<div className='flex flex-row items-center space-x-3'>
+														<div className='flex flex-row items-center gap-x-3'>
 															<div className='p-1'>
 																<HomeIcon />
 															</div>
@@ -112,7 +112,7 @@ export function Header() {
 														)}
 														href='/browse'
 													>
-														<div className='flex flex-row items-center space-x-3'>
+														<div className='flex flex-row items-center gap-x-3'>
 															<div className='p-1'>
 																<FilterIcon />
 															</div>
@@ -131,7 +131,7 @@ export function Header() {
 														)}
 														href='/'
 													>
-														<div className='flex flex-row items-center space-x-3'>
+														<div className='flex flex-row items-center gap-x-3'>
 															<div className='p-1'>
 																<AwardIcon />
 															</div>
@@ -149,7 +149,7 @@ export function Header() {
 														)}
 														href='/browse'
 													>
-														<div className='flex flex-row items-center space-x-3'>
+														<div className='flex flex-row items-center gap-x-3'>
 															<div className='p-1'>
 																<UserIcon />
 															</div>
@@ -167,7 +167,7 @@ export function Header() {
 														)}
 														href='/browse'
 													>
-														<div className='flex flex-row items-center space-x-3'>
+														<div className='flex flex-row items-center gap-x-3'>
 															<div className='p-1'>
 																<UserIcon />
 															</div>
@@ -185,7 +185,7 @@ export function Header() {
 														)}
 														href='/browse'
 													>
-														<div className='flex flex-row items-center space-x-3'>
+														<div className='flex flex-row items-center gap-x-3'>
 															<div className='p-1'>
 																<TagIcon />
 															</div>
@@ -204,7 +204,7 @@ export function Header() {
 														)}
 														href='/browse'
 													>
-														<div className='flex flex-row items-center space-x-3'>
+														<div className='flex flex-row items-center gap-x-3'>
 															<div className='p-1'>
 																<MailIcon />
 															</div>
@@ -222,7 +222,7 @@ export function Header() {
 														)}
 														href='/browse'
 													>
-														<div className='flex flex-row items-center space-x-3'>
+														<div className='flex flex-row items-center gap-x-3'>
 															<div className='p-1'>
 																<HelpCircleIcon />
 															</div>
@@ -237,88 +237,13 @@ export function Header() {
 							</>
 						)}
 					</Menu>
-					<Menu>
-						{({ open }) => (
-							<>
-								<Menu.Button
-									className='p-1'
-									aria-label={open ? 'Close account menu' : 'Open account menu'}
-								>
-									{open ? <XIcon /> : <UserIcon />}
-								</Menu.Button>
-								<Transition
-									appear
-									show={open}
-									as={Fragment}
-									enter='ease duration-150'
-									enterFrom='opacity-0'
-									enterTo='opacity-100'
-									leave='ease duration-150'
-									leaveFrom='opacity-100'
-									leaveTo='opacity-0'
-								>
-									<div className='absolute top-[47px] -ml-4 w-screen bg-white py-8 shadow-[0_16px_16px_rgba(0,0,0,0.08)]'>
-										<Menu.Items className='flex flex-col outline-none'>
-											<Menu.Item>
-												{({ active }) => (
-													<HeadlessUiLink
-														className={cx(
-															'rounded px-4 py-3 transition-colors duration-200 hover:bg-gray-100',
-															active && 'bg-gray-100',
-														)}
-														href='/'
-													>
-														<div className='flex flex-row items-center space-x-3'>
-															<div className='p-1'>
-																<HomeIcon />
-															</div>
-															<p className='text-gray-900'>Home</p>
-														</div>
-													</HeadlessUiLink>
-												)}
-											</Menu.Item>
-											<Menu.Item>
-												{({ active }) => (
-													<HeadlessUiLink
-														className={cx(
-															'rounded px-4 py-3 transition-colors duration-200 hover:bg-gray-100',
-															active && 'bg-gray-100',
-														)}
-														href='/browse'
-													>
-														<div className='flex flex-row items-center space-x-3'>
-															<div className='p-1'>
-																<SearchIcon />
-															</div>
-															<p className='text-gray-900'>Browse</p>
-														</div>
-													</HeadlessUiLink>
-												)}
-											</Menu.Item>
-											<Menu.Item>
-												{({ active }) => (
-													<HeadlessUiLink
-														className={cx(
-															'rounded px-4 py-3 transition-colors duration-200 hover:bg-gray-100',
-															active && 'bg-gray-100',
-														)}
-														href='#'
-													>
-														<div className='flex flex-row items-center space-x-3'>
-															<div className='p-1'>
-																<SearchIcon />
-															</div>
-															<p className='text-gray-900'>Search</p>
-														</div>
-													</HeadlessUiLink>
-												)}
-											</Menu.Item>
-										</Menu.Items>
-									</div>
-								</Transition>
-							</>
-						)}
-					</Menu>
+					<Link
+						href={customer ? '/account' : '/login'}
+						className='rounded p-1 text-gray-700'
+						title={customer ? 'Account' : 'Login'}
+					>
+						<UserIcon />
+					</Link>
 				</div>
 
 				{/* Home link */}
@@ -334,7 +259,7 @@ export function Header() {
 				</Link>
 
 				{/* Nav links */}
-				<ul className='flex flex-row space-x-8 md:space-x-4 sm:hidden'>
+				<ul className='flex flex-row gap-x-8 md:gap-x-4 sm:hidden'>
 					<li className='flex items-center'>
 						<button
 							className='rounded p-1 text-sm text-gray-700'
@@ -370,7 +295,7 @@ export function Header() {
 				</ul>
 
 				{/* Desktop nav links */}
-				<ul className='flex flex-row space-x-4 md:space-x-2'>
+				<ul className='flex flex-row gap-x-4 md:gap-x-2'>
 					<li className='flex items-center sm:hidden'>
 						<Link
 							href={customer ? '/account' : '/login'}

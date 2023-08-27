@@ -57,33 +57,7 @@ export const GET_CART = getTypedDocumentNode(/* GraphQL */ `
 	query getCart($locale: Locale!) {
 		me {
 			cart: activeCart {
-				id
-				version
-				totalLineItemQuantity
-				lineItems {
-					productId
-					id
-					name(locale: $locale)
-					quantity
-					totalPrice {
-						currencyCode
-						centAmount
-						fractionDigits
-					}
-					productSlug(locale: $locale)
-					variant {
-						sku
-						images {
-							url
-							label
-						}
-					}
-				}
-				totalPrice {
-					currencyCode
-					centAmount
-					fractionDigits
-				}
+				...CartFragment
 			}
 		}
 	}
@@ -93,18 +67,7 @@ export const GET_CUSTOMER = getTypedDocumentNode(/* GraphQL */ `
 	query getCustomer {
 		me {
 			customer {
-				id
-				version
-				firstName
-				lastName
-				email
-				createdAt
-				custom {
-					customFieldsRaw {
-						name
-						value
-					}
-				}
+				...CustomerFragment
 			}
 		}
 	}

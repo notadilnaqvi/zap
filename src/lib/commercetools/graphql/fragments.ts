@@ -52,6 +52,7 @@ const CUSTOMER_FRAGMENT = getTypedDocumentNode(/* GraphQL */ `
 		lastName
 		email
 		createdAt
+		isEmailVerified
 		custom {
 			customFieldsRaw {
 				name

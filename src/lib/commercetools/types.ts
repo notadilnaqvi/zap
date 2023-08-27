@@ -79,4 +79,5 @@ export type NormalisedCustomer = {
 	email: string;
 	version: number;
 	isSubscribedToNewsletter: boolean;
+	isEmailVerified: boolean;
 };

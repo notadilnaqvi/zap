@@ -151,5 +151,6 @@ export function normaliseCustomer(
 				attributes: customer.custom?.customFieldsRaw,
 				extract: 'news-letter-subscription-status',
 			}) === 'subscribed',
+		isEmailVerified: customer.isEmailVerified,
 	};
 }
