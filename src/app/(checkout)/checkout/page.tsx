@@ -6,10 +6,10 @@ export const metadata = {
 
 export default function SignUpPage() {
 	return (
-		<div className='flex justify-center px-4 py-16'>
+		<main className='flex justify-center px-4 py-16'>
 			<section className='w-full max-w-page'>
 				<h1 className='text-lg font-medium'>Checkout</h1>
 			</section>
-		</div>
+		</main>
 	);
 }

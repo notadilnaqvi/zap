@@ -51,8 +51,29 @@ export function parseJson<T>(str: string | null | undefined) {
 }
 
 export function extractApolloErrorCode(error?: Maybe<ApolloError>) {
-	if (!error) return null;
 	const errorCode = error?.graphQLErrors?.[0]?.extensions?.['code'];
-	if (!errorCode) return null;
-	return errorCode as string;
+	if (typeof errorCode === 'string') return errorCode;
+}
+
+export function extractSearchParam(
+	searchParams: { [key: string]: string | string[] | undefined },
+	key: string,
+) {
+	const param = searchParams[key];
+	if (!param) return;
+	return Array.isArray(param) ? param[0] : param;
+}
+
+/** Equivalent to `btoa` but works on the server */
+export function toBase64(str: string) {
+	return Buffer.from(str).toString('base64');
+}
+
+/** `/some/path` ➡️ `https://domain.com/some/path` */
+export function getAbsoluteUrl(path: string) {
+	const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+		? 'https://' + process.env.NEXT_PUBLIC_VERCEL_URL
+		: 'http://localhost:3000';
+
+	return new URL(path, baseUrl).href;
 }

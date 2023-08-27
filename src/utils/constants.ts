@@ -36,9 +36,5 @@ export const DEFAULT_ICON_PROPS: React.SVGProps<SVGSVGElement> = {
 
 export const AUTH_TOKEN_EXPIRY_DAYS = 7;
 
-export const BASE_URL = process.env.NEXT_PUBLIC_VERCEL_URL
-	? 'https://' + process.env.NEXT_PUBLIC_VERCEL_URL
-	: 'http://localhost:3000';
-
 /** How many milliseconds after the page loads should the modal show up? */
-export const NEWSLETTER_SIGN_UP_MODAL_DELAY = 6000;
+export const NEWSLETTER_SIGN_UP_MODAL_DELAY = 10000;

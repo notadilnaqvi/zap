@@ -32,7 +32,7 @@ export function Header() {
 	);
 
 	// Show newsletter sign-up modal if,
-	//   - the customer is not already subscribed ot the newsletter
+	//   - the customer is not already subscribed to the newsletter
 	//   - the modal was not closed previously
 	useEffect(() => {
 		const wasSignUpModalClosed = SessionStorage.get(

@@ -1,7 +1,11 @@
-import type { MetadataRoute } from 'next';
+import { type MetadataRoute } from 'next';
 
 import { getProductSlugs } from '~/lib/commercetools';
-import { BASE_URL } from '~/utils/constants';
+import { getAbsoluteUrl } from '~/utils';
+
+// Don't add the following routes to the sitemap:
+// - /verify
+// - /api/*
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const now = new Date();
@@ -14,7 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		'/checkout',
 	].map(route => {
 		return {
-			url: BASE_URL + route,
+			url: getAbsoluteUrl(route),
 			lastModified: now,
 		};
 	});
@@ -24,7 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const productRoutes: MetadataRoute.Sitemap = productSlugData.slugs.map(
 		slug => {
 			return {
-				url: BASE_URL + '/products/' + slug,
+				url: getAbsoluteUrl('/products/' + slug),
 				lastModified: now,
 			};
 		},

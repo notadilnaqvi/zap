@@ -39,6 +39,7 @@
 		"react-hook-form": "^7.43.9",
 		"react-hot-toast": "^2.4.0",
 		"react-wrap-balancer": "^0.4.0",
+		"server-only": "^0.0.1",
 		"sharp": "^0.32.3",
 		"tailwind-merge": "^1.10.0",
 		"ts-node": "^10.9.1",

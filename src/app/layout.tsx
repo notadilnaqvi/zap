@@ -27,7 +27,7 @@ export default function RootLayout(props: PropsWithChildren<{}>) {
 			className={cx('bg-white font-sans text-gray-900 antialiased')}
 		>
 			<head />
-			<body className={cx('min-h-screen', interFont.className)}>
+			<body className={interFont.className}>
 				{children}
 				<Analytics />
 			</body>

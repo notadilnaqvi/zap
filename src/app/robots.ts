@@ -1,13 +1,14 @@
-import type { MetadataRoute } from 'next';
+import { type MetadataRoute } from 'next';
 
-import { BASE_URL } from '~/utils/constants';
+import { getAbsoluteUrl } from '~/utils';
 
 export default function robots(): MetadataRoute.Robots {
 	return {
 		rules: {
 			userAgent: '*',
 			allow: '/', // Allow all routes
+			disallow: ['/verify'],
 		},
-		sitemap: BASE_URL + '/sitemap.xml',
+		sitemap: getAbsoluteUrl('/sitemap.xml'),
 	};
 }
