@@ -14,19 +14,15 @@ export default async function ProductPage(props: ProductPageProps) {
 	const { params } = props;
 	const { slug } = params;
 
-	let product: NormalisedProduct;
+	let product: Maybe<NormalisedProduct>;
 
 	try {
-		const { data, error } = await getProductBySlug({ slug });
+		product = await getProductBySlug(slug);
 
-		if (error) throw new Error(error.message, error);
-
-		if (!data) throw new Error('No product found against slug: ' + slug);
-
-		product = data;
+		if (!product) notFound();
 	} catch (err) {
 		console.error('[ProductPage]:', err);
-		return notFound();
+		notFound();
 	}
 
 	return (
@@ -61,15 +57,9 @@ export default async function ProductPage(props: ProductPageProps) {
 }
 
 export async function generateStaticParams() {
-	const { data, error } = await getProductSlugs({ limit: 64 });
+	const slugs = await getProductSlugs({ limit: 64 });
 
-	if (error) {
-		throw new Error(
-			'Failed to fetch product slugs. Product pages were not statically generated.',
-		);
-	}
-
-	const params = data.slugs.map(slug => {
+	const params = slugs.map(slug => {
 		return { slug };
 	});
 
@@ -81,12 +71,13 @@ export async function generateMetadata(props: ProductPageProps) {
 	const { params } = props;
 	const { slug } = params;
 
-	const { data: product, error } = await getProductBySlug({
-		slug,
-	});
+	const product = await getProductBySlug(slug);
 
-	if (!product || error) {
-		return {};
+	if (!product) {
+		return {
+			title: 'Not found',
+			description: 'This product could not be found',
+		};
 	}
 
 	return {

@@ -1,7 +1,7 @@
 'use client';
 
 import { Menu, Transition } from '@headlessui/react';
-import Link, { LinkProps } from 'next/link';
+import Link, { type LinkProps } from 'next/link';
 import { forwardRef, Fragment, HTMLProps, useEffect } from 'react';
 
 import {

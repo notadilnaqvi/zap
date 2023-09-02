@@ -5,7 +5,7 @@ import { onError } from '@apollo/client/link/error';
 import {
 	generateAnonymousAuthToken,
 	refreshAuthToken,
-} from '~/lib/commercetools';
+} from '~/lib/commercetools/auth';
 import { Cookie } from '~/utils';
 import { AUTH_TOKEN_EXPIRY_DAYS } from '~/utils/constants';
 

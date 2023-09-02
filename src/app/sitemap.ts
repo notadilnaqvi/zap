@@ -23,16 +23,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		};
 	});
 
-	const { data: productSlugData } = await getProductSlugs({ limit: 16 });
+	const slugs = await getProductSlugs({ limit: 16 });
 
-	const productRoutes: MetadataRoute.Sitemap = productSlugData.slugs.map(
-		slug => {
-			return {
-				url: getAbsoluteUrl('/products/' + slug),
-				lastModified: now,
-			};
-		},
-	);
+	const productRoutes: MetadataRoute.Sitemap = slugs.map(slug => {
+		return {
+			url: getAbsoluteUrl('/products/' + slug),
+			lastModified: now,
+		};
+	});
 
 	return [...miscRoutes, ...productRoutes];
 }

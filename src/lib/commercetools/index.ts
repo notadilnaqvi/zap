@@ -1,15 +1,15 @@
-import SdkAuth, { TokenProvider } from '@commercetools/sdk-auth';
+import 'server-only';
+
+import { print as typedDocumentNodeToString } from 'graphql';
+import { commercetoolsFetch } from '~/lib/commercetools/commercetools-fetch';
 
 import {
 	GET_PRODUCTS,
 	GET_PRODUCT_SLUGS,
 } from '~/lib/commercetools/graphql/queries';
-import { apolloServerSideClient } from '~/lib/commercetools/graphql/server-side-client';
 import { normaliseProduct } from '~/lib/commercetools/normalisation';
 
 import type {
-	AuthToken,
-	CustomerSignMeInDraft,
 	GetProductSlugsQuery,
 	GetProductSlugsQueryVariables,
 	GetProductsQuery,
@@ -18,7 +18,6 @@ import type {
 } from '~/lib/commercetools/types';
 import {
 	COMMERCETOOLS_MAX_LIMIT,
-	COMMERCETOOLS_MIN_LIMIT,
 	COUNTRY,
 	CURRENCY_CODE,
 	LOCALE,
@@ -40,145 +39,103 @@ type GerProductSlugsProps = {
 	limit: number;
 };
 
-const sdkAuth = new SdkAuth({
-	host: process.env.NEXT_PUBLIC_CTP_AUTH_URL,
-	projectKey: process.env.NEXT_PUBLIC_CTP_PROJECT_KEY,
-	credentials: {
-		clientId: process.env.NEXT_PUBLIC_CTP_CLIENT_ID,
-		clientSecret: process.env.NEXT_PUBLIC_CTP_CLIENT_SECRET,
-	},
-	scopes: process.env.NEXT_PUBLIC_CTP_SCOPES.split(' '),
-});
-
-export async function generateAnonymousAuthToken(): Promise<AuthToken> {
-	const tokenFlow = await sdkAuth.anonymousFlow();
-	const tokenProvider = new TokenProvider({ sdkAuth }, tokenFlow);
-	const authToken = await tokenProvider.getTokenInfo();
-	return authToken;
-}
-
-export async function generateCustomerAuthToken(
-	props: Pick<CustomerSignMeInDraft, 'email' | 'password'>,
-): Promise<AuthToken> {
-	const { email, password } = props;
-	const tokenFlow = await sdkAuth.customerPasswordFlow({
-		username: email,
-		password,
-	});
-	const tokenProvider = new TokenProvider({ sdkAuth }, tokenFlow);
-	const authToken = await tokenProvider.getTokenInfo();
-	// `is_logged_in` is a custom field not returned by `getTokenInfo()`. We
-	// add it manually to track the login status of the user
-	authToken.is_logged_in = true;
-	return authToken;
-}
-
-export async function refreshAuthToken(
-	expiredAuthToken: AuthToken,
-): Promise<AuthToken> {
-	const tokenProvider = new TokenProvider({ sdkAuth }, expiredAuthToken);
-	const authToken = await tokenProvider.getTokenInfo();
-	// `is_logged_in` is a custom field not returned by `getTokenInfo()`. We
-	// add it back manually and make sure that the login status of the user
-	// is prevserved
-	authToken.is_logged_in = expiredAuthToken.is_logged_in;
-	return authToken;
-}
-
-export async function generateClientAuthToken(): Promise<AuthToken> {
-	const tokenFlow = await sdkAuth.clientCredentialsFlow();
-	const tokenProvider = new TokenProvider({ sdkAuth }, tokenFlow);
-	const authToken = await tokenProvider.getTokenInfo();
-	return authToken;
-}
+const commercetoolsGraphqlUrl = new URL(
+	process.env.CTP_API_URL + '/' + process.env.CTP_PROJECT_KEY + '/graphql',
+);
 
 export async function getProducts(props: GerProductsProps) {
 	let { limit } = props;
 
 	// Restrict limit to be within 1-500
-	limit = Math.min(
-		Math.max(limit, COMMERCETOOLS_MIN_LIMIT),
-		COMMERCETOOLS_MAX_LIMIT,
-	);
+	limit = Math.min(Math.max(limit, 1), COMMERCETOOLS_MAX_LIMIT);
 
-	const { data, loading, error } = await apolloServerSideClient.query<
-		GetProductsQuery,
-		GetProductsQueryVariables
-	>({
-		query: GET_PRODUCTS,
-		variables: {
-			sorts: null,
-			filters: [
-				{
-					model: {
-						range: {
-							path: 'variants.scopedPrice.value.centAmount',
-							ranges: [
-								{
-									from: '0',
-									to: '1000000000000',
-								},
-							],
-						},
+	const variables: GetProductsQueryVariables = {
+		sorts: null,
+		filters: [
+			{
+				model: {
+					range: {
+						path: 'variants.scopedPrice.value.centAmount',
+						ranges: [
+							{
+								from: '0',
+								to: '1000000000000',
+							},
+						],
 					},
 				},
-			],
-			text: '',
-			locale: LOCALE,
-			limit: limit,
-			offset: 0,
-			priceSelector: {
-				currency: CURRENCY_CODE,
-				country: COUNTRY,
-				channel: null,
-				customerGroup: null,
 			},
+		],
+		text: '',
+		locale: LOCALE,
+		limit: limit,
+		offset: 0,
+		priceSelector: {
+			currency: CURRENCY_CODE,
+			country: COUNTRY,
+			channel: null,
+			customerGroup: null,
 		},
+	};
+
+	const response = await commercetoolsFetch<{
+		data: GetProductsQuery;
+	}>(commercetoolsGraphqlUrl, {
+		method: 'POST',
+		body: JSON.stringify({
+			query: typedDocumentNodeToString(GET_PRODUCTS),
+			variables,
+		}),
 	});
-	const products = data.productProjectionSearch.results
+
+	const products = response.data.productProjectionSearch.results
 		.map(result => normaliseProduct(result))
 		.filter(
 			(normalisedProduct): normalisedProduct is NormalisedProduct =>
 				!!normalisedProduct,
 		);
 
-	return { data: { products }, loading, error };
+	return products;
 }
 
-export async function getProductBySlug({ slug }: { slug: string }) {
-	const { data, loading, error } = await apolloServerSideClient.query<
-		GetProductsQuery,
-		GetProductsQueryVariables
-	>({
-		query: GET_PRODUCTS,
-		variables: {
-			sorts: null,
-			filters: [
-				{
-					model: {
-						value: {
-							path: 'slug.' + LOCALE,
-							values: [slug],
-						},
+export async function getProductBySlug(slug: string) {
+	const variables: GetProductsQueryVariables = {
+		sorts: null,
+		filters: [
+			{
+				model: {
+					value: {
+						path: 'slug.' + LOCALE,
+						values: [slug],
 					},
 				},
-			],
-			locale: LOCALE,
-			limit: 1,
-			offset: 0,
-			priceSelector: {
-				currency: CURRENCY_CODE,
-				country: COUNTRY,
-				channel: null,
-				customerGroup: null,
 			},
+		],
+		locale: LOCALE,
+		limit: 1,
+		offset: 0,
+		priceSelector: {
+			currency: CURRENCY_CODE,
+			country: COUNTRY,
+			channel: null,
+			customerGroup: null,
 		},
+	};
+
+	const response = await commercetoolsFetch<{
+		data: GetProductsQuery;
+	}>(commercetoolsGraphqlUrl, {
+		method: 'POST',
+		body: JSON.stringify({
+			query: typedDocumentNodeToString(GET_PRODUCTS),
+			variables,
+		}),
 	});
 
-	const normalisedProduct = normaliseProduct(
-		data.productProjectionSearch?.results?.[0],
+	const product = normaliseProduct(
+		response.data.productProjectionSearch?.results?.[0],
 	);
-	return { data: normalisedProduct, loading, error };
+	return product;
 }
 
 export async function getProductSlugs(props: GerProductSlugsProps) {
@@ -187,44 +144,48 @@ export async function getProductSlugs(props: GerProductSlugsProps) {
 	// Restrict limit to be within 1-500
 	limit = Math.min(Math.max(limit, 1), COMMERCETOOLS_MAX_LIMIT);
 
-	const { data, loading, error } = await apolloServerSideClient.query<
-		GetProductSlugsQuery,
-		GetProductSlugsQueryVariables
-	>({
-		query: GET_PRODUCT_SLUGS,
-		variables: {
-			sorts: null,
-			filters: [
-				{
-					model: {
-						range: {
-							path: 'variants.scopedPrice.value.centAmount',
-							ranges: [
-								{
-									from: '0',
-									to: '1000000000000',
-								},
-							],
-						},
+	const variables: GetProductSlugsQueryVariables = {
+		sorts: null,
+		filters: [
+			{
+				model: {
+					range: {
+						path: 'variants.scopedPrice.value.centAmount',
+						ranges: [
+							{
+								from: '0',
+								to: '1000000000000',
+							},
+						],
 					},
 				},
-			],
-			text: '',
-			locale: LOCALE,
-			limit: limit,
-			offset: 0,
-			priceSelector: {
-				currency: CURRENCY_CODE,
-				country: COUNTRY,
-				channel: null,
-				customerGroup: null,
 			},
+		],
+		text: '',
+		locale: LOCALE,
+		limit: limit,
+		offset: 0,
+		priceSelector: {
+			currency: CURRENCY_CODE,
+			country: COUNTRY,
+			channel: null,
+			customerGroup: null,
 		},
+	};
+
+	const response = await commercetoolsFetch<{
+		data: GetProductSlugsQuery;
+	}>(commercetoolsGraphqlUrl, {
+		method: 'POST',
+		body: JSON.stringify({
+			query: typedDocumentNodeToString(GET_PRODUCT_SLUGS),
+			variables,
+		}),
 	});
 
-	const slugs = data.productProjectionSearch.results
+	const slugs = response.data.productProjectionSearch.results
 		.map(result => result.slug)
 		.filter((slug): slug is string => !!slug);
 
-	return { data: { slugs }, loading, error };
+	return slugs;
 }

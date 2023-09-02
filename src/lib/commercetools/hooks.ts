@@ -1,6 +1,6 @@
 import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 
-import { generateCustomerAuthToken } from '~/lib/commercetools';
+import { generateCustomerAuthToken } from '~/lib/commercetools/auth';
 import {
 	CREATE_CART,
 	CUSTOMER_LOGIN,

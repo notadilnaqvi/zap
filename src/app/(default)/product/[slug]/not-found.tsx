@@ -1,8 +1,3 @@
-export const metadata = {
-	title: 'Not found',
-	description: 'This product could not be found',
-};
-
 export default function NotFound() {
 	return (
 		<div className='flex justify-center px-4 py-16'>

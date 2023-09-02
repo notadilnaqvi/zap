@@ -8,7 +8,7 @@ let authToken: Maybe<AuthToken> = null;
 // To be used on server-side only
 // Use the Apollo client for fetching data on the browser
 export async function commercetoolsFetch<TData>(
-	url: RequestInfo,
+	url: URL | RequestInfo,
 	options?: RequestInit,
 ): Promise<TData> {
 	const now = new Date();

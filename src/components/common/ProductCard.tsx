@@ -51,16 +51,12 @@ export function ProductCard(props: Props) {
 		setAddToCartLoading(false);
 	}
 
-	const isOnSale = Number(product.name?.length) < 16;
-
 	return (
 		<div className='group flex w-full flex-col'>
 			<div className='relative aspect-[3/4] w-full rounded'>
 				<Image
 					className='rounded object-cover invert-[0.05]'
 					fill
-					placeholder='blur'
-					blurDataURL={product.mainImage.blurDataUrl}
 					src={product.mainImage.src}
 					alt={product.mainImage.label}
 					loader={commercetoolsImageLoader}
@@ -139,16 +135,9 @@ export function ProductCard(props: Props) {
 					<p className='text-[11px] font-light leading-5 text-gray-700'>
 						{product.designer?.label}
 					</p>
-					<div className='flex space-x-2'>
-						{isOnSale && (
-							<p className='text-xs font-light leading-5 text-gray-500 line-through'>
-								{formatPrice(product.price)}
-							</p>
-						)}
-						<p className='text-xs font-light leading-5 text-gray-900'>
-							{formatPrice(product.price)}
-						</p>
-					</div>
+					<p className='text-xs font-light leading-5 text-gray-900'>
+						{formatPrice(product.price)}
+					</p>
 				</div>
 			</div>
 		</div>
