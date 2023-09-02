@@ -27,7 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 	const productRoutes: MetadataRoute.Sitemap = slugs.map(slug => {
 		return {
-			url: getAbsoluteUrl('/products/' + slug),
+			url: getAbsoluteUrl('/product/' + slug),
 			lastModified: now,
 		};
 	});
