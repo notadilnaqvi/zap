@@ -3,20 +3,19 @@ import 'server-only';
 import type { AuthToken } from '~/lib/commercetools/types';
 import { toBase64 } from '~/utils';
 
-let authToken: Maybe<AuthToken> = null;
+/**
+ * Like default `fetch` but adds authorization headers for Commercetools
+ *
+ * To be used on the server only (Node.js)
+ *
+ * Use Apollo client to fetch Commercetools data on the broswer
+ */
 
-// To be used on server-side only
-// Use the Apollo client for fetching data on the browser
 export async function commercetoolsFetch<TData>(
 	url: URL | RequestInfo,
 	options?: RequestInit,
 ): Promise<TData> {
-	const now = new Date();
-	const isExpired = authToken && authToken.expires_at < now.getTime();
-
-	if (!authToken || isExpired) {
-		authToken = await generateServerSideClientAuthToken();
-	}
+	const authToken = await generateServerSideClientAuthToken();
 
 	const headers = new Headers(options?.headers);
 
@@ -25,7 +24,11 @@ export async function commercetoolsFetch<TData>(
 		authToken.token_type + ' ' + authToken.access_token,
 	);
 
-	const response = await fetch(url, { ...options, headers });
+	const response = await fetch(url, {
+		cache: 'force-cache', // Cache everything by default
+		...options,
+		headers,
+	});
 
 	if (!response.ok) {
 		const error = await response.json();
@@ -54,23 +57,19 @@ async function generateServerSideClientAuthToken(): Promise<AuthToken> {
 		headers: {
 			Authorization: 'Basic ' + credentials,
 		},
+		next: {
+			// The token is valid for 48 hours
+			// We revalidate it every 24 hours just to be safe
+			// Refer to https://docs.commercetools.com/api/authorization#client-credentials-flow
+			revalidate: 60 * 60 * 24,
+		},
 	});
 
 	if (!response.ok) {
 		throw new Error(response.statusText);
 	}
 
-	const data = (await response.json()) as Omit<AuthToken, 'expires_at'>;
-
-	const now = new Date();
-	// What ever the expires_in is, we want to refresh the token 1 hour (3600s)
-	// before it expires because we're paranoid
-	const expiresAt = now.getTime() + (data.expires_in - 3600) * 1000;
-
-	const authToken: AuthToken = {
-		...data,
-		expires_at: expiresAt,
-	};
+	const authToken = (await response.json()) as AuthToken;
 
 	return authToken;
 }

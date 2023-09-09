@@ -14,10 +14,10 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	disabled?: boolean;
 }
 
-const baseClassNames =
+export const baseClassNames =
 	'peer w-full py-2 text-base bg-white text-gray-900 border border-gray-400 disabled:border-gray-300 rounded px-3 disabled:cursor-not-allowed disabled:bg-gray-100 font-normal focus-visible:ring-2 ring-offset-2 focus-visible:ring-primary outline-none disabled:text-gray-400 placeholder-gray-400';
 
-const errorClassNames =
+export const errorClassNames =
 	'border-error focus-visible:ring-error placeholder-error/40 text-error disabled:border-error disabled:text-error/40 disabled:border-error/40';
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(

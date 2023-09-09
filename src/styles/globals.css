@@ -4,7 +4,7 @@
 
 /* Makes a red border around a component for debugging */
 .debug {
-	@apply outline outline-red-500/50;
+	@apply border border-red-500/50;
 }
 
 a,

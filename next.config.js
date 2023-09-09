@@ -6,7 +6,7 @@ module.exports = {
 	reactStrictMode: true,
 	images: {
 		unoptimized: false,
-		domains: ['s3-eu-west-1.amazonaws.com'],
+		domains: ['s3-eu-west-1.amazonaws.com', 'images.prismic.io'],
 		// Should ideally match `screens` in `tailwind.config.js`
 		deviceSizes: [480, 768, 1024, 1440],
 	},

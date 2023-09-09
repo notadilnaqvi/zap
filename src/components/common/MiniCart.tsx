@@ -29,10 +29,10 @@ export function MiniCart() {
 			>
 				<Transition.Child
 					as={Fragment}
-					enter='ease duration-300'
+					enter='ease duration-500'
 					enterFrom='opacity-0'
 					enterTo='opacity-100'
-					leave='ease duration-300'
+					leave='ease duration-500'
 					leaveFrom='opacity-100'
 					leaveTo='opacity-0'
 				>
@@ -45,10 +45,10 @@ export function MiniCart() {
 				</Transition.Child>
 				<Transition.Child
 					as={Fragment}
-					enter='ease duration-300'
+					enter='ease duration-500'
 					enterFrom='motion-safe:translate-x-[350px] motion-safe:sm:translate-x-[300px] motion-reduce:opacity-0'
 					enterTo='motion-safe:translate-x-0 motion-reduce:opacity-1'
-					leave='ease duration-300'
+					leave='ease duration-500'
 					leaveFrom='motion-safe:translate-x-0 motion-reduce:opacity-1'
 					leaveTo='motion-safe:translate-x-[350px] motion-safe:sm:translate-x-[300px] motion-reduce:opacity-0'
 				>
@@ -77,7 +77,7 @@ export function MiniCart() {
 										?.map(index => {
 											return (
 												<div
-													className='relative flex flex-row overflow-hidden p-4 before:absolute before:inset-0 before:-translate-x-full before:-skew-x-12 before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/40  before:to-transparent'
+													className='relative flex flex-row overflow-hidden p-4 before:absolute before:inset-0 before:-translate-x-full before:-skew-x-12 before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent'
 													key={index}
 												>
 													<div className='aspect-[3/4] h-[120px] w-[90px] rounded bg-gray-200' />

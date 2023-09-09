@@ -14,7 +14,7 @@ export function TailwindBreakpointIndicator() {
 			<div className='hidden sm:block'>sm</div>
 			<div className='hidden md:block sm:hidden'>md</div>
 			<div className='hidden lg:block md:hidden sm:hidden'>lg</div>
-			<div className='hidden xl:block lg:hidden md:hidden sm:hidden'>xl</div>
+			<div className='block lg:hidden md:hidden sm:hidden'>xl</div>
 		</div>
 	);
 }

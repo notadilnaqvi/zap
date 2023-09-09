@@ -2,7 +2,7 @@
 
 import { Menu, Transition } from '@headlessui/react';
 import Link, { type LinkProps } from 'next/link';
-import { forwardRef, Fragment, HTMLProps, useEffect } from 'react';
+import { Fragment, HTMLProps, forwardRef, useEffect } from 'react';
 
 import {
 	AwardIcon,
@@ -20,7 +20,7 @@ import {
 } from '~/components/icons';
 import { useUi } from '~/hooks';
 import { useCart, useCustomer } from '~/lib/commercetools/hooks';
-import { cx, SessionStorage } from '~/utils';
+import { SessionStorage, cx } from '~/utils';
 import { NEWSLETTER_SIGN_UP_MODAL_DELAY } from '~/utils/constants';
 
 export function Header() {

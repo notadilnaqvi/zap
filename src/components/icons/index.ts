@@ -3,6 +3,7 @@ export { AwardIcon } from './AwardIcon';
 export { CheckCircleIcon } from './CheckCircleIcon';
 export { CheckIcon } from './CheckIcon';
 export { ChevronDownIcon } from './ChevronDownIcon';
+export { ChevronLeftIcon } from './ChevronLeftIcon';
 export { ChevronRightIcon } from './ChevronRightIcon';
 export { ChevronUpIcon } from './ChevronUpIcon';
 export { EyeIcon } from './EyeIcon';

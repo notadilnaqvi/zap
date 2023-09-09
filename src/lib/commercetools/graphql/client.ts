@@ -23,7 +23,8 @@ const authLink = setContext(async (_request, _previousContext) => {
 	if (authToken) {
 		const now = new Date();
 
-		const shouldRefresh = authToken?.expires_at < now.getTime();
+		const shouldRefresh =
+			authToken?.expires_at && authToken?.expires_at < now.getTime();
 
 		if (shouldRefresh) {
 			try {
@@ -67,7 +68,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
 		window.location.reload();
 	} else if (errorCode === 'ConcurrentModification') {
 		// If we get a version mismatch error, update the API request with the
-		// correct version retry
+		// correct version and retry
 		const correctVersion = graphQLError.extensions?.['currentVersion'];
 		operation.variables['version'] = correctVersion;
 		console.warn(
@@ -93,9 +94,6 @@ const httpLink = new HttpLink({
  *
  * This client is used by `ApolloProvider` in `DefaultLayout.tsx`. Hooks like
  * `useCart`, `useCustomer`, `useLogin` etc. use this client.
- *
- * If you're doing server-side operations, please use `serverSideApolloClient`
- * instead.
  *
  * USAGE: If you want to interact with Commercetools on the browser, simply
  * create an appropriate hook and use it. For example, if you want to fetch

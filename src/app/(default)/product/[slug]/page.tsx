@@ -10,6 +10,36 @@ type ProductPageProps = {
 	};
 };
 
+export async function generateStaticParams() {
+	const slugs = await getProductSlugs({ limit: 64 });
+
+	const params = slugs.map(slug => {
+		return { slug };
+	});
+
+	return params;
+}
+
+// TODO: Add error handling?
+export async function generateMetadata(props: ProductPageProps) {
+	const { params } = props;
+	const { slug } = params;
+
+	const product = await getProductBySlug(slug);
+
+	if (!product) {
+		return {
+			title: 'Not found',
+			description: 'This product could not be found',
+		};
+	}
+
+	return {
+		title: product.name,
+		description: product.description,
+	};
+}
+
 export default async function ProductPage(props: ProductPageProps) {
 	const { params } = props;
 	const { slug } = params;
@@ -54,34 +84,4 @@ export default async function ProductPage(props: ProductPageProps) {
 			</div>
 		</div>
 	);
-}
-
-export async function generateStaticParams() {
-	const slugs = await getProductSlugs({ limit: 64 });
-
-	const params = slugs.map(slug => {
-		return { slug };
-	});
-
-	return params;
-}
-
-// TODO: Add error handling?
-export async function generateMetadata(props: ProductPageProps) {
-	const { params } = props;
-	const { slug } = params;
-
-	const product = await getProductBySlug(slug);
-
-	if (!product) {
-		return {
-			title: 'Not found',
-			description: 'This product could not be found',
-		};
-	}
-
-	return {
-		title: product.name,
-		description: product.description,
-	};
 }
