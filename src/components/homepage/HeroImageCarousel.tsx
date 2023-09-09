@@ -75,7 +75,6 @@ export function HeroImageCarousel() {
 						src={HeroImage2}
 						className='h-full w-full object-cover'
 						alt='Hero image 2'
-						priority
 						fill
 					/>
 				</div>
@@ -84,7 +83,6 @@ export function HeroImageCarousel() {
 						src={HeroImage3}
 						className='h-full w-full object-cover'
 						alt='Hero image 3'
-						priority
 						fill
 					/>
 				</div>
